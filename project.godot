@@ -16,5 +16,5 @@ _global_script_class_icons={
 [application]
 
 config/name="Heirloom"
-run/main_scene="res://Scenes/battle.tscn"
+run/main_scene="res://Scenes/Battle.tscn"
 config/icon="res://icon.png"
