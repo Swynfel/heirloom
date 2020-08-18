@@ -8,7 +8,7 @@ namespace Combat {
             return (Piece) template.Instance();
         }
         public AnimatedSprite sprite { get; private set; }
-        public PieceStats stats;
+        [Export] public PieceStats stats;
 
         public Battle battle { get; private set; }
         public Board board { get { return battle.board; } }
@@ -64,7 +64,11 @@ namespace Combat {
         public override void _Ready() {
             sprite = GetNode<AnimatedSprite>("AnimatedSprite");
             if (stats == null) {
-                stats = GetNodeOrNull<PieceStatsHolder>("Stats")?.ConvertAndDelete();
+                stats = GetNodeOrNull<PieceStats>("Stats");
+            }
+            if (stats == null) {
+                stats = new PieceStats();
+                AddChild(stats);
             }
             switch (stats.alignment) {
                 case Alignment.FRIENDLY:

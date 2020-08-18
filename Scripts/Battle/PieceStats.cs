@@ -2,11 +2,40 @@
 using System;
 using Godot;
 
-public class PieceStats {
-    public Combat.Alignment alignment;
-    public bool actor;
+public class PieceStats : Node2D {
 
-    public int maxHealth;
+    // Piece
+    [Export] public Combat.Alignment alignment;
+    [Export] public bool actor;
 
-    public int maxMovement;
+
+    // Constant
+    public ElementalAffinity affinity;
+    [Export] public int maxHealth;
+
+    [Export] public int maxMovement;
+
+    // Mutable
+    [Export] public int health;
+
+    public PieceStats() : this(Combat.Alignment.NEUTRAL, false, 10, 3) { }
+
+    public PieceStats(Combat.Alignment alignment, bool actor, int maxHealth, int maxMovement,
+        ElementalAffinity affinity = null, int? health = null) {
+        this.alignment = alignment;
+        this.actor = actor;
+        this.maxHealth = maxHealth;
+        this.maxMovement = maxMovement;
+        if (health.HasValue) {
+            this.health = health.Value;
+        } else {
+            this.health = maxHealth;
+        }
+    }
+
+    [Signal] public delegate void health_modified(int new_health, int delta);
+    public void ModifyHealth(int delta) {
+        health += delta;
+        EmitSignal(nameof(health_modified), health, delta);
+    }
 }
