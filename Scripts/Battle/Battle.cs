@@ -7,6 +7,7 @@ namespace Combat {
         public static Battle instance = null;
 
         public Board board { get; private set; }
+        public Camera2D camera { get; private set; }
 
         public List<Piece> pieces { get; } = new List<Piece>();
 
@@ -18,11 +19,17 @@ namespace Combat {
         public override void _Ready() {
             board = new Board();
             AddChild(board);
-            board.width = 5;
-            board.height = 10;
+            camera = GetNode<Camera2D>("Camera");
+            LoadBoard();
+        }
+
+        public void LoadBoard() {
+            board.width = 8;
+            board.height = 5;
             board.CreateTerrain();
             Piece.Create(this, board.GetTile(2, 2));
             Piece.Create(this, null).MoveOn(board.GetTile(2, 4));
+            camera.Position = board.GetCenter();
         }
 
     }
