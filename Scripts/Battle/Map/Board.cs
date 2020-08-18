@@ -4,14 +4,18 @@ using Godot;
 namespace Combat {
     public class Board : Node2D {
 
-        public static int TILE_WIDTH = 64;
-        public static int TILE_HEIGHT = 64;
+        public static int TILE_WIDTH = 32;
+        public static int TILE_HEIGHT = 24;
 
         private Tile[] tiles = null;
 
         [Export] public int width;
 
         [Export] public int height;
+
+        public Vector2 GetCenter() {
+            return new Vector2(width * TILE_WIDTH / 2, height * TILE_HEIGHT / 2);
+        }
 
         public void Clear() {
             if (tiles == null) {
