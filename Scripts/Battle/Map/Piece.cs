@@ -7,7 +7,7 @@ namespace Combat {
         public static Piece Instance() {
             return (Piece) template.Instance();
         }
-        public AnimatedSprite sprite { get; private set; }
+        public Node2D display { get; private set; }
         [Export] public PieceStats stats;
 
         public Battle battle { get; private set; }
@@ -62,7 +62,7 @@ namespace Combat {
         }
 
         public override void _Ready() {
-            sprite = GetNode<AnimatedSprite>("AnimatedSprite");
+            display = GetNode<Node2D>("Display");
             if (stats == null) {
                 stats = GetNodeOrNull<PieceStats>("Stats");
             }
@@ -70,14 +70,16 @@ namespace Combat {
                 stats = new PieceStats();
                 AddChild(stats);
             }
+            Color c = Colors.Gray;
             switch (stats.alignment) {
                 case Alignment.FRIENDLY:
-                    sprite.Modulate = Colors.Green;
-                    return;
+                    c = Colors.Green;
+                    break;
                 case Alignment.HOSTILE:
-                    sprite.Modulate = Colors.Red;
-                    return;
+                    c = Colors.Red;
+                    break;
             }
+            (display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.SetShaderParam("outline", c);
         }
     }
 }

@@ -4,77 +4,81 @@ using Godot;
 
 namespace Visual {
     public class Character : Node2D {
-
-        public enum PaletteColor {
-            WHITE,
-            BLACK,
-            RED,
-            PINK,
-            //ORANGE,
-            YELLOW,
-            GREEN,
-            // CYAN,
-            // BLUE,
-            // PURPLE,
+        enum ColorVariation {
+            VERY_DARK = 0,
+            DARK = 1,
+            NORMAL = 2,
+            LIGHT = 3,
+        }
+        private static Color GetColorVariation(Color color, ColorVariation variation) {
+            float brightness = color.v;
+            switch (variation) {
+                case ColorVariation.VERY_DARK:
+                    return color.Darkened(0.2f + brightness * 0.3f);
+                case ColorVariation.DARK:
+                    return color.Darkened(0.1f + brightness * 0.15f);
+                case ColorVariation.LIGHT:
+                    return color.Lightened(0.1f + (1 - brightness) * 0.15f);
+                default:
+                    return color;
+            }
         }
 
-        public static List<PaletteColor> PRIMARY_COLORS = new List<PaletteColor> { PaletteColor.RED, PaletteColor.PINK, PaletteColor.YELLOW, PaletteColor.GREEN };
-        public static List<PaletteColor> SECONDARY_COLORS = new List<PaletteColor> { PaletteColor.WHITE, PaletteColor.BLACK };
-
-        private static PaletteColor Random(List<PaletteColor> list) {
-            return list[Global.rng.Next(0, list.Count)];
-        }
-
-        private static void Paint(ShaderMaterial material, PaletteColor color, string key, int count = 4, int offset = 0) {
-            Paint(material, GetColors(color), key, count, offset);
-        }
-
-        private static void Paint(ShaderMaterial material, Color[] colors, string key, int count = 4, int offset = 0) {
+        private static void Paint(ShaderMaterial material, Color color, string key, int count = 4, int offset = 0) {
             for (int k = 0 ; k < count ; k++) {
-                material.SetShaderParam(string.Format("{0}_{1}", key, k), colors[k + offset]);
+                material.SetShaderParam(string.Format("{0}_{1}", key, k), GetColorVariation(color, (ColorVariation) (k + offset)));
             }
         }
 
         private static Color EYEBROW_COLOR = Color.Color8(39, 37, 35);
 
-        private static Color[][] palettes = {
-            // WHITE
-            new Color[] { Color.Color8(66, 66, 66), Color.Color8(138, 138, 138), Color.Color8(195, 195, 195), Color.Color8(223, 223, 223) },
-            // BLACK
-            new Color[] { Color.Color8(15, 15, 15), Color.Color8(32, 32, 32), Color.Color8(43, 43, 43), Color.Color8(66, 66, 66) },
-            // RED
-            new Color[] { Color.Color8(90, 5, 5), Color.Color8(130, 20, 20), Color.Color8(160, 40, 40), Color.Color8(170, 55, 55) },
-            // PINK
-            new Color[] { Color.Color8(103, 17, 48), Color.Color8(118, 25, 58), Color.Color8(133, 44, 75), Color.Color8(156, 64, 96) },
-            // ORANGE
-            //new Color[] { Color.Color8(80, 3, 3), Color.Color8(130, 20, 20), Color.Color8(160, 40, 40), Color.Color8(170, 55, 55) },
-            // YELLOW
-            new Color[] { Color.Color8(112, 81, 6), Color.Color8(148, 114, 35), Color.Color8(176, 144, 69), Color.Color8(216, 180, 97) },
-            // GREEN
-            new Color[] { Color.Color8(15, 58, 15), Color.Color8(31, 92, 31), Color.Color8(51, 114, 51), Color.Color8(65, 152, 65) },
-            // CYAN
-            // new Color[] { Color.Color8(15, 58, 15), Color.Color8(31, 92, 31), Color.Color8(51, 114, 51), Color.Color8(65, 152, 65) },
-            // BLUE
-            // new Color[] { Color.Color8(15, 58, 15), Color.Color8(31, 92, 31), Color.Color8(51, 114, 51), Color.Color8(65, 152, 65) },
-            // PURPLE
-            // new Color[] { Color.Color8(15, 58, 15), Color.Color8(31, 92, 31), Color.Color8(51, 114, 51), Color.Color8(65, 152, 65) },
-        };
-
-        public static Color[] GetColors(PaletteColor color) {
-            return palettes[(int) color];
-        }
         private Sprite head;
         private Sprite body;
 
+        public Color RandomPrimaryColor() {
+            return Color.FromHsv((float) (Global.rng.NextDouble()), 0.6f, 0.5f);
+        }
+
+        private const float DARKEST_SKIN = 0.22f;
+        private const float SKIN_BRIGHTNESS_RANGE = 0.78f;
+        // Hard coded formula to try to generate a realistic human skin color
+        private const float REDEST_HUE = 0.036f;
+        private const float SKIN_HUE_RANGE = 0.028f;
+        public Color RandomSkinColor() {
+            float rawBrightness = (float) Math.Sqrt(Global.rng.NextDouble());
+            float brightness = DARKEST_SKIN + rawBrightness * SKIN_BRIGHTNESS_RANGE;
+            GD.Print(brightness);
+            float rawSaturation = (float) Global.rng.NextDouble();
+            float saturation = (0.6f - 0.35f * rawBrightness) + (0.2f + 0.05f * rawBrightness) * rawSaturation;
+            float hue = REDEST_HUE + ((float) Global.rng.NextDouble()) * SKIN_HUE_RANGE;
+            return Color.FromHsv(hue, saturation, brightness);
+        }
+
+        public Color RandomSecondaryColor(Color primary) {
+            if (Global.rng.Next(0, 3) == 0) {
+                return Color.FromHsv(0f, 0f, .85f);
+            } else {
+                return Color.FromHsv(0f, 0f, .2f);
+            }
+        }
+
         public void RandomDisplay() {
+            // Parts
             head.Frame = Global.rng.Next(3, 8);
             body.Frame = Global.rng.Next(4, 8);
-            PaletteColor primary = Random(PRIMARY_COLORS);
-            PaletteColor secondary = Random(SECONDARY_COLORS);
+            // Color info
+            Color skin = RandomSkinColor();
+            // TODO : primary color depends on skin, and element affinity
+            Color primary = RandomPrimaryColor();
+            // TODO : hair color random and depends on skin, element affinity, and primary
+            Color hair = primary;
+            Color secondary = RandomSecondaryColor(primary);
             ShaderMaterial material = (ShaderMaterial) Material;
-            Paint(material, primary, "hair");
+            // Paint
+            Paint(material, hair, "hair");
             Paint(material, primary, "primary");
             Paint(material, secondary, "secondary");
+            Paint(material, skin, "skin");
             material.SetShaderParam("eyebrows", EYEBROW_COLOR);
         }
 

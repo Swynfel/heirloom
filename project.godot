@@ -19,6 +19,19 @@ config/name="Heirloom"
 run/main_scene="res://Scenes/Battle.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=384
+window/size/height=192
+window/size/test_width=1536
+window/size/test_height=768
+window/stretch/shrink=4.0
+
+[global]
+
+zoom=false
+window=false
+
 [importer_defaults]
 
 texture={
