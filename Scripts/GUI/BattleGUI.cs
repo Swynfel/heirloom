@@ -3,6 +3,8 @@ using Godot;
 
 namespace GUI {
     public class BattleGUI : Control {
+
+        public static BattleGUI current = null;
         internal enum BattleState {
             OBSERVE,
             SKILL,
@@ -13,9 +15,13 @@ namespace GUI {
 
         internal SkillPanel skillPanel;
         internal LauncherPanel launcherPanel;
+        internal CanvasItem freezePanel;
+
         public override void _Ready() {
+            current = this;
             skillPanel = GetNode<SkillPanel>("SkillPanel");
             launcherPanel = GetNode<LauncherPanel>("LauncherPanel");
+            freezePanel = GetNode<CanvasItem>("FreezePanel");
             skillPanel.Disable();
             launcherPanel.Disable();
             BattleState firstState = currentState;
@@ -42,6 +48,24 @@ namespace GUI {
                         launcherPanel.Enable();
                         break;
                 }
+            }
+        }
+
+        private int busyCount = 0;
+
+        public static bool busy { get { return current.busyCount > 0; } }
+
+        public static void StartBusy() {
+            if (!busy) {
+                current.freezePanel.Show();
+            }
+            current.busyCount++;
+        }
+
+        public static void EndBusy() {
+            current.busyCount--;
+            if (!busy) {
+                current.freezePanel.Hide();
             }
         }
     }

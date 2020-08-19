@@ -33,6 +33,8 @@ namespace GUI {
         private void on_SkillActivated(int id) {
             GD.Print("Activate Skill-" + id);
             spells[id].ReleaseFocus();
+            BattleGUI.current.SwitchState(BattleGUI.BattleState.LAUNCHER);
+            BattleGUI.current.launcherPanel.Load(Skill.Load("spell_walk.tres"));
         }
 
         private void on_SkillHovered(int id) {

@@ -2,10 +2,11 @@
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Skills/Areas/snake.tres" type="Resource" id=2]
-[ext_resource path="res://Assets/Skills/Effects/damage.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/Skills/Effects/move.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
 name = "Walk"
+element = 0
 area = ExtResource( 2 )
 effect = ExtResource( 3 )

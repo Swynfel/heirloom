@@ -38,7 +38,7 @@ namespace Combat {
     }
 
     public class SkillArea {
-        internal List<TileFlow> tileflows;
+        internal List<TileFlow> tileflows = new List<TileFlow>();
         internal IEnumerable<TileFlow> AllFlows() {
             return tileflows;
         }

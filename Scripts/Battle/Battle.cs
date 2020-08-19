@@ -4,7 +4,7 @@ using Godot;
 
 namespace Combat {
     public class Battle : Node2D {
-        public static Battle instance = null;
+        public static Battle current = null;
 
         public Board board { get; private set; }
         public Camera2D camera { get; private set; }
@@ -17,6 +17,7 @@ namespace Combat {
 
 
         public override void _Ready() {
+            current = this;
             board = new Board();
             AddChild(board);
             camera = GetNode<Camera2D>("Camera");

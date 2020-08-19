@@ -6,7 +6,7 @@
 [ext_resource path="res://Scripts/GUI/BattleGUI.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/GUI/LauncherPanel.cs" type="Script" id=5]
 
-[node name="BatlleGUI" type="Control"]
+[node name="BattleGUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 0.25
@@ -18,9 +18,9 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+currentState = 1
 
 [node name="SkillPanel" type="Panel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -97,6 +97,12 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FreezePanel" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
 
 [editable path="SkillPanel/Skill-1"]
 

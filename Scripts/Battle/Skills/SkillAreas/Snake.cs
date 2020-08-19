@@ -16,6 +16,10 @@ namespace Combat.SkillAreas {
             this.allowEmpty = allowEmpty;
         }
 
+        public override SkillAreaCreator Clone() {
+            return new Snake(maxLength, allowEmpty);
+        }
+
         public override void Start(Piece launcher) {
             area = new SkillArea();
             TileFlow first = new TileFlow(launcher.on);
@@ -37,7 +41,7 @@ namespace Combat.SkillAreas {
                     for (int k = i + 1 ; k < count ; k++) {
                         area.tileflows[k].tile.ResetDisplay();
                     }
-                    area.tileflows.RemoveRange(i + 1, count - i);
+                    area.tileflows.RemoveRange(i + 1, count - i - 1);
                     return false;
                 }
             }

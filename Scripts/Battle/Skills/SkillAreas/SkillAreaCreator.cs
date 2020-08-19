@@ -6,6 +6,7 @@ using Godot;
 namespace Combat {
     public abstract class SkillAreaCreator : Resource {
         protected SkillArea area;
+        public abstract SkillAreaCreator Clone();
 
         public abstract void Start(Piece launcher);
 
