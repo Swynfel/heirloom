@@ -48,5 +48,25 @@ namespace Combat {
             }
             return board.GetTile(_x, _y);
         }
+
+        // Display
+
+        private const int STRENGTH_OFFSET = 2;
+
+        public void ResetDisplay() {
+            SelectDisplay(0);
+        }
+
+        public void SelectDisplay(int strength) {
+            SelectDisplay(strength, Colors.White);
+        }
+
+        public void SelectDisplay(int strength, Color color) {
+            Position = new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT + strength);
+            foreach (Piece piece in pieces) {
+                // TODO: let piece handle its position
+                piece.Position = Position;
+            }
+        }
     }
 }

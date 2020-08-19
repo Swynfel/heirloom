@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/GUI/SkillButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/GUI/SkillPanel.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/GUI/BattleGUI.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/GUI/LauncherPanel.cs" type="Script" id=5]
 
 [node name="BatlleGUI" type="Control"]
 anchor_right = 1.0
@@ -11,20 +13,22 @@ margin_left = 0.25
 margin_top = 0.0545502
 margin_right = 0.25
 margin_bottom = 0.0545654
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="SkillPanel" type="Panel" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -124.0
-margin_top = -43.75
+margin_top = -42.0
 margin_right = 124.0
-margin_bottom = -5.75
+margin_bottom = -4.0
 theme = ExtResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -77,6 +81,22 @@ visible = false
 margin_top = -16.4348
 margin_bottom = 4.5652
 text = "5"
+
+[node name="LauncherPanel" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -124.0
+margin_top = -60.0
+margin_right = 124.0
+margin_bottom = -4.0
+theme = ExtResource( 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="SkillPanel/Skill-1"]
 
