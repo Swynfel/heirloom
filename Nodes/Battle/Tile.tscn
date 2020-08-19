@@ -5,6 +5,7 @@
 
 [node name="Tile" type="Node2D"]
 script = ExtResource( 1 )
+sprite = null
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

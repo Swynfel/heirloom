@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Nodes/GUI/SkillButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/GUI/SkillPanel.cs" type="Script" id=3]
+
+[node name="BatlleGUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.25
+margin_top = 0.0545502
+margin_right = 0.25
+margin_bottom = 0.0545654
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SkillPanel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -124.0
+margin_top = -43.75
+margin_right = 124.0
+margin_bottom = -5.75
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill-1" parent="SkillPanel" instance=ExtResource( 2 )]
+margin_left = -98.0
+margin_right = -70.0
+rect_pivot_offset = Vector2( -131.014, -94.9242 )
+
+[node name="Element" parent="SkillPanel/Skill-1" index="0"]
+visible = false
+
+[node name="Label" parent="SkillPanel/Skill-1" index="1"]
+text = "1"
+
+[node name="Skill-2" parent="SkillPanel" instance=ExtResource( 2 )]
+margin_left = -50.0
+margin_right = -22.0
+
+[node name="Label" parent="SkillPanel/Skill-2" index="1"]
+text = "2
+"
+
+[node name="Skill-3" parent="SkillPanel" instance=ExtResource( 2 )]
+
+[node name="Label" parent="SkillPanel/Skill-3" index="1"]
+text = "3"
+
+[node name="Skill-4" parent="SkillPanel" instance=ExtResource( 2 )]
+margin_left = 22.0
+margin_right = 50.0
+
+[node name="Label" parent="SkillPanel/Skill-4" index="1"]
+margin_left = -2.0
+margin_top = -16.0
+margin_right = 25.0
+margin_bottom = 5.0
+text = "4"
+
+[node name="Skill-5" parent="SkillPanel" instance=ExtResource( 2 )]
+margin_left = 70.0
+margin_right = 98.0
+
+[node name="Element" parent="SkillPanel/Skill-5" index="0"]
+visible = false
+
+[node name="Label" parent="SkillPanel/Skill-5" index="1"]
+margin_top = -16.4348
+margin_bottom = 4.5652
+text = "5"
+
+[editable path="SkillPanel/Skill-1"]
+
+[editable path="SkillPanel/Skill-2"]
+
+[editable path="SkillPanel/Skill-3"]
+
+[editable path="SkillPanel/Skill-4"]
+
+[editable path="SkillPanel/Skill-5"]

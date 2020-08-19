@@ -4,19 +4,14 @@ using Godot;
 public class ZoomCamera : Node2D {
     public override void _Ready() {
         GetTree().Connect("screen_resized", this, nameof(on_ScreenResized));
+        on_ScreenResized();
     }
 
-    private const int MIN_WIDTH = 320;
-    private const int MIN_HEIGHT = 180;
+    private const int MIN_WIDTH = 480;
+    private const int MIN_HEIGHT = 270;
 
     private static Vector2 MIN_WINDOW = new Vector2(MIN_WIDTH, MIN_HEIGHT);
-
-    private bool size_changing = false;
     public void on_ScreenResized() {
-        if (size_changing) {
-            return;
-        }
-        size_changing = true;
         Vector2 size = OS.WindowSize;
         float x_ratio = size.x / MIN_WIDTH;
         float y_ratio = size.y / MIN_HEIGHT;
@@ -26,6 +21,5 @@ public class ZoomCamera : Node2D {
         }
         GD.Print(x_ratio, " ", y_ratio);
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Keep, MIN_WINDOW, ratio);
-        size_changing = false;
     }
 }
