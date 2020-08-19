@@ -49,6 +49,39 @@ namespace Combat {
             return board.GetTile(_x, _y);
         }
 
+        public List<Tile> GetNeighbors() {
+            List<Tile> neighbors = new List<Tile>();
+            foreach (Direction dir in Utils.DIRECTIONS) {
+                Tile neighbor = GetNeighbor(dir);
+                if (neighbor != null) {
+                    neighbors.Add(neighbor);
+                }
+            }
+            return neighbors;
+        }
+
+        public List<TileFlow> GetNeighborOutFlows() {
+            List<TileFlow> neighbors = new List<TileFlow>();
+            foreach (Direction dir in Utils.DIRECTIONS) {
+                Tile neighbor = GetNeighbor(dir);
+                if (neighbor != null) {
+                    neighbors.Add(new TileFlow(neighbor, dir));
+                }
+            }
+            return neighbors;
+        }
+
+        public List<TileFlow> GetNeighborInFlows() {
+            List<TileFlow> neighbors = new List<TileFlow>();
+            foreach (Direction dir in Utils.DIRECTIONS) {
+                Tile neighbor = GetNeighbor(dir);
+                if (neighbor != null) {
+                    neighbors.Add(new TileFlow(neighbor, dir.Opposite()));
+                }
+            }
+            return neighbors;
+        }
+
         // Display
 
         private const int STRENGTH_OFFSET = 2;

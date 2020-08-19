@@ -47,7 +47,6 @@ namespace Visual {
         public Color RandomSkinColor() {
             float rawBrightness = (float) Math.Sqrt(Global.rng.NextDouble());
             float brightness = DARKEST_SKIN + rawBrightness * SKIN_BRIGHTNESS_RANGE;
-            GD.Print(brightness);
             float rawSaturation = (float) Global.rng.NextDouble();
             float saturation = (0.6f - 0.35f * rawBrightness) + (0.2f + 0.05f * rawBrightness) * rawSaturation;
             float hue = REDEST_HUE + ((float) Global.rng.NextDouble()) * SKIN_HUE_RANGE;

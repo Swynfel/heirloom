@@ -30,6 +30,7 @@ namespace Combat {
             board.CreateTerrain();
             Piece.Create(this, board.GetTile(2, 2));
             Piece.Create(this, null).MoveOn(board.GetTile(2, 4));
+            Piece.Create(this, board.GetTile(3, 2));
             camera.Position = board.GetCenter();
         }
 

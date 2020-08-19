@@ -9,6 +9,7 @@ script = ExtResource( 1 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BatlleGUI" parent="CanvasLayer" instance=ExtResource( 2 )]
+mouse_filter = 2
 
 [node name="Camera" type="Camera2D" parent="."]
 current = true

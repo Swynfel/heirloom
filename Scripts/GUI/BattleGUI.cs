@@ -51,6 +51,11 @@ namespace GUI {
             }
         }
 
+        public void EndTurn() {
+            // TODO
+            SwitchState(BattleState.SKILL);
+        }
+
         private int busyCount = 0;
 
         public static bool busy { get { return current.busyCount > 0; } }

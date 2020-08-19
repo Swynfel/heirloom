@@ -29,9 +29,9 @@ namespace Combat {
             ClearDisplay();
         }
 
-        public virtual void Click(Tile tile) {
+        public virtual void Click() {
             if (IsValid()) {
-                // TODO: Trigger Done
+                GUI.BattleGUI.current.launcherPanel.Launch(); // Dirty!... But it works. I should rethink architecture next time
             }
         }
         public abstract void Hover(Tile tile);

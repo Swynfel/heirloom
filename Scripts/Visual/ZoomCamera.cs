@@ -19,7 +19,6 @@ public class ZoomCamera : Node2D {
         if (Math.Min(1.25f, x_ratio - ratio) + Math.Min(1.25f, y_ratio - ratio) >= 1.9f) {
             ratio++;
         }
-        GD.Print(x_ratio, " ", y_ratio);
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Keep, MIN_WINDOW, ratio);
     }
 }
