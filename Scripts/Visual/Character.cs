@@ -4,6 +4,14 @@ using Godot;
 
 namespace Visual {
     public class Character : Node2D {
+
+        private const int MIN_EYES = 4;
+        private const int MAX_EYES = 12;
+        private const int MIN_HEAD = 1;
+        private const int MAX_HEAD = 16;
+        private const int MIN_BODY = 1;
+        private const int MAX_BODY = 16;
+
         enum ColorVariation {
             VERY_DARK = 0,
             DARK = 1,
@@ -30,8 +38,9 @@ namespace Visual {
             }
         }
 
-        private static Color EYEBROW_COLOR = Color.Color8(39, 37, 35);
+        private static Color EYEBROW_COLOR = Color.Color8(42, 39, 36);
 
+        private Sprite eyes;
         private Sprite head;
         private Sprite body;
 
@@ -63,8 +72,9 @@ namespace Visual {
 
         public void RandomDisplay() {
             // Parts
-            head.Frame = Global.rng.Next(3, 8);
-            body.Frame = Global.rng.Next(4, 8);
+            eyes.Frame = Global.rng.Next(MIN_EYES, MAX_EYES);
+            head.Frame = Global.rng.Next(MIN_HEAD, MAX_HEAD);
+            body.Frame = Global.rng.Next(MIN_BODY, MAX_HEAD);
             // Color info
             Color skin = RandomSkinColor();
             // TODO : primary color depends on skin, and element affinity
@@ -84,6 +94,7 @@ namespace Visual {
         [Export] public bool loadRandomly = true;
 
         public override void _Ready() {
+            eyes = GetNode<Sprite>("Eyes");
             head = GetNode<Sprite>("Head");
             body = GetNode<Sprite>("Body");
             if (loadRandomly) {

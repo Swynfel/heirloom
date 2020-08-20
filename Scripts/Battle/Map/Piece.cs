@@ -61,18 +61,23 @@ namespace Combat {
             }
         }
 
+        private static Color FRIENDLY_COLOR = new Color(0f, 0.1f, 0.1f);
+        private static Color NEUTRAL_COLOR = new Color(0.05f, 0.05f, 0.05f);
+        private static Color HOSTILE_COLOR = new Color(0.35f, 0f, 0f);
+
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
-            Color c = Colors.Gray;
+            Color c = NEUTRAL_COLOR;
             switch (stats.alignment) {
                 case Alignment.FRIENDLY:
-                    c = Colors.Green;
+                    c = FRIENDLY_COLOR;
                     break;
                 case Alignment.HOSTILE:
-                    c = Colors.Red;
+                    c = HOSTILE_COLOR;
                     break;
             }
             (display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.SetShaderParam("outline", c);
+            GD.Print((display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.GetShaderParam("outline"));
         }
     }
 }
