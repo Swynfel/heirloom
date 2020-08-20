@@ -17,8 +17,10 @@ namespace UI {
             foreach (Piece actor in Global.battle.actors) {
                 if (nextActor == actor) {
                     shouldAdd = true;
-                }
-                if (shouldAdd) {
+                    TurnCharacter nextTurnActor = TurnCharacter.Create(actor);
+                    nextTurnActor.Grow();
+                    turnCharacters.AddChild(nextTurnActor);
+                } else if (shouldAdd) {
                     turnCharacters.AddChild(TurnCharacter.Create(actor));
                 }
             }

@@ -42,4 +42,12 @@ public class TurnCharacter : HBoxContainer {
         resistance.SetElements(piece.entity.affinity.GetResistances());
         weakness.SetElements(piece.entity.affinity.GetWeaknesses());
     }
+
+    private static Vector2 BIG_ICON = new Vector2(40, 40);
+    public void Grow() {
+        GetNode<Control>("Right").RectMinSize = BIG_ICON;
+        GetNode<VBoxContainer>("Left").AddConstantOverride("separation", 4);
+        AddConstantOverride("separation", 6);
+        health.MarginLeft -= 20;
+    }
 }

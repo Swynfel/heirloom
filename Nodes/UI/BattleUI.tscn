@@ -131,9 +131,6 @@ __meta__ = {
 }
 
 [node name="TurnPanel" parent="." instance=ExtResource( 6 )]
-anchor_bottom = 1.0
-margin_left = -4.0
-margin_bottom = -50.0
 
 [node name="FreezePanel" type="Control" parent="."]
 visible = false
