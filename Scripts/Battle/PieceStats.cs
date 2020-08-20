@@ -2,7 +2,7 @@
 using System;
 using Godot;
 
-public class PieceStats : Node2D {
+public class PieceStats : Resource {
 
     // Piece
     [Export] public Combat.Alignment alignment;
@@ -30,6 +30,11 @@ public class PieceStats : Node2D {
             this.health = health.Value;
         } else {
             this.health = maxHealth;
+        }
+        if (affinity != null) {
+            this.affinity = affinity;
+        } else {
+            this.affinity = ElementalAffinity.RandomAffinity();
         }
     }
 

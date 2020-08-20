@@ -13,4 +13,9 @@ public static class Global {
         result.Add(obj);
         return result;
     }
+    public static void QueueFreeChildren(this Node node) {
+        foreach (Node child in node.GetChildren()) {
+            child.QueueFree();
+        }
+    }
 }

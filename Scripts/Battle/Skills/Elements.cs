@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 public enum Element {
     NONE = 0,
@@ -32,6 +33,16 @@ public class Elemental<T> {
         get => elements[(int) element];
         set => elements[(int) element] = value;
     }
+
+    public List<Element> Where(Func<T, bool> predicate) {
+        List<Element> elements = new List<Element>();
+        foreach (Element e in ElementUtils.GetAllElements()) {
+            if (predicate(this[e])) {
+                elements.Add(e);
+            }
+        }
+        return elements;
+    }
 }
 
 public class ElementalAffinity : Elemental<ElementAffinity> {
@@ -58,6 +69,14 @@ public class ElementalAffinity : Elemental<ElementAffinity> {
             affinity[PopRandomElement(elements)] = ElementAffinity.WEAK;
         }
         return affinity;
+    }
+
+    public List<Element> GetResistances() {
+        return Where(a => a == ElementAffinity.RESISTANT || a == ElementAffinity.IMMUNE);
+    }
+
+    public List<Element> GetWeaknesses() {
+        return Where(a => a == ElementAffinity.WEAK);
     }
 }
 

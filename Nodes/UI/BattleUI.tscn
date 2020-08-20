@@ -1,10 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/UI/SkillButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/SkillPanel.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/UI/BattleUI.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/UI/LauncherPanel.cs" type="Script" id=5]
+[ext_resource path="res://Nodes/UI/TurnPanel.tscn" type="PackedScene" id=6]
+
+[sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
+region = Rect2( 8, 8, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+resource_local_to_scene = true
+region = Rect2( 8, 8, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=3]
+resource_local_to_scene = true
+region = Rect2( 8, 8, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=4]
+resource_local_to_scene = true
+region = Rect2( 8, 8, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=5]
+resource_local_to_scene = true
+region = Rect2( 8, 8, 8, 8 )
 
 [node name="BattleUI" type="Control"]
 anchor_right = 1.0
@@ -42,6 +63,7 @@ rect_pivot_offset = Vector2( -131.014, -94.9242 )
 
 [node name="Element" parent="SkillPanel/Skill-1" index="0"]
 visible = false
+texture = SubResource( 1 )
 
 [node name="Label" parent="SkillPanel/Skill-1" index="1"]
 text = "1"
@@ -50,11 +72,17 @@ text = "1"
 margin_left = -50.0
 margin_right = -22.0
 
+[node name="Element" parent="SkillPanel/Skill-2" index="0"]
+texture = SubResource( 2 )
+
 [node name="Label" parent="SkillPanel/Skill-2" index="1"]
 text = "2
 "
 
 [node name="Skill-3" parent="SkillPanel" instance=ExtResource( 2 )]
+
+[node name="Element" parent="SkillPanel/Skill-3" index="0"]
+texture = SubResource( 3 )
 
 [node name="Label" parent="SkillPanel/Skill-3" index="1"]
 text = "3"
@@ -62,6 +90,9 @@ text = "3"
 [node name="Skill-4" parent="SkillPanel" instance=ExtResource( 2 )]
 margin_left = 22.0
 margin_right = 50.0
+
+[node name="Element" parent="SkillPanel/Skill-4" index="0"]
+texture = SubResource( 4 )
 
 [node name="Label" parent="SkillPanel/Skill-4" index="1"]
 margin_left = -2.0
@@ -76,6 +107,7 @@ margin_right = 98.0
 
 [node name="Element" parent="SkillPanel/Skill-5" index="0"]
 visible = false
+texture = SubResource( 5 )
 
 [node name="Label" parent="SkillPanel/Skill-5" index="1"]
 margin_top = -16.4348
@@ -97,6 +129,8 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TurnPanel" parent="." instance=ExtResource( 6 )]
 
 [node name="FreezePanel" type="Control" parent="."]
 visible = false

@@ -63,13 +63,6 @@ namespace Combat {
 
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
-            if (stats == null) {
-                stats = GetNodeOrNull<PieceStats>("Stats");
-            }
-            if (stats == null) {
-                stats = new PieceStats();
-                AddChild(stats);
-            }
             Color c = Colors.Gray;
             switch (stats.alignment) {
                 case Alignment.FRIENDLY:

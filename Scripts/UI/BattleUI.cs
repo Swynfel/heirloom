@@ -15,13 +15,13 @@ namespace UI {
 
         internal SkillPanel skillPanel;
         internal LauncherPanel launcherPanel;
-        internal CanvasItem freezePanel;
+        internal Control freezePanel;
 
         public override void _Ready() {
             current = this;
             skillPanel = GetNode<SkillPanel>("SkillPanel");
             launcherPanel = GetNode<LauncherPanel>("LauncherPanel");
-            freezePanel = GetNode<CanvasItem>("FreezePanel");
+            freezePanel = GetNode<Control>("FreezePanel");
             skillPanel.Disable();
             launcherPanel.Disable();
             BattleState firstState = currentState;
