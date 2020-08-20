@@ -81,10 +81,15 @@ namespace Visual {
             material.SetShaderParam("eyebrows", EYEBROW_COLOR);
         }
 
+        [Export] public bool loadRandomly = true;
+
         public override void _Ready() {
             head = GetNode<Sprite>("Head");
             body = GetNode<Sprite>("Body");
-            RandomDisplay();
+            if (loadRandomly) {
+                RandomDisplay();
+                loadRandomly = false;
+            }
         }
     }
 }

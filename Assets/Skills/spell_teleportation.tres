@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 minRange = 1
-maxRange = 4
+maxRange = 2
 constraint = 0
 
 [resource]

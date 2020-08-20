@@ -9,7 +9,7 @@ script = ExtResource( 2 )
 minRange = 1
 maxRange = 3
 constraint = 1
-blockedByPieces = false
+blockedByPieces = true
 
 [resource]
 resource_local_to_scene = true
