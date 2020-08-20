@@ -83,7 +83,6 @@ namespace Combat {
                     break;
             }
             (display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.SetShaderParam("outline", c);
-            GD.Print((display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.GetShaderParam("outline"));
         }
     }
 }

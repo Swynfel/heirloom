@@ -19,6 +19,8 @@ namespace UI {
 
         public override void _Ready() {
             current = this;
+            Game.instance.Connect(nameof(Game.busy_switch), this, nameof(on_BusySwitch));
+            Global.battle.Connect(nameof(Combat.Battle.next_turn), this, nameof(on_NextTurn));
             skillPanel = GetNode<SkillPanel>("SkillPanel");
             launcherPanel = GetNode<LauncherPanel>("LauncherPanel");
             freezePanel = GetNode<Control>("FreezePanel");
@@ -52,25 +54,24 @@ namespace UI {
         }
 
         public void EndTurn() {
-            // TODO
-            SwitchState(BattleState.SKILL);
+            Global.battle.NextTurn();
         }
 
-        private int busyCount = 0;
-
-        public static bool busy { get { return current.busyCount > 0; } }
-
-        public static void StartBusy() {
-            if (!busy) {
+        private void on_BusySwitch(bool busy) {
+            if (busy) {
                 current.freezePanel.Show();
+            } else {
+                current.freezePanel.Hide();
             }
-            current.busyCount++;
         }
 
-        public static void EndBusy() {
-            current.busyCount--;
-            if (!busy) {
-                current.freezePanel.Hide();
+        private void on_NextTurn(Combat.Piece piece) {
+            if (piece.entity.alignment == Combat.Alignment.FRIENDLY) {
+                SwitchState(BattleState.SKILL);
+            } else {
+                SwitchState(BattleState.OBSERVE);
+                // HACK
+                Global.battle.NextTurn();
             }
         }
     }

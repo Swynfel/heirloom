@@ -19,7 +19,7 @@ namespace UI {
             }
             this.skill = skill;
             area = skill.area.Clone();
-            launcher = Global.battle.pieces[0];
+            launcher = Global.battle.currentActor;
             area.Start(launcher);
         }
 
@@ -76,7 +76,7 @@ namespace UI {
         }
         public bool enabled { get; private set; }
 
-        public bool active { get { return enabled && !BattleUI.busy; } }
+        public bool active { get { return enabled && !Game.busy; } }
         public void Disable() {
             Hide();
             enabled = false;

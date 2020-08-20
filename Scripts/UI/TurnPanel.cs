@@ -1,31 +1,33 @@
 using System;
+using Combat;
 using Godot;
 
-public class TurnPanel : Control {
+namespace UI {
+    public class TurnPanel : Control {
 
-    private VBoxContainer turnCharacters;
+        private VBoxContainer turnCharacters;
 
-    public override void _Ready() {
-        turnCharacters = GetNode<VBoxContainer>("ScrollContainer/TurnCharacterContainer");
-        UpdateTurn();
-    }
-
-    private bool pendingUpdate = true;
-    public void UpdateTurn() {
-        if (Global.battle == null) {
-            pendingUpdate = true;
-        } else {
-            turnCharacters.QueueFreeChildren();
-            foreach (Combat.Piece piece in Global.battle.actors) {
-                turnCharacters.AddChild(TurnCharacter.Create(piece));
-            }
-            pendingUpdate = false;
+        public override void _Ready() {
+            turnCharacters = GetNode<VBoxContainer>("ScrollContainer/TurnCharacterContainer");
+            Global.battle.Connect(nameof(Battle.next_turn), this, nameof(UpdateTurn));
         }
-    }
-
-    public override void _Process(float delta) {
-        if (pendingUpdate) {
-            UpdateTurn();
+        public void UpdateTurn(Piece nextActor) {
+            turnCharacters.QueueFreeChildren();
+            bool shouldAdd = false;
+            foreach (Piece actor in Global.battle.actors) {
+                if (nextActor == actor) {
+                    shouldAdd = true;
+                }
+                if (shouldAdd) {
+                    turnCharacters.AddChild(TurnCharacter.Create(actor));
+                }
+            }
+            foreach (Piece actor in Global.battle.actors) {
+                if (nextActor == actor) {
+                    return;
+                }
+                turnCharacters.AddChild(TurnCharacter.Create(actor));
+            }
         }
     }
 }
