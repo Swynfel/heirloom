@@ -68,6 +68,7 @@ namespace UI {
         private void on_NextTurn(Combat.Piece piece) {
             if (piece.entity.alignment == Combat.Alignment.FRIENDLY) {
                 SwitchState(BattleState.SKILL);
+                skillPanel.Load(piece.entity);
             } else {
                 SwitchState(BattleState.OBSERVE);
                 // HACK

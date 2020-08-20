@@ -22,8 +22,8 @@ public class Entity : Resource {
 
     /*** Skills ***/
     // TODO: Move in actors / character class
-    [Export] public Skill skillWalk;
-    [Export] public Skill skill1;
+    [Export] public Skill skillWalk = Skill.Load("walk");
+    [Export] public Skill skill1 = Skill.Load("teleport");
     [Export] public Skill skill2;
     [Export] public Skill skill3;
     [Export] public Skill skillSpecial = null;

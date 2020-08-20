@@ -22,7 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://Scripts/Game.cs"
-ZoomCamera="*res://Scripts/Visual/ZoomCamera.cs"
+ZoomCamera="*res://Scripts/Visual/Others/ZoomCamera.cs"
 
 [display]
 

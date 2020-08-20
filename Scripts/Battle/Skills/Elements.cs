@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+
 public enum Element {
     NONE = 0,
     FIRE = 1,
@@ -87,5 +88,20 @@ public static class ElementUtils {
 
     public static List<Element> GetAllElements() {
         return new List<Element>(ALL_ELEMENTS);
+    }
+
+    private static Color[] ELEMENT_COLORS = {
+        Colors.White,
+        Color.Color8(122,21,21),
+        Color.Color8(150,140,13),
+        Color.Color8(100,105,105),
+        Color.Color8(25,123,128),
+        Color.Color8(158,184,139),
+        Color.Color8(33,156,48),
+        Color.Color8(71,34,135),
+    };
+
+    public static Color GetColor(Element element) {
+        return ELEMENT_COLORS[(int) element];
     }
 }

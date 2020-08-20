@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Godot;
 
 public class ElementIcon : TextureRect {
-    private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/UI/ElementIcon.tscn");
+    private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/ElementIcon.tscn");
     public static ElementIcon Create(Element element = Element.NONE) {
         ElementIcon icon = (ElementIcon) template.Instance();
         icon.Set(element);

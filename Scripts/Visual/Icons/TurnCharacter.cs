@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 public class TurnCharacter : HBoxContainer {
-    private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/UI/TurnCharacter.tscn");
+    private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/TurnCharacter.tscn");
     public static TurnCharacter Create(Combat.Piece piece) {
         TurnCharacter character = (TurnCharacter) template.Instance();
         character.Set(piece);

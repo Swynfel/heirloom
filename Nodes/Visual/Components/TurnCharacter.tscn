@@ -1,16 +1,16 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Nodes/UI/ElementIconHList.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=4]
-[ext_resource path="res://Nodes/UI/HealthBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=2]
+[ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/Visual/Components/ElementIconHList.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Visual/Components/HealthBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Battle/pm.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/UI/TurnCharacter.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Visual/Icons/TurnCharacter.cs" type="Script" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
-shader = ExtResource( 4 )
+shader = ExtResource( 2 )
 shader_param/outline = Color( 0, 0, 0, 1 )
 shader_param/primary_0 = Color( 0.4, 0.0196078, 0.0196078, 1 )
 shader_param/primary_1 = Color( 0.521569, 0.054902, 0.054902, 1 )
@@ -105,7 +105,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Resistances" parent="Left/Elements" instance=ExtResource( 3 )]
+[node name="Resistances" parent="Left/Elements" instance=ExtResource( 4 )]
 margin_left = 8.0
 margin_right = 36.0
 margin_bottom = 8.0
@@ -119,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Weaknesses" parent="Left/Elements" instance=ExtResource( 3 )]
+[node name="Weaknesses" parent="Left/Elements" instance=ExtResource( 4 )]
 margin_left = 52.0
 margin_right = 80.0
 margin_bottom = 8.0
@@ -143,5 +143,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Character" parent="Right/Icon" instance=ExtResource( 2 )]
+[node name="Character" parent="Right/Icon" instance=ExtResource( 3 )]
 material = SubResource( 1 )
