@@ -8,7 +8,7 @@ namespace Combat.SkillEffects {
         public override void Apply(Element element, Piece launcher, SkillArea area) {
             foreach (Piece piece in area.AllPieces()) {
                 float modifier = 1f;
-                switch (piece.stats.affinity[element]) {
+                switch (piece.entity.affinity[element]) {
                     case (ElementAffinity.IMMUNE):
                         modifier = 0f;
                         break;
@@ -20,7 +20,7 @@ namespace Combat.SkillEffects {
                         break;
                 }
                 float final_damage = modifier * damage;
-                piece.stats.ModifyHealth((int) (final_damage));
+                piece.entity.ModifyHealth((int) (final_damage));
             }
         }
     }

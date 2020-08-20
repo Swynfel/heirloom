@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Characters/human_bodies.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/human_heads.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=3]
-[ext_resource path="res://Scripts/Visual/Character.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Visual/CharacterAppearance.cs" type="Script" id=4]
 [ext_resource path="res://Assets/Characters/human_eyes.png" type="Texture" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]

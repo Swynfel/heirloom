@@ -8,21 +8,25 @@ namespace Combat {
             return (Piece) template.Instance();
         }
         public Node2D display { get; private set; }
-        [Export] public PieceStats stats;
+        [Export] public Entity entity;
 
         public Battle battle { get; private set; }
         public Board board { get { return battle.board; } }
         public Tile on { get; private set; }
 
-        public static Piece Create(Battle battle, Tile tile = null) {
+        public static Piece Create(Battle battle, Entity entity, Tile tile = null) {
             Piece piece = Instance();
-            piece.Setup(battle, tile);
+            piece.Setup(battle, entity, tile);
             return piece;
         }
 
-        public void Setup(Battle battle, Tile tile = null) {
+        public void Setup(Battle battle, Entity entity, Tile tile = null) {
             if (battle == null) {
                 GD.PrintErr("Battle was null, cannot Setup");
+                return;
+            }
+            if (entity == null) {
+                GD.PrintErr("Entity was null, cannot Setup");
                 return;
             }
             if (this.battle != null) {
@@ -30,9 +34,10 @@ namespace Combat {
                 return;
             }
             this.battle = battle;
+            this.entity = entity;
             battle.AddChild(this);
             battle.pieces.Add(this);
-            if (stats.actor) {
+            if (entity.actor) {
                 battle.actors.Add(this);
             }
             MoveOn(tile);
@@ -42,7 +47,7 @@ namespace Combat {
             MoveOn(null);
             if (battle != null) {
                 battle.pieces.Remove(this);
-                if (stats.actor) {
+                if (entity.actor) {
                     battle.actors.Remove(this);
                 }
                 battle = null;
@@ -58,6 +63,7 @@ namespace Combat {
             if (on != null) {
                 on.pieces.Add(this);
                 Position = tile.Position;
+                ZIndex = (int) Math.Ceiling(tile.Position.y);
             }
         }
 
@@ -68,7 +74,7 @@ namespace Combat {
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
             Color c = NEUTRAL_COLOR;
-            switch (stats.alignment) {
+            switch (entity.alignment) {
                 case Alignment.FRIENDLY:
                     c = FRIENDLY_COLOR;
                     break;

@@ -32,14 +32,14 @@ public class TurnCharacter : HBoxContainer {
     }
     public void Set(Combat.Piece piece) {
         TrySetup();
-        name.Text = piece.Name;
+        name.Text = piece.entity.name;
         icon.QueueFreeChildren();
         Node2D clonedDisplay = (Node2D) piece.GetNode("Display").Duplicate();
         icon.AddChild(clonedDisplay);
         clonedDisplay.Position = new Vector2(0, 8);
-        health.SetHealth(piece.stats.health, piece.stats.maxHealth);
-        piece.stats.Connect(nameof(PieceStats.health_modified), health, nameof(HealthBar.SetHealth));
-        resistance.SetElements(piece.stats.affinity.GetResistances());
-        weakness.SetElements(piece.stats.affinity.GetWeaknesses());
+        health.SetHealth(piece.entity.health, piece.entity.maxHealth);
+        piece.entity.Connect(nameof(Entity.health_modified), health, nameof(HealthBar.SetHealth));
+        resistance.SetElements(piece.entity.affinity.GetResistances());
+        weakness.SetElements(piece.entity.affinity.GetWeaknesses());
     }
 }

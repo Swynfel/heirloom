@@ -28,15 +28,18 @@ namespace Combat {
             board.width = 8;
             board.height = 5;
             board.CreateTerrain();
-            Piece ally1 = Piece.Instance();
-            ally1.stats.alignment = Alignment.FRIENDLY;
-            ally1.Setup(this, board.GetTile(2, 2));
-            Piece ally2 = Piece.Instance();
-            ally2.stats.alignment = Alignment.FRIENDLY;
-            ally2.Setup(this, board.GetTile(2, 4));
-            Piece enemy = Piece.Instance();
-            enemy.stats.alignment = Alignment.HOSTILE;
-            enemy.Setup(this, board.GetTile(3, 2));
+            Piece.Create(this,
+                new Entity(Alignment.FRIENDLY, true, 10),
+                board.GetTile(2, 2)
+            );
+            Piece.Create(this,
+                new Entity(Alignment.FRIENDLY, true, 11),
+                board.GetTile(2, 4)
+            );
+            Piece.Create(this,
+                new Entity(Alignment.HOSTILE, true, 12),
+                board.GetTile(3, 2)
+            );
             camera.Position = board.GetCenter();
         }
 

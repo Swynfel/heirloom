@@ -83,7 +83,7 @@ public class ElementalAffinity : Elemental<ElementAffinity> {
 public static class ElementUtils {
     public const int TOTAL_ELEMENTS = 8;
 
-    private static readonly List<Element> ALL_ELEMENTS = new List<Element> { Element.FIRE, Element.LIGHT, Element.METAL, Element.WATER, Element.WIND, Element.DARK };
+    private static readonly List<Element> ALL_ELEMENTS = new List<Element> { Element.FIRE, Element.LIGHT, Element.METAL, Element.WATER, Element.WIND, Element.PLANT, Element.DARK };
 
     public static List<Element> GetAllElements() {
         return new List<Element>(ALL_ELEMENTS);

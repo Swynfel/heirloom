@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=1]
 [ext_resource path="res://Scripts/Battle/Map/Piece.cs" type="Script" id=2]
-[ext_resource path="res://Assets/Pieces/piece_stats.tres" type="Resource" id=3]
 [ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -33,7 +32,6 @@ shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
 
 [node name="Piece" type="Node2D"]
 script = ExtResource( 2 )
-stats = ExtResource( 3 )
 
 [node name="Display" type="Node2D" parent="."]
 

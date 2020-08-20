@@ -16,7 +16,7 @@ public class TurnPanel : Control {
             pendingUpdate = true;
         } else {
             turnCharacters.QueueFreeChildren();
-            foreach (Combat.Piece piece in Global.battle.pieces) {
+            foreach (Combat.Piece piece in Global.battle.actors) {
                 turnCharacters.AddChild(TurnCharacter.Create(piece));
             }
             pendingUpdate = false;
