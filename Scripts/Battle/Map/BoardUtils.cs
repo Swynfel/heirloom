@@ -5,8 +5,44 @@ using Godot;
 
 namespace Combat {
     public static class BoardUtils {
-        public static int DistanceBetween(Tile a, Tile b) {
+        public static int DiamondDistanceBetween(Tile a, Tile b) {
             return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
+        }
+
+        public static int SquareDistanceBetween(Tile a, Tile b) {
+            return Math.Max(Math.Abs(a.x - b.x), Math.Abs(a.y - b.y));
+        }
+
+        public static int PlusDistanceBetween(Tile a, Tile b) {
+            int x = Math.Abs(a.x - b.x);
+            int y = Math.Abs(a.y - b.y);
+            if (x >= 0 && y >= 0) {
+                return int.MaxValue;
+            }
+            return x + y;
+        }
+        public static int CrossDistanceBetween(Tile a, Tile b) {
+            int x = Math.Abs(a.x - b.x);
+            int y = Math.Abs(a.y - b.y);
+            if (x != y) {
+                return int.MaxValue;
+            }
+            return x;
+        }
+
+        public static int DistanceBetween(Tile center, Constraint constraint, Tile point) {
+            switch (constraint) {
+                case Constraint.SQUARE:
+                    return SquareDistanceBetween(center, point);
+                case Constraint.DIAMOND:
+                    return DiamondDistanceBetween(center, point);
+                case Constraint.PLUS:
+                    return PlusDistanceBetween(center, point);
+                case Constraint.CROSS:
+                    return CrossDistanceBetween(center, point);
+                default:
+                    return int.MaxValue;
+            }
         }
 
         private class ComparablePriorityElement : IComparer<(int, int, TileFlow)> {
@@ -49,7 +85,7 @@ namespace Combat {
                     }
                     if (!encountered.ContainsKey(neighbor.tile) && (valid == null || valid(neighbor.tile))) {
                         encountered.Add(neighbor.tile, neighbor);
-                        heuristic = length + 1 + DistanceBetween(from, neighbor.tile);
+                        heuristic = length + 1 + DiamondDistanceBetween(from, neighbor.tile);
                         var item = (heuristic, length + 1, neighbor);
                         int index = priorityQueue.BinarySearch(item, ComparablePriorityElement.comparer);
                         if (index < 0) {

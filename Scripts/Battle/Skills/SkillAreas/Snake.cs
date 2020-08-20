@@ -5,30 +5,32 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Snake : SkillAreaCreator {
-        [Export] public int maxLength;
-        [Export] public bool allowEmpty;
-        [Export] public bool blockedByPieces;
+        [Export] public bool blockedByPieces = false;
 
-        public Snake() : this(3, false, false) { }
-        public Snake(int maxLength = 3, bool allowEmpty = false, bool blockedByPieces = false) {
-            this.maxLength = maxLength;
-            this.allowEmpty = allowEmpty;
+        public Snake() : base() { }
+        public Snake(int minRange = 1, int maxRange = 3, Constraint constraint = Constraint.SQUARE, bool blockedByPieces = false) : base(minRange, maxRange, constraint) {
             this.blockedByPieces = blockedByPieces;
         }
 
+        public Snake(Snake other) : base(other) {
+            blockedByPieces = other.blockedByPieces;
+        }
+
         public override SkillAreaCreator Clone() {
-            return new Snake(maxLength, allowEmpty, blockedByPieces);
+            return new Snake(this);
         }
 
         public override void Start(Piece launcher) {
-            area = new SkillArea();
+            base.Start(launcher);
             TileFlow first = new TileFlow(launcher.on);
             area.Add(first);
             first.UpdateDisplay(2);
         }
 
+        private int currentLength { get => area.Count - 1; }
+
         public override bool IsValid() {
-            return allowEmpty || area.Count > 1;
+            return currentLength >= minRange && currentLength <= maxRange;
         }
 
         private bool CheckTileOrCut(Tile tile) {
@@ -49,7 +51,7 @@ namespace Combat.SkillAreas {
             return true;
         }
 
-        public bool FreeTile(Tile tile) {
+        private bool FreeTile(Tile tile) {
             if (!CanStepOn(tile)) {
                 return false;
             }
@@ -59,7 +61,7 @@ namespace Combat.SkillAreas {
             return true;
         }
 
-        public bool CanStepOn(Tile tile) {
+        private bool CanStepOn(Tile tile) {
             return !blockedByPieces || tile.pieces.Count == 0;
         }
 
@@ -67,13 +69,13 @@ namespace Combat.SkillAreas {
             TileFlow prev = area.Last();
             if (CheckTileOrCut(tile) && CanStepOn(tile)) {
                 // Check if can be appended
-                List<TileFlow> extra = BoardUtils.ShortestPath(prev.tile, tile, maxLength - (area.Count - 1), FreeTile);
+                List<TileFlow> extra = BoardUtils.ShortestPath(prev.tile, tile, maxRange - currentLength, FreeTile);
                 if (extra != null) {
                     // Success, remove the head
                     area.Remove(prev);
                 } else {
                     // Check if can be replaced
-                    extra = BoardUtils.ShortestPath(area.First().tile, tile, maxLength, CanStepOn);
+                    extra = BoardUtils.ShortestPath(area.First().tile, tile, maxRange, CanStepOn);
                     if (extra != null) {
                         // Success, remove everything
                         foreach (TileFlow flow in area) {
@@ -97,7 +99,7 @@ namespace Combat.SkillAreas {
             TileFlow prev = area.Last();
             Tile tile = prev.tile.GetNeighbor(direction);
             if (tile != null && CheckTileOrCut(tile) && CanStepOn(tile)) {
-                if (area.Count <= maxLength) {
+                if (currentLength < maxRange) {
                     TileFlow flow = new TileFlow(tile);
                     area.Add(flow);
                     flow.UpdateDisplay(2);
@@ -108,6 +110,10 @@ namespace Combat.SkillAreas {
         }
 
         public override void Undo() {
+            if (currentLength == 0) {
+                ForceCancel();
+                return;
+            }
             ClearDisplay();
             area.RemoveRange(1, area.Count - 1);
             area[0] = new TileFlow(area[0].tile);

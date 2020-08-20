@@ -1,10 +1,10 @@
 using System;
 using Godot;
 
-namespace GUI {
-    public class BattleGUI : Control {
+namespace UI {
+    public class BattleUI : Control {
 
-        public static BattleGUI current = null;
+        public static BattleUI current = null;
         internal enum BattleState {
             OBSERVE,
             SKILL,

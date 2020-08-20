@@ -2,7 +2,7 @@ using System;
 using Combat;
 using Godot;
 
-namespace GUI {
+namespace UI {
     public class LauncherPanel : Panel {
 
         public Skill skill { get; private set; }
@@ -14,12 +14,12 @@ namespace GUI {
 
         public void Load(Skill skill) {
             if (!connectedToBoard) {
-                Battle.current.board.Connect(nameof(Board.tile_hovered), this, nameof(on_TileHovered));
+                Global.board.Connect(nameof(Board.tile_hovered), this, nameof(on_TileHovered));
                 connectedToBoard = true;
             }
             this.skill = skill;
             area = skill.area.Clone();
-            launcher = Battle.current.pieces[0];
+            launcher = Global.battle.pieces[0];
             area.Start(launcher);
         }
 
@@ -33,7 +33,7 @@ namespace GUI {
             SkillArea skillArea = area.Done();
             skill.effect.Apply(skill.element, launcher, skillArea);
             // Some skills don't end turn
-            BattleGUI.current.EndTurn();
+            Global.battleUI.EndTurn();
         }
 
         public override void _Process(float delta) {
@@ -52,7 +52,7 @@ namespace GUI {
             if (Input.IsActionJustPressed("ui_down")) {
                 area.Key(Direction.DOWN);
             }
-            if (Input.IsActionJustPressed("click") && Battle.current.board.hovered) {
+            if (Input.IsActionJustPressed("click") && Global.board.hovered) {
                 area.Click();
             }
             if (Input.IsActionJustPressed("undo")) {
@@ -61,7 +61,7 @@ namespace GUI {
             if (Input.IsActionJustPressed("ui_accept") && area.IsValid()) {
                 Launch();
             }
-            if (Input.IsActionJustPressed("ui_exit")) {
+            if (Input.IsActionJustPressed("ui_cancel")) {
                 Clear();
             }
 
@@ -72,10 +72,11 @@ namespace GUI {
                 area.Cancel();
                 area = null;
             }
+            Global.battleUI.SwitchState(BattleUI.BattleState.SKILL);
         }
         public bool enabled { get; private set; }
 
-        public bool active { get { return enabled && !BattleGUI.busy; } }
+        public bool active { get { return enabled && !BattleUI.busy; } }
         public void Disable() {
             Hide();
             enabled = false;

@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace GUI {
+namespace UI {
     public class SkillPanel : Panel {
 
         private Button[] spells;
@@ -31,18 +31,22 @@ namespace GUI {
 
         private void on_SkillActivated(int id) {
             spells[id].ReleaseFocus();
-            BattleGUI.current.SwitchState(BattleGUI.BattleState.LAUNCHER);
-            BattleGUI.current.launcherPanel.Load(Skill.Load("spell_walk.tres"));
+            Global.battleUI.SwitchState(BattleUI.BattleState.LAUNCHER);
+            Skill skill;
+            if (id == 0) {
+                skill = Skill.Load("spell_walk.tres");
+            } else {
+                skill = Skill.Load("spell_teleportation.tres");
+            }
+            Global.battleUI.launcherPanel.Load(skill);
         }
 
         private void on_SkillHovered(int id) {
-            // GD.Print("Hovered Skill-" + id);
             spells[id].GrabFocus();
             lastFocus = id;
         }
 
         private void on_SkillUnHovered(int id) {
-            // GD.Print("Un-hovered Skill-" + id);
             spells[id].ReleaseFocus();
         }
     }
