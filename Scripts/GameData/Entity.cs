@@ -39,6 +39,19 @@ public class Entity : Resource {
     public Skill[] skills {
         get => hasSpecial ? new Skill[] { skillWalk, skill1, skill2, skill3, skillSpecial } : new Skill[] { skillWalk, skill1, skill2, skill3, skillSpecial };
     }
+    public Skill[] coreSkills {
+        get => new Skill[] { skill1, skill2, skill3 };
+    }
+
+    [Export] private int _birth = (Game.data?.date.SeasonsPassed()).GetValueOrDefault();
+    public Date birth {
+        get => Date.FromSeasonsPassed(_birth);
+        set => _birth = value.SeasonsPassed();
+    }
+    public int age { get { return birth.Delta(Game.data.date); } }
+    public string AgeString() {
+        return Date.TextAge(age);
+    }
 
     public Entity() : this(Combat.Alignment.NEUTRAL, false, 10) { }
 

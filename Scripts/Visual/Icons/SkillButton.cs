@@ -3,6 +3,12 @@ using Godot;
 
 namespace Visual.Icons {
     public class SkillButton : Button {
+        private static PackedScene condensedTemplate = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/SkillButtonCondensed.tscn");
+        public static SkillButton CreateCondensed(Skill skill) {
+            SkillButton skillButton = (SkillButton) condensedTemplate.Instance();
+            skillButton.Set(skill, "");
+            return skillButton;
+        }
         public void Set(Skill skill, string i = null) {
             if (skill == null) {
                 Hide();

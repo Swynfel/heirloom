@@ -5,38 +5,37 @@ namespace UI {
     public class QuestPanel : VBoxContainer {
 
         private VBoxContainer questList;
-        private QuestTable questTable;
+        private Visual.Tables.QuestTable questTable;
         private PartyPanel party;
         public override void _Ready() {
             GetNode("TopLine/Cancel").Connect("pressed", this, nameof(OpenQuest), Global.ArrayFrom(-1));
             questList = GetNode<VBoxContainer>("QuestSelection/Selection/List");
-            questTable = GetNode<QuestTable>("QuestSelection/QuestTable");
+            questTable = GetNode<Visual.Tables.QuestTable>("QuestSelection/QuestTable");
             party = GetNode<PartyPanel>("Party");
             Refresh();
         }
 
         private void Refresh() {
             questList.QueueFreeChildren();
-            int i = 0;
             foreach (Quest quest in Game.data.quests) {
                 Button b = new Button();
                 b.Text = quest.name;
-                b.Connect("pressed", this, nameof(OpenQuest), Global.ArrayFrom(i));
+                b.Connect("pressed", this, nameof(OpenQuest), Global.ArrayFrom(quest));
                 // b.Connect("focus_entered", this, nameof(OpenQuest), Global.ArrayFrom(i));
                 questList.AddChild(b);
-                i++;
             }
-            OpenQuest(-1);
+            OpenQuest(Village.quest);
         }
 
-        private void OpenQuest(int i) {
-            if (i >= 0) {
-                questTable.SetQuest(Game.data.quests[i]);
+        private void OpenQuest(Quest quest) {
+            if (quest != null) {
+                questTable.SetQuest(quest);
                 questTable.Modulate = Colors.White;
                 party.Show();
-                party.SetMax(Game.data.quests[i].partySize);
+                party.SetMax(quest.partySize);
             } else {
                 questTable.Modulate = Colors.Transparent;
+                party.SetMax(0);
                 party.Hide();
             }
         }

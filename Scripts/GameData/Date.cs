@@ -6,6 +6,16 @@ public struct Date {
         WINTER = 3,
     }
 
+    public enum AgeGroup {
+        UNBORN,
+        BABY,
+        CHILD,
+        TEEN,
+        YOUNG_ADULT,
+        ADULT,
+        SENIOR,
+    }
+
     public Season season;
     public int year;
 
@@ -68,13 +78,34 @@ public struct Date {
         }
         return "ERROR";
     }
+    public static string TextAge(int delta) {
+        string s = delta >= 2 ? "s" : "";
+        return string.Format("{0} season{1} - {2}", delta, s, Age(delta).Word());
+    }
 
+    public static AgeGroup Age(int delta) {
+        if (delta < 0) {
+            return AgeGroup.UNBORN;
+        } else if (delta < 1) {
+            return AgeGroup.BABY;
+        } else if (delta < 2) {
+            return AgeGroup.CHILD;
+        } else if (delta < 4) {
+            return AgeGroup.TEEN;
+        } else if (delta < 8) {
+            return AgeGroup.YOUNG_ADULT;
+        } else if (delta < 12) {
+            return AgeGroup.ADULT;
+        } else {
+            return AgeGroup.SENIOR;
+        }
+    }
     public string ContextString() {
         return ToString() + " - " + TextDelta(Game.data.date.Delta(this));
     }
 }
 
-public static class SeasonExtensions {
+public static class DateExtensions {
     public static string Word(this Date.Season season) {
         switch (season) {
             case Date.Season.SPRING:
@@ -87,6 +118,27 @@ public static class SeasonExtensions {
                 return "Winter";
             default:
                 return "SEASON";
+        }
+    }
+
+    public static string Word(this Date.AgeGroup age) {
+        switch (age) {
+            case Date.AgeGroup.UNBORN:
+                return "unborn";
+            case Date.AgeGroup.BABY:
+                return "baby";
+            case Date.AgeGroup.CHILD:
+                return "child";
+            case Date.AgeGroup.TEEN:
+                return "teenager";
+            case Date.AgeGroup.YOUNG_ADULT:
+                return "young adult";
+            case Date.AgeGroup.ADULT:
+                return "adult";
+            case Date.AgeGroup.SENIOR:
+                return "senior";
+            default:
+                return "AGEGROUP";
         }
     }
 }

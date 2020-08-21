@@ -35,14 +35,14 @@ namespace UI {
         }
 
         public int CurrentSize() {
-            return Game.data.actions.Count(VillageAction.QUEST);
+            return Village.actions.Count(VillageAction.QUEST);
         }
         public void SetMax(int partyMax) {
             this.partyMax = partyMax;
             if (CurrentSize() > partyMax) {
                 foreach (Entity member in (Family.familyMembers as IEnumerable<Entity>).Reverse()) {
-                    if (Game.data.actions[member] == VillageAction.QUEST) {
-                        Game.data.actions[member] = VillageAction.REST;
+                    if (Village.actions.EqualsOrFalse(member, VillageAction.QUEST)) {
+                        Village.actions[member] = VillageAction.REST;
                         if (CurrentSize() <= partyMax) {
                             break;
                         }
@@ -54,15 +54,15 @@ namespace UI {
 
         public void on_ToggleMember(Entity entity) {
             VillageAction a;
-            bool questing = Game.data.actions.TryGetValue(entity, out a) && a == VillageAction.QUEST;
+            bool questing = Village.actions.TryGetValue(entity, out a) && a == VillageAction.QUEST;
             if (questing) {
-                Game.data.actions[entity] = VillageAction.REST;
+                Village.actions[entity] = VillageAction.REST;
             } else {
                 if (CurrentSize() == partyMax) {
                     // TODO: Shake number?
                     return;
                 }
-                Game.data.actions[entity] = VillageAction.QUEST;
+                Village.actions[entity] = VillageAction.QUEST;
             }
             buttons[entity].Toggle(!questing);
             LabelRefresh();

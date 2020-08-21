@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public static class Global {
@@ -18,5 +19,15 @@ public static class Global {
         foreach (Node child in node.GetChildren()) {
             child.QueueFree();
         }
+    }
+
+    public static V GetOrDefault<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue) {
+        V value;
+        return dictionary.TryGetValue(key, out value) ? value : defaultValue;
+    }
+
+    public static bool EqualsOrFalse<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue) {
+        V value;
+        return dictionary.TryGetValue(key, out value) && value.Equals(defaultValue);
     }
 }

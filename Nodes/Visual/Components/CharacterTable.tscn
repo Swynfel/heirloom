@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=2]
 [ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Nodes/Visual/Components/ElementalAffinity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/Visual/Components/HealthBar.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/Visual/Icons/PartyCharacter.cs" type="Script" id=6]
+[ext_resource path="res://Nodes/Visual/Components/SkillIconHList.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Visual/Tables/CharacterTable.cs" type="Script" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -33,38 +34,24 @@ shader_param/iris_0 = Color( 0, 0.294118, 0.0235294, 1 )
 shader_param/iris_1 = Color( 0.164706, 0.576471, 0.101961, 1 )
 shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
 
-[node name="PartyCharacter" type="Button"]
-margin_left = -48.0
-margin_top = -48.0
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 96, 96 )
+[node name="CharacterTable" type="CenterContainer"]
+margin_right = 142.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Selected" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-mouse_filter = 2
-color = Color( 0.0509804, 0.8, 1, 0.164706 )
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="List" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 142.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 142, 160 )
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 6
 alignment = 1
 __meta__ = {
@@ -72,9 +59,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="List"]
-margin_top = 12.0
-margin_right = 96.0
-margin_bottom = 27.0
+margin_top = 2.0
+margin_right = 142.0
+margin_bottom = 17.0
 text = "Name of Character"
 align = 1
 clip_text = true
@@ -83,14 +70,14 @@ __meta__ = {
 }
 
 [node name="Center" type="CenterContainer" parent="List"]
-margin_top = 33.0
-margin_right = 96.0
-margin_bottom = 57.0
+margin_top = 23.0
+margin_right = 142.0
+margin_bottom = 47.0
 mouse_filter = 2
 
 [node name="Block" type="Control" parent="List/Center"]
-margin_left = 36.0
-margin_right = 60.0
+margin_left = 59.0
+margin_right = 83.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
 mouse_filter = 2
@@ -103,9 +90,9 @@ material = SubResource( 1 )
 position = Vector2( 12, 12 )
 
 [node name="HealthHolder" type="Control" parent="List"]
-margin_top = 63.0
-margin_right = 96.0
-margin_bottom = 70.0
+margin_top = 53.0
+margin_right = 142.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 72, 7 )
 mouse_filter = 2
 
@@ -116,8 +103,97 @@ margin_right = 0.0
 margin_bottom = 7.0
 
 [node name="Elements" parent="List" instance=ExtResource( 4 )]
-margin_top = 76.0
-margin_right = 96.0
-margin_bottom = 84.0
+margin_top = 66.0
+margin_right = 142.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 12 )
 mouse_filter = 2
 alignment = 1
+
+[node name="Skills" type="HBoxContainer" parent="List"]
+margin_top = 84.0
+margin_right = 142.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+custom_constants/separation = -2
+alignment = 1
+
+[node name="Skills" parent="List/Skills" instance=ExtResource( 6 )]
+margin_right = 72.0
+size_flags_horizontal = 7
+size_flags_vertical = 4
+
+[node name="Talents" parent="List/Skills" instance=ExtResource( 6 )]
+margin_left = 70.0
+margin_right = 142.0
+size_flags_horizontal = 7
+size_flags_vertical = 4
+
+[node name="Details" type="CenterContainer" parent="List"]
+margin_top = 108.0
+margin_right = 142.0
+margin_bottom = 157.0
+
+[node name="List" type="GridContainer" parent="List/Details"]
+margin_left = 8.0
+margin_right = 133.0
+margin_bottom = 49.0
+custom_constants/vseparation = 2
+custom_constants/hseparation = -6
+columns = 2
+
+[node name="AgeLabel" type="Label" parent="List/Details/List"]
+margin_right = 33.0
+margin_bottom = 15.0
+text = "Age"
+
+[node name="Age" type="Label" parent="List/Details/List"]
+margin_left = 27.0
+margin_right = 125.0
+margin_bottom = 15.0
+text = "99 Seasons - very old"
+align = 2
+
+[node name="BirthLabel" type="Label" parent="List/Details/List"]
+margin_top = 17.0
+margin_right = 33.0
+margin_bottom = 32.0
+text = "Birth"
+
+[node name="Birth" type="Label" parent="List/Details/List"]
+margin_left = 27.0
+margin_top = 17.0
+margin_right = 125.0
+margin_bottom = 32.0
+text = "Autumn 99"
+align = 2
+
+[node name="DeathLabel" type="Label" parent="List/Details/List"]
+visible = false
+margin_top = 34.0
+margin_right = 32.0
+margin_bottom = 49.0
+text = "Death"
+
+[node name="Death" type="Label" parent="List/Details/List"]
+visible = false
+margin_left = 27.0
+margin_top = 34.0
+margin_right = 153.0
+margin_bottom = 49.0
+text = "Autumn 99 - half a year ago"
+align = 2
+
+[node name="ActionLabel" type="Label" parent="List/Details/List"]
+margin_top = 34.0
+margin_right = 33.0
+margin_bottom = 49.0
+text = "Action"
+
+[node name="Action" type="Label" parent="List/Details/List"]
+margin_left = 27.0
+margin_top = 34.0
+margin_right = 125.0
+margin_bottom = 49.0
+text = "Quest"
+align = 2
