@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Battle/pm.png" type="Texture" id=1]
+[ext_resource path="res://Nodes/Visual/Components/ElementIconHList.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Visual/Icons/ElementalAffinityIcon.cs" type="Script" id=3]
+
+
+[node name="ElementalAffinity" type="HBoxContainer"]
+custom_constants/separation = 3
+alignment = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resistances" parent="." instance=ExtResource( 2 )]
+margin_right = 28.0
+margin_bottom = 8.0
+
+[node name="Icon" type="TextureRect" parent="."]
+margin_left = 31.0
+margin_right = 41.0
+margin_bottom = 8.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weaknesses" parent="." instance=ExtResource( 2 )]
+margin_left = 44.0
+margin_right = 72.0
+margin_bottom = 8.0

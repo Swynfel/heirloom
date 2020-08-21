@@ -7,9 +7,6 @@
 [ext_resource path="res://Scripts/UI/Panels/LauncherPanel.cs" type="Script" id=5]
 [ext_resource path="res://Nodes/UI/TurnPanel.tscn" type="PackedScene" id=6]
 
-
-
-
 [node name="BattleUI" type="CanvasLayer"]
 layer = 4
 script = ExtResource( 4 )

@@ -14,8 +14,7 @@ namespace Visual.Icons {
         private Label name;
         private Control icon;
         private HealthBar health;
-        private ElementIconList resistance;
-        private ElementIconList weakness;
+        private ElementalAffinityIcon affinity;
 
         private void TrySetup() {
             if (!setup) {
@@ -23,8 +22,7 @@ namespace Visual.Icons {
                 name = GetNode<Label>("Left/NameHolder/Name");
                 icon = GetNode<Control>("Right/Icon");
                 health = GetNode<HealthBar>("Left/HealthHolder/HealthBar");
-                resistance = GetNode<ElementIconList>("Left/Elements/Resistances");
-                weakness = GetNode<ElementIconList>("Left/Elements/Weaknesses");
+                affinity = GetNode<ElementalAffinityIcon>("Left/Elements");
             }
         }
 
@@ -40,8 +38,7 @@ namespace Visual.Icons {
             clonedDisplay.Position = new Vector2(0, 8);
             health.SetHealth(piece.entity.health, piece.entity.maxHealth);
             piece.entity.Connect(nameof(Entity.health_modified), health, nameof(HealthBar.SetHealth));
-            resistance.SetElements(piece.entity.affinity.GetResistances());
-            weakness.SetElements(piece.entity.affinity.GetWeaknesses());
+            affinity.SetAffinity(piece.entity.affinity);
         }
 
         private static Vector2 BIG_ICON = new Vector2(40, 40);
