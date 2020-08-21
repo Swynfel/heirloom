@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 namespace UI {
-    public class BattleUI : Control {
+    public class BattleUI : CanvasLayer {
 
         public static BattleUI current = null;
         internal enum BattleState {

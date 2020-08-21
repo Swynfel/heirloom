@@ -96,6 +96,12 @@ undo={
  ]
 }
 
+[layer_names]
+
+2d_render/layer_1="board"
+2d_render/layer_4="effects"
+2d_render/layer_5="overlay"
+
 [logging]
 
 file_logging/enable_file_logging=true

@@ -7,18 +7,9 @@
 [ext_resource path="res://Scripts/Visual/Panels/LauncherPanel.cs" type="Script" id=5]
 [ext_resource path="res://Nodes/Visual/UI/TurnPanel.tscn" type="PackedScene" id=6]
 
-[node name="BattleUI" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 0.25
-margin_top = 0.0545502
-margin_right = 0.25
-margin_bottom = 0.0545654
+[node name="BattleUI" type="CanvasLayer"]
+layer = 4
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 currentState = 1
 
 [node name="SkillPanel" type="Panel" parent="."]
