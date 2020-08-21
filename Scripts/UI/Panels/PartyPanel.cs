@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Visual.Icons;
 
@@ -7,10 +8,7 @@ namespace UI {
     public class PartyPanel : VBoxContainer {
 
         private int partyMax = 0;
-        private PartyCharacter[] buttons;
-        private Entity[] members;
-        private bool[] selected;
-
+        private Dictionary<Entity, PartyCharacter> buttons = new Dictionary<Entity, PartyCharacter>();
         private Control list;
         private Label label;
 
@@ -21,17 +19,14 @@ namespace UI {
         }
         public void Refresh() {
             list.QueueFreeChildren();
-            int i = 0;
-            int count = Game.data.family.members.Count;
-            selected = new bool[count];
-            buttons = new PartyCharacter[count];
-            foreach (Entity member in Game.data.family.members) {
+            int count = Family.familyMembers.Count;
+            buttons.Clear();
+            GD.Print("Refresh");
+            foreach (Entity member in Family.familyMembers) {
                 PartyCharacter character = PartyCharacter.Create(member);
-                character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(i));
+                character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));
                 list.AddChild(character);
-                buttons[i] = character;
-                members[i] = member;
-                i++;
+                buttons[member] = character;
             }
         }
 
@@ -40,45 +35,37 @@ namespace UI {
         }
 
         public int CurrentSize() {
-            int i = 0;
-            foreach (bool b in selected) {
-                if (b) i++;
-            }
-            return i;
+            return Game.data.actions.Count(VillageAction.QUEST);
         }
         public void SetMax(int partyMax) {
             this.partyMax = partyMax;
             if (CurrentSize() > partyMax) {
-                int left = CurrentSize() - partyMax;
-                int k = selected.Length - 1;
-                while (left > 0) {
-                    if (selected[k]) {
-                        left--;
-                        on_ToggleMember(k);
+                foreach (Entity member in (Family.familyMembers as IEnumerable<Entity>).Reverse()) {
+                    if (Game.data.actions[member] == VillageAction.QUEST) {
+                        Game.data.actions[member] = VillageAction.REST;
+                        if (CurrentSize() <= partyMax) {
+                            break;
+                        }
                     }
-                    k--;
                 }
             }
             LabelRefresh();
         }
 
-        public void on_ToggleMember(int i) {
-            bool toggle = selected[i];
-            if (!toggle && CurrentSize() == partyMax) {
-                // TODO: Shake number?
-                return;
-            }
-            selected[i] = !toggle;
-            buttons[i].Toggle(selected[i]);
-            LabelRefresh();
-        }
-
-        public IEnumerable<Entity> GetParty() {
-            for (int i = 0 ; i < selected.Length ; i++) {
-                if (selected[i]) {
-                    yield return members[i];
+        public void on_ToggleMember(Entity entity) {
+            VillageAction a;
+            bool questing = Game.data.actions.TryGetValue(entity, out a) && a == VillageAction.QUEST;
+            if (questing) {
+                Game.data.actions[entity] = VillageAction.REST;
+            } else {
+                if (CurrentSize() == partyMax) {
+                    // TODO: Shake number?
+                    return;
                 }
+                Game.data.actions[entity] = VillageAction.QUEST;
             }
+            buttons[entity].Toggle(!questing);
+            LabelRefresh();
         }
     }
 }

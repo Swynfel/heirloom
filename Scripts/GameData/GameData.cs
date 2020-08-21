@@ -10,6 +10,7 @@ public class GameData : Resource {
     [Export] public string name;
 
     [Export] public Family family = Family.RandomFamily(3);
+    public Dictionary<Entity, VillageAction> actions = new Dictionary<Entity, VillageAction>();
 
     [Export]
     public List<Quest> quests = new List<Quest>() {
