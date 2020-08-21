@@ -11,7 +11,12 @@ public class Entity : Resource {
 
     /*** Constant ***/
     [Export] public string name;
-    public ElementalAffinity affinity;
+    public ElementalAffinity affinity {
+        get => ElementalAffinity.Deserialize(_affinity);
+        set => _affinity = value.Serialize();
+    }
+    [Export] private int[] _affinity = ElementalAffinity.RandomAffinity().Serialize();
+
     [Export] public int maxHealth;
     [Export] public Visual.CharacterAppearanceData appearance;
 

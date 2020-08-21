@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
+_date = 0
 name = "NAME"

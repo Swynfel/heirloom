@@ -3,22 +3,16 @@
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/UI/QuestPanel.tscn" type="PackedScene" id=2]
 
-[node name="VillageUI" type="CanvasLayer"]
-
-[node name="Core" type="TabContainer" parent="."]
+[node name="VillageUI" type="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 16.0
-margin_top = 16.0
-margin_right = -16.0
-margin_bottom = -16.0
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Quest" parent="Core" instance=ExtResource( 2 )]
+[node name="Quest" parent="." instance=ExtResource( 2 )]
 margin_left = 5.0
 margin_top = 22.0
 margin_right = -5.0

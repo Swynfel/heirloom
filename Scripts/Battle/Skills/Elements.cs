@@ -22,12 +22,16 @@ public enum ElementAffinity {
 }
 
 public class Elemental<T> {
-    private T[] elements = new T[ElementUtils.TOTAL_ELEMENTS];
+    protected T[] elements = new T[ElementUtils.TOTAL_ELEMENTS];
 
     public Elemental() { }
 
     public Elemental(Element element, T value) {
         this[element] = value;
+    }
+
+    protected Elemental(T[] elements) {
+        this.elements = elements;
     }
 
     public T this[Element element] {
@@ -47,7 +51,17 @@ public class Elemental<T> {
 }
 
 public class ElementalAffinity : Elemental<ElementAffinity> {
+    public ElementalAffinity() : base() { }
+    public ElementalAffinity(Element element, ElementAffinity value) : base(element, value) { }
+    public ElementalAffinity(ElementAffinity[] elements) : base(elements) { }
 
+    public int[] Serialize() {
+        return elements.Select(e => (int) e).ToArray();
+    }
+
+    public static ElementalAffinity Deserialize(int[] elements) {
+        return new ElementalAffinity(elements.Select(e => (ElementAffinity) e).ToArray());
+    }
     private static Element PopRandomElement(List<Element> elements) {
         int index = Global.rng.Next(0, elements.Count);
         Element element = elements[index];
