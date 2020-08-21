@@ -4,6 +4,8 @@ using Godot;
 public class Game : Node {
     public static Game instance { get; private set; }
 
+    public static GameData data;
+
     public override void _Ready() {
         instance = this;
     }
