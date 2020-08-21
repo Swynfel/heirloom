@@ -19,8 +19,10 @@ namespace Combat.SkillEffects {
                         modifier = 2f;
                         break;
                 }
-                float final_damage = modifier * damage;
-                piece.entity.ModifyHealth((int) (final_damage));
+                float final_floating_damage = -modifier * damage;
+                int final_damage = (int) final_floating_damage;
+                piece.entity.ModifyHealth(final_damage);
+                Visual.Effects.FloatingLabel.CreateDamage(piece, final_damage);
             }
         }
     }

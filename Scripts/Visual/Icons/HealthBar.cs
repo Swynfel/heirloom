@@ -20,7 +20,7 @@ public class HealthBar : NinePatchRect {
             this.currentHealth = currentHealth;
             return;
         }
-        content.AnchorRight = ((float) currentHealth) / maxHealth;
+        content.AnchorRight = Math.Max(0, Math.Min(1, ((float) currentHealth) / maxHealth));
         label.Text = string.Format("{0}/{1}", currentHealth, maxHealth);
     }
     public void SetCurrentHealth(int currentHealth) {
