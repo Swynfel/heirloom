@@ -1,6 +1,7 @@
 using System;
 using Combat;
 using Godot;
+using Visual.Icons;
 
 public class Skill : Resource {
     [Export] public string name;

@@ -4,7 +4,7 @@ using Godot;
 
 namespace Combat.SkillEffects {
     class Damage : SkillEffect {
-        [Export] public int damage;
+        [Export] public int damage = 3;
         public override void Apply(Element element, Piece launcher, SkillArea area) {
             foreach (Piece piece in area.AllPieces()) {
                 float modifier = 1f;

@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Visual.Icons;
 
 namespace UI {
     public class SkillPanel : Panel {
