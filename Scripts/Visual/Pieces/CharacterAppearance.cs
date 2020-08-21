@@ -15,6 +15,7 @@ namespace Visual {
                 return _data;
             }
             set {
+                TrySetup();
                 value.Paint(this);
                 _data = value;
             }
@@ -22,11 +23,19 @@ namespace Visual {
         [Export] private CharacterAppearanceData _data = null;
 
         public override void _Ready() {
-            eyes = GetNode<Sprite>("Eyes");
-            head = GetNode<Sprite>("Head");
-            body = GetNode<Sprite>("Body");
+            TrySetup();
             if (data == null) {
                 data = CharacterAppearanceData.Random();
+            }
+        }
+
+        private bool setup;
+        private void TrySetup() {
+            if (!setup) {
+                eyes = GetNode<Sprite>("Eyes");
+                head = GetNode<Sprite>("Head");
+                body = GetNode<Sprite>("Body");
+                setup = true;
             }
         }
     }

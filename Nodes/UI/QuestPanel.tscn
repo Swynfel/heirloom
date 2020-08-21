@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/Visual/Components/QuestTable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/Panels/QuestPanel.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/UI/Panels/PartyPanel.cs" type="Script" id=4]
 
 [node name="Quest" type="VBoxContainer"]
 anchor_right = 1.0
@@ -13,10 +14,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuestSelectionLabel" type="Label" parent="."]
+[node name="TopLine" type="HBoxContainer" parent="."]
 margin_right = 480.0
 margin_bottom = 15.0
-text = "Quest Selection"
+custom_constants/separation = 16
+
+[node name="QuestSelectionLabel" type="Label" parent="TopLine"]
+margin_right = 44.0
+margin_bottom = 15.0
+text = "Selection"
+
+[node name="Cancel" type="Button" parent="TopLine"]
+margin_left = 60.0
+margin_right = 97.0
+margin_bottom = 15.0
+text = "Cancel"
 
 [node name="QuestSelection" type="HBoxContainer" parent="."]
 margin_top = 19.0
@@ -34,7 +46,7 @@ scroll_horizontal_enabled = false
 
 [node name="List" type="VBoxContainer" parent="QuestSelection/Selection"]
 margin_right = 173.0
-margin_bottom = 108.0
+margin_bottom = 127.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -86,6 +98,11 @@ margin_right = 173.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 30, 12 )
 color = Color( 0.988235, 0.176471, 0.0156863, 1 )
+
+[node name="Button" type="Button" parent="QuestSelection/Selection/List"]
+margin_top = 112.0
+margin_right = 173.0
+margin_bottom = 127.0
 
 [node name="QuestTable" parent="QuestSelection" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -143,10 +160,12 @@ margin_right = 480.0
 margin_bottom = 270.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.5
+script = ExtResource( 4 )
 
 [node name="PartyCount" type="HBoxContainer" parent="Party"]
 margin_right = 480.0
 margin_bottom = 15.0
+custom_constants/separation = 32
 
 [node name="PartyLabel" type="Label" parent="Party/PartyCount"]
 margin_right = 31.0
@@ -154,8 +173,8 @@ margin_bottom = 15.0
 text = "Party"
 
 [node name="Label" type="Label" parent="Party/PartyCount"]
-margin_left = 35.0
-margin_right = 61.0
+margin_left = 63.0
+margin_right = 89.0
 margin_bottom = 15.0
 text = "? / ?"
 

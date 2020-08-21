@@ -1,13 +1,24 @@
 
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public class GameData : Resource {
     public Date date { get; private set; }
-
     [Export] private int _date;
 
     [Export] public string name;
+
+    [Export] public Family family = Family.RandomFamily(3);
+
+    [Export]
+    public List<Quest> quests = new List<Quest>() {
+        new Quest(),
+        new Quest(),
+        new Quest(),
+        new Quest(),
+        new Quest(),
+    };
 
     private const string SAVE_FILE = "user://heirloom.save.tres";
     private const ResourceSaver.SaverFlags SAVE_FORMAT =
