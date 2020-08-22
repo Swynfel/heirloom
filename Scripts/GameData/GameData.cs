@@ -9,7 +9,7 @@ public class GameData : Resource {
 
     [Export] public string name;
 
-    [Export] public Family family = Family.RandomFamily(3);
+    [Export] public Family family = Family.RandomFamily(5);
 
     [Export]
     public List<Quest> quests = new List<Quest>() {

@@ -1,10 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=2]
 [ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Fonts/munro-narrow.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Scripts/Visual/Icons/CharacterIcon.cs" type="Script" id=5]
+
+
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true

@@ -1,9 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/Visual/Components/QuestTable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/Panels/QuestPanel.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/UI/Panels/PartyPanel.cs" type="Script" id=4]
+
 
 [node name="Quest" type="VBoxContainer"]
 anchor_right = 1.0

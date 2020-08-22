@@ -4,7 +4,7 @@ using Godot;
 
 namespace Visual.Tables {
     using Icons;
-    public class ItemTable : Panel {
+    public class ItemTable : PanelContainer {
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/ItemTable.tscn");
         public static ItemTable Create(Item item) {
             ItemTable table = (ItemTable) template.Instance();
@@ -15,7 +15,7 @@ namespace Visual.Tables {
 
         private CharacterSelectorButton characterSelector;
         private void Link() {
-            characterSelector = GetNode<CharacterSelectorButton>("Container/List/Bottom/Right/CharacterSelectorButton");
+            characterSelector = GetNode<CharacterSelectorButton>("List/Bottom/Right/CharacterSelectorButton");
             characterSelector.Connect(nameof(CharacterSelectorButton.change_to), this, nameof(on_ChangeHolder));
             characterSelector.GetNode("CharacterSelectorPopup").Connect("about_to_show", this, nameof(on_OpenSelector));
         }
@@ -23,16 +23,16 @@ namespace Visual.Tables {
         private Item item;
         public void SetItem(Item item) {
             this.item = item;
-            GetNode<SkillIcon>("Container/List/Top/SkillIcon").Set(item.icon);
-            GetNode<Label>("Container/List/Top/Name").Text = item.name;
-            GetNode<Label>("Container/List/Bottom/Left/Group").Text = item.group.ToString();
+            GetNode<SkillIcon>("List/Top/SkillIcon").Set(item.icon);
+            GetNode<Label>("List/Top/Name").Text = item.name;
+            GetNode<Label>("List/Bottom/Left/Group").Text = item.group.ToString();
             if (item.equipable) {
-                GetNode<Label>("Container/List/Bottom/Left/Effect").Text = item.effect;
-                GetNode<Control>("Container/List/Bottom/Right").Show();
+                GetNode<Label>("List/Bottom/Left/Effect").Text = item.effect;
+                GetNode<Control>("List/Bottom/Right").Show();
                 characterSelector.Setup(item.holder);
             } else {
-                GetNode<Label>("Container/List/Bottom/Left/Effect").Text = item.description;
-                GetNode<Control>("Container/List/Bottom/Right").Hide();
+                GetNode<Label>("List/Bottom/Left/Effect").Text = item.description;
+                GetNode<Control>("List/Bottom/Right").Hide();
             }
         }
 

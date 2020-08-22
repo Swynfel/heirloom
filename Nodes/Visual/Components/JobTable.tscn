@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Nodes/Visual/Components/CharacterIconL.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Visual/Tables/JobTable.cs" type="Script" id=3]
+
+[node name="JobTable" type="MarginContainer"]
+margin_left = -0.297302
+margin_right = 140.703
+margin_bottom = 84.0
+rect_min_size = Vector2( 128, 84 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 141.0
+margin_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Body" type="HBoxContainer" parent="."]
+margin_right = 141.0
+margin_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="Left" type="MarginContainer" parent="Body"]
+margin_right = 70.0
+margin_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Body/Left"]
+margin_right = 70.0
+margin_bottom = 84.0
+flat = true
+
+[node name="CharacterIcon" parent="Body/Left" instance=ExtResource( 2 )]
+margin_right = 70.0
+margin_bottom = 84.0
+
+[node name="VSeparator" type="VSeparator" parent="Body"]
+margin_left = 70.0
+margin_right = 70.0
+margin_bottom = 84.0
+custom_constants/separation = 0
+
+[node name="Right" type="MarginContainer" parent="Body"]
+margin_left = 70.0
+margin_right = 141.0
+margin_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="MenuButton" parent="Body/Right"]
+margin_right = 71.0
+margin_bottom = 84.0
+items = [ "Item 0", null, 0, false, false, 0, 0, null, "", false ]
+
+[node name="Job" type="VBoxContainer" parent="Body/Right"]
+margin_right = 71.0
+margin_bottom = 84.0
+mouse_filter = 2
+custom_constants/separation = 4
+alignment = 1
+
+[node name="Name" type="Label" parent="Body/Right/Job"]
+margin_top = 19.0
+margin_right = 71.0
+margin_bottom = 32.0
+text = "Idle"
+align = 1
+
+[node name="Description" type="Label" parent="Body/Right/Job"]
+margin_top = 36.0
+margin_right = 71.0
+margin_bottom = 65.0
+text = "Will rest and recover some life"
+align = 1
+autowrap = true

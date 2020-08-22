@@ -25,7 +25,13 @@ public struct Date {
     }
 
     public static Date FromSeasonsPassed(int seasons) {
-        return new Date(seasons / 4, (Season) (seasons % 4));
+        int y = seasons / 4;
+        int s = seasons % 4;
+        if (s < 0) {
+            y--;
+            s += 4;
+        }
+        return new Date(y, (Season) s);
     }
 
     public int SeasonsPassed() {
@@ -33,11 +39,14 @@ public struct Date {
     }
 
     public Date Plus(int seasons) {
-        return Date.FromSeasonsPassed(SeasonsPassed() - seasons);
+        return Date.FromSeasonsPassed(SeasonsPassed() + seasons);
     }
 
-    public int Delta(Date date) {
+    public int Minus(Date date) {
         return SeasonsPassed() - date.SeasonsPassed();
+    }
+    public static int Delta(Date date) {
+        return Game.data.date.Minus(date);
     }
 
     public override string ToString() {
@@ -101,7 +110,7 @@ public struct Date {
         }
     }
     public string ContextString() {
-        return ToString() + " - " + TextDelta(Game.data.date.Delta(this));
+        return ToString() + " - " + TextDelta(Date.Delta(this));
     }
 }
 

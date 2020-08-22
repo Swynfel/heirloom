@@ -73,7 +73,7 @@ namespace UI {
             bool idle = false;
             idleList.QueueFreeChildren();
             foreach (Entity e in Family.familyMembers) {
-                if (Village.actions.GetOrDefault(e, VillageAction.REST) == VillageAction.REST) {
+                if (e.Idle()) {
                     idle = true;
                     idleList.AddChild(Visual.Icons.CharacterIcon.Create(e));
                 }

@@ -1,11 +1,12 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/UI/Buttons/SkillButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/Panels/SkillPanel.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/UI/BattleUI.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/UI/Panels/LauncherPanel.cs" type="Script" id=5]
 [ext_resource path="res://Nodes/UI/TurnPanel.tscn" type="PackedScene" id=6]
+
 
 [node name="BattleUI" type="CanvasLayer"]
 layer = 4

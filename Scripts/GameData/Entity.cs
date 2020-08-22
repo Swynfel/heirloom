@@ -50,7 +50,7 @@ public class Entity : Resource {
         get => Date.FromSeasonsPassed(_birth);
         set => _birth = value.SeasonsPassed();
     }
-    public int age { get => birth.Delta(Game.data.date); }
+    public int age { get => Date.Delta(birth); }
     public Date.AgeGroup ageGroup { get => Date.Age(age); }
     public string AgeString() {
         return Date.TextAge(age);
@@ -59,7 +59,7 @@ public class Entity : Resource {
     public Entity() : this(Combat.Alignment.NEUTRAL, false, 10) { }
 
     public Entity(Combat.Alignment alignment, bool actor, int maxHealth,
-        string name = null, Visual.CharacterAppearanceData appearance = null, ElementalAffinity affinity = null, int? health = null) {
+        string name = null, Visual.CharacterAppearanceData appearance = null, ElementalAffinity affinity = null, Date? birth = null, int? health = null) {
         this.alignment = alignment;
         this.actor = actor;
         this.maxHealth = maxHealth;
@@ -78,6 +78,14 @@ public class Entity : Resource {
             this.affinity = affinity;
         } else {
             this.affinity = ElementalAffinity.RandomAffinity();
+        }
+        if (birth.HasValue) {
+            this.birth = birth.Value;
+        } else {
+            Date d = Game.data?.date ?? new Date(0, 0);
+            d = d.Plus(Global.rng.Next(-20, 0));
+            this.birth = d;
+            GD.Print(d, " ", d.year, "-", d.season);
         }
         if (health.HasValue) {
             this.health = health.Value;

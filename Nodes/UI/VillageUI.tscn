@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/UI/QuestPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Nodes/Visual/Components/FamilyTable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Nodes/UI/InventoryPanel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/UI/NextPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/UI/TownPanel.tscn" type="PackedScene" id=6]
 
 [node name="VillageUI" type="TabContainer"]
 anchor_right = 1.0
@@ -38,7 +39,14 @@ margin_top = 20.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="NextPanel" parent="." instance=ExtResource( 5 )]
+[node name="Town" parent="." instance=ExtResource( 6 )]
+visible = false
+margin_left = 5.0
+margin_top = 20.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="Confirm" parent="." instance=ExtResource( 5 )]
 visible = false
 margin_left = 5.0
 margin_top = 20.0

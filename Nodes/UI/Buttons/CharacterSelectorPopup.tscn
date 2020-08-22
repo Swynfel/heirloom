@@ -1,9 +1,12 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/Buttons/CharacterSelectorPopup.cs" type="Script" id=2]
 [ext_resource path="res://Assets/Fonts/munro-narrow.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Nodes/UI/Buttons/CharacterButton.tscn" type="PackedScene" id=4]
+
+
+
 
 [node name="CharacterSelectorPopup" type="PopupPanel"]
 margin_left = -36.0

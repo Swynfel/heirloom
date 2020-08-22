@@ -19,9 +19,8 @@ namespace UI {
         }
         public void Refresh() {
             list.QueueFreeChildren();
-            int count = Family.familyMembers.Count;
             buttons.Clear();
-            foreach (Entity member in Family.familyMembers) {
+            foreach (Entity member in Family.familyMembers.Where(e => e.ageGroup >= Date.AgeGroup.TEEN)) {
                 PartyCharacter character = PartyCharacter.Create(member);
                 character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));
                 list.AddChild(character);

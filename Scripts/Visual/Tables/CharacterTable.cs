@@ -19,7 +19,7 @@ namespace Visual.Tables {
             GetNode<SkillIconList>("List/Skills/Talents").SetTalents(character);
             GetNode<Label>("List/Details/List/Age").Text = character.AgeString();
             GetNode<Label>("List/Details/List/Birth").Text = character.birth.ToString();
-            GetNode<Label>("List/Details/List/Action").Text = Village.actions.GetOrDefault(character, VillageAction.REST).ToString();
+            GetNode<Label>("List/Details/List/Action").Text = character.Action().ToString();
         }
     }
 }
