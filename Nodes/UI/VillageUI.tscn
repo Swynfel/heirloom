@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/UI/QuestPanel.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Nodes/UI/InventoryPanel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/UI/NextPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Nodes/UI/TownPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/UI/HistoryPanel.tscn" type="PackedScene" id=7]
 
 [node name="VillageUI" type="TabContainer"]
 anchor_right = 1.0
@@ -16,7 +17,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="History" parent="." instance=ExtResource( 7 )]
+margin_left = 5.0
+margin_top = 20.0
+margin_right = -5.0
+margin_bottom = -5.0
+
 [node name="Family" parent="." instance=ExtResource( 3 )]
+visible = false
 margin_left = 5.0
 margin_top = 20.0
 margin_right = -5.0

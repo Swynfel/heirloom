@@ -64,6 +64,9 @@ namespace Visual.Tables {
         }
 
         private void Refresh() {
+            if (entity == null) {
+                return;
+            }
             (string name, string description) = entity.ActionText();
             actionName.Text = name;
             actionDescription.Text = description;

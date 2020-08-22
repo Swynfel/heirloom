@@ -10,6 +10,10 @@ public class Entity : Resource {
 
     /*** Constant ***/
     [Export] public string name;
+
+    public string MetaName() {
+        return string.Format("[rem][url={1}]{0}[/url][/rem]", name, Game.data.family.Remember(this));
+    }
     public ElementalAffinity affinity {
         get => ElementalAffinity.Deserialize(_affinity);
         set => _affinity = value.Serialize();
@@ -46,6 +50,7 @@ public class Entity : Resource {
     }
 
     [Export] private int _birth = (Game.data?.date.SeasonsPassed()).GetValueOrDefault();
+    [Export] public int rememberId = -1;
     public Date birth {
         get => Date.FromSeasonsPassed(_birth);
         set => _birth = value.SeasonsPassed();
@@ -83,9 +88,8 @@ public class Entity : Resource {
             this.birth = birth.Value;
         } else {
             Date d = Game.data?.date ?? new Date(0, 0);
-            d = d.Plus(Global.rng.Next(-20, 0));
+            d = d.Plus(Global.rng.Next(-16, +1));
             this.birth = d;
-            GD.Print(d, " ", d.year, "-", d.season);
         }
         if (health.HasValue) {
             this.health = health.Value;

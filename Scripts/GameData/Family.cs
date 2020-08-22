@@ -6,6 +6,8 @@ public class Family : Resource {
 
     public static List<Entity> familyMembers { get { return Game.data.family.alive; } }
 
+    [Export] private List<Entity> remembered = new List<Entity>();
+
     [Export] public HashSet<Entity> members = new HashSet<Entity>();
 
     [Export] public List<Entity> alive = new List<Entity>();
@@ -24,6 +26,18 @@ public class Family : Resource {
         foreach (Entity e in entities) {
             Add(e);
         }
+    }
+
+    public int Remember(Entity entity) {
+        if (entity.rememberId == -1) {
+            entity.rememberId = remembered.Count;
+            remembered.Add(entity);
+        }
+        return entity.rememberId;
+    }
+
+    public Entity Remember(int id) {
+        return remembered[id];
     }
 
     private static IEnumerable<Entity> RandomMembers(int memberCount) {

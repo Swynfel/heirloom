@@ -53,6 +53,10 @@ public struct Date {
         return string.Format("{0} {1}", season.Word(), year);
     }
 
+    public string ToLongString() {
+        return string.Format("{0} - year {1}", season.Word(), year);
+    }
+
     public static string TextDelta(int delta) {
         if (delta <= -8) {
             return (delta / 4) + " years ago";

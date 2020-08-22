@@ -5,8 +5,6 @@
 [ext_resource path="res://Scripts/UI/Panels/NextPanel.cs" type="Script" id=3]
 [ext_resource path="res://Assets/Theme/horizontal_line.tres" type="StyleBox" id=4]
 
-
-
 [node name="NextPanel" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
