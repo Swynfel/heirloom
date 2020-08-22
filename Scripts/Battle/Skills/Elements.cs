@@ -54,6 +54,21 @@ public class ElementalAffinity : Elemental<ElementAffinity> {
     public ElementalAffinity() : base() { }
     public ElementalAffinity(Element element, ElementAffinity value) : base(element, value) { }
     public ElementalAffinity(ElementAffinity[] elements) : base(elements) { }
+    public ElementalAffinity(
+        Element p1 = Element.NONE,
+        Element p2 = Element.NONE,
+        Element p3 = Element.NONE,
+        Element n1 = Element.NONE,
+        Element n2 = Element.NONE,
+        Element n3 = Element.NONE
+    ) {
+        if (p1 != Element.NONE) elements[(int) p1] = ElementAffinity.RESISTANT;
+        if (p2 != Element.NONE) elements[(int) p2] = ElementAffinity.RESISTANT;
+        if (p3 != Element.NONE) elements[(int) p3] = ElementAffinity.RESISTANT;
+        if (n1 != Element.NONE) elements[(int) n1] = ElementAffinity.WEAK;
+        if (n2 != Element.NONE) elements[(int) n2] = ElementAffinity.WEAK;
+        if (n3 != Element.NONE) elements[(int) n3] = ElementAffinity.WEAK;
+    }
 
     public int[] Serialize() {
         return elements.Select(e => (int) e).ToArray();

@@ -116,6 +116,8 @@ public struct Date {
     public string ContextString() {
         return ToString() + " - " + TextDelta(Date.Delta(this));
     }
+
+    public static readonly Date START = new Date(100, Season.SPRING);
 }
 
 public static class DateExtensions {

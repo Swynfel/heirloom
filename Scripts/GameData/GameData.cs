@@ -20,11 +20,11 @@ public class GameData : Resource {
         new Quest(),
     };
 
-    [Export]
-    public Riches inventory = new Riches(12, 44, new List<Item> { Item.ARTEFACT_SHIELD, Item.ARTEFACT_SWORD, Item.ARTEFACT_CROWN, Item.DAGGER, Item.VASE });
+    [Export] public Riches inventory = new Riches(12, 44, new List<Item> { Item.ARTEFACT_SHIELD, Item.ARTEFACT_SWORD, Item.ARTEFACT_CROWN, Item.DAGGER, Item.VASE });
 
-    [Export]
-    public History history = new History();
+    [Export] public History history = new History();
+
+    [Export] public AdventureProgress progress = new AdventureProgress();
 
     private const string SAVE_FILE = "user://heirloom.save.tres";
     private const ResourceSaver.SaverFlags SAVE_FORMAT =
@@ -38,7 +38,7 @@ public class GameData : Resource {
 
     public static GameData New() {
         GameData data = (GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
-        data.date = new Date(0, 0);
+        data.date = Date.START;
         data.name = "NAME";
         return data;
     }

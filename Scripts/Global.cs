@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public static class Global {
@@ -29,5 +30,9 @@ public static class Global {
     public static bool EqualsOrFalse<K, V>(this IDictionary<K, V> dictionary, K key, V defaultValue) {
         V value;
         return dictionary.TryGetValue(key, out value) && value.Equals(defaultValue);
+    }
+
+    public static T Random<T>(this T[] list) {
+        return list[Global.rng.Next(0, list.Length)];
     }
 }
