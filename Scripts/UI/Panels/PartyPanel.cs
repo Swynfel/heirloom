@@ -21,7 +21,6 @@ namespace UI {
             list.QueueFreeChildren();
             int count = Family.familyMembers.Count;
             buttons.Clear();
-            GD.Print("Refresh");
             foreach (Entity member in Family.familyMembers) {
                 PartyCharacter character = PartyCharacter.Create(member);
                 character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));

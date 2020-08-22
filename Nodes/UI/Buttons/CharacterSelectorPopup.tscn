@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/UI/Buttons/CharacterSelectorPopup.cs" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/munro-narrow.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Nodes/UI/Buttons/CharacterButton.tscn" type="PackedScene" id=4]
+
+[node name="CharacterSelectorPopup" type="PopupPanel"]
+margin_right = 72.0
+margin_bottom = 193.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 64.0
+margin_bottom = 185.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Label" parent="List"]
+margin_right = 56.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+text = "Select"
+align = 1
+clip_text = true
+
+[node name="Comment" type="MarginContainer" parent="List"]
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 42.0
+custom_constants/margin_right = -10
+custom_constants/margin_left = -10
+
+[node name="Label" type="Label" parent="List/Comment"]
+modulate = Color( 1, 0.745098, 0.352941, 1 )
+margin_left = -10.0
+margin_right = 66.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Artefacts can only be passed down to someone yonger"
+align = 1
+autowrap = true
+
+[node name="Cancel" type="MarginContainer" parent="List"]
+margin_top = 43.0
+margin_right = 56.0
+margin_bottom = 72.0
+mouse_filter = 2
+custom_constants/margin_top = 2
+custom_constants/margin_bottom = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="List/Cancel"]
+margin_top = 2.0
+margin_right = 56.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 24 )
+text = "Nobody"
+
+[node name="Character" type="ScrollContainer" parent="List"]
+margin_top = 73.0
+margin_right = 56.0
+margin_bottom = 177.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="List/Character"]
+margin_right = 44.0
+margin_bottom = 134.0
+mouse_filter = 2
+custom_constants/margin_right = -12
+
+[node name="List" type="VBoxContainer" parent="List/Character/Margin"]
+margin_right = 56.0
+margin_bottom = 134.0
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterButton" parent="List/Character/Margin/List" instance=ExtResource( 4 )]
+
+[node name="CharacterButton2" parent="List/Character/Margin/List" instance=ExtResource( 4 )]
+margin_top = 46.0
+margin_bottom = 88.0
+
+[node name="CharacterButton3" parent="List/Character/Margin/List" instance=ExtResource( 4 )]
+margin_top = 92.0
+margin_bottom = 134.0
