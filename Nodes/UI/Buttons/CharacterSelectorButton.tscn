@@ -16,7 +16,3 @@ __meta__ = {
 [node name="CharacterButton" parent="." instance=ExtResource( 1 )]
 
 [node name="CharacterSelectorPopup" parent="." instance=ExtResource( 2 )]
-margin_left = 56.1865
-margin_top = 1.12373
-margin_right = 128.187
-margin_bottom = 194.124

@@ -4,28 +4,32 @@ using System.Linq;
 using Godot;
 
 public class CharacterSelectorButton : Control {
-    public Visual.Icons.CharacterIcon character;
-    public UI.CharacterSelectorPopup popup;
+    private Visual.Icons.CharacterIcon character;
+    private UI.CharacterSelectorPopup popup;
 
+    private bool linked = false;
     private List<Entity> entities;
     private Entity current;
 
-    public override void _Ready() {
+    public void Link() {
+        if (linked) {
+            return;
+        }
         character = GetNode<Visual.Icons.CharacterIcon>("CharacterButton/Icon");
         popup = GetNode<UI.CharacterSelectorPopup>("CharacterSelectorPopup");
         GetNode<Button>("CharacterButton").Connect("pressed", popup, "popup");
         popup.Connect(nameof(UI.CharacterSelectorPopup.selected), this, nameof(on_Selected));
-        // TODO
-        Setup(null, list: Family.familyMembers);
+        popup.Connect("about_to_show", this, nameof(on_Open));
+        linked = true;
     }
     public void Setup(Entity current, bool nullable = false, string comment = null, List<Entity> list = null) {
+        Link();
         entities = list;
         popup.Setup(nullable, comment);
         SetCurrent(current);
     }
 
     private void SetCurrent(Entity current) {
-        GD.Print(current != null ? current.name : "none");
         if (entities == null) {
             popup.Setup(null);
         } else {
@@ -34,9 +38,13 @@ public class CharacterSelectorButton : Control {
         character.SetCharacter(current);
     }
 
-    [Signal] delegate void change_to(Entity entity);
+    [Signal] public delegate void change_to(Entity entity);
     private void on_Selected(Entity entity) {
         EmitSignal(nameof(change_to), entity);
         SetCurrent(entity);
+    }
+    private static Vector2 OFFSET = new Vector2(58, 0);
+    private void on_Open() {
+        popup.SetGlobalPosition(RectGlobalPosition + OFFSET, true);
     }
 }

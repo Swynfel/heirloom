@@ -9,14 +9,20 @@ namespace UI {
         private Label comment;
         private Button cancel;
 
-        public override void _Ready() {
+        private bool linked = false;
+        public void Link() {
+            if (linked) {
+                return;
+            }
             list = GetNode<Control>("List/Character/Margin/List");
             comment = GetNode<Label>("List/Comment/Label");
             cancel = GetNode<Button>("List/Cancel/Button");
-            cancel.Connect("pressed", this, nameof(on_Selected));
+            cancel.Connect("pressed", this, nameof(on_Cancel));
+            linked = true;
         }
 
         public void Setup(bool nullable = false, string comment = null, List<Entity> list = null) {
+            Link();
             cancel.Visible = nullable;
             if (comment == null) {
                 this.comment.Hide();
@@ -28,6 +34,7 @@ namespace UI {
         }
 
         public void Setup(IEnumerable<Entity> list) {
+            Link();
             this.list.QueueFreeChildren();
             if (list != null) {
                 foreach (Entity entity in list) {
@@ -39,7 +46,9 @@ namespace UI {
         }
 
         [Signal] public delegate void selected(Entity entity);
-
+        private void on_Cancel() {
+            on_Selected(null);
+        }
         private void on_Selected(Entity entity = null) {
             Hide();
             EmitSignal(nameof(selected), entity);

@@ -32,6 +32,8 @@ public class Entity : Resource {
     [Export] public Skill skill3;
     [Export] public Skill skillSpecial = null;
 
+    [Export] public Item heldItem = null;
+
     public bool hasSpecial { get => skillSpecial != null; }
 
     public int skillCount { get => hasSpecial ? 5 : 4; }

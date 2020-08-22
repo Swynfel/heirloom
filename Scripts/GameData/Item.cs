@@ -28,6 +28,16 @@ public class Item : Resource {
     [Export] public Entity holder = null;
     [Export] public Entity lastHolder = null;
 
+    public void SetHolder(Entity entity) {
+        if (holder != null) {
+            holder.heldItem = null;
+        }
+        holder = entity;
+        if (entity != null) {
+            entity.heldItem = this;
+        }
+    }
+
     public Item() { }
     public Item(string name, SpriteTemplate icon, Group group, Skill skill = null, float bonusDamage = 0f, int armor = 0, string effect = "", string description = "") {
         this.name = name;
@@ -50,7 +60,7 @@ public class Item : Resource {
         description: "magical crown that grants infinite wisdom"
     );
 
-    public static Item ARTEFACT_SHIELD = new Item("Divine Shield", SpriteTemplate.CROWN, Group.ARTEFACT,
+    public static Item ARTEFACT_SHIELD = new Item("Divine Shield", SpriteTemplate.SHIELD, Group.ARTEFACT,
         armor: 2, effect: "+2 armor",
         description: "it is said that the wielder and their loved ones cannot die"
     );
