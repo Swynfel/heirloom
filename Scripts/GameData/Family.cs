@@ -35,4 +35,27 @@ public class Family : Resource {
     public static Family RandomFamily(int memberCount) {
         return new Family(RandomMembers(memberCount));
     }
+
+    public int FoodConsumption() {
+        int food = 0;
+        foreach (Entity e in members) {
+            switch (e.ageGroup) {
+                case Date.AgeGroup.BABY:
+                case Date.AgeGroup.CHILD:
+                    food++;
+                    break;
+                case Date.AgeGroup.TEEN:
+                    food += 2;
+                    break;
+                case Date.AgeGroup.YOUNG_ADULT:
+                case Date.AgeGroup.ADULT:
+                    food += 3;
+                    break;
+                case Date.AgeGroup.SENIOR:
+                    food += 2;
+                    break;
+            }
+        }
+        return food;
+    }
 }

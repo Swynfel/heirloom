@@ -50,7 +50,8 @@ public class Entity : Resource {
         get => Date.FromSeasonsPassed(_birth);
         set => _birth = value.SeasonsPassed();
     }
-    public int age { get { return birth.Delta(Game.data.date); } }
+    public int age { get => birth.Delta(Game.data.date); }
+    public Date.AgeGroup ageGroup { get => Date.Age(age); }
     public string AgeString() {
         return Date.TextAge(age);
     }

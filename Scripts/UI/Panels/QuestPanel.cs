@@ -28,6 +28,7 @@ namespace UI {
         }
 
         private void OpenQuest(Quest quest) {
+            Village.quest = quest;
             if (quest != null) {
                 questTable.SetQuest(quest);
                 questTable.Modulate = Colors.White;
