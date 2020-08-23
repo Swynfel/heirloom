@@ -1,0 +1,219 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Nodes/Visual/Components/CharacterIconL.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=4]
+[ext_resource path="res://Nodes/Visual/Components/CharacterTable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/Visual/Components/CharacterIcon.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Fonts/munro-big.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Nodes/Visual/Effects/SmartText.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Nodes/Visual/Components/QuestTable.tscn" type="PackedScene" id=10]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 16, 16, 16 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 12
+border_width_top = 2
+border_width_right = 12
+border_color = Color( 1, 1, 1, 0 )
+
+[node name="Outcome" type="CanvasLayer"]
+
+[node name="OutcomeUI" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -2.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="OutcomeUI"]
+margin_right = 480.0
+margin_bottom = 268.0
+
+[node name="Content" type="VBoxContainer" parent="OutcomeUI"]
+margin_right = 480.0
+margin_bottom = 268.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="Control" parent="OutcomeUI/Content"]
+margin_right = 480.0
+margin_bottom = 4.0
+rect_min_size = Vector2( 0, 4 )
+
+[node name="Title" type="Label" parent="OutcomeUI/Content"]
+margin_top = 3.0
+margin_right = 480.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 7 )
+text = "Title of stuff"
+align = 1
+clip_text = true
+
+[node name="Head" type="TabContainer" parent="OutcomeUI/Content"]
+margin_top = 28.0
+margin_right = 480.0
+margin_bottom = 28.0
+custom_styles/panel = SubResource( 4 )
+tabs_visible = false
+
+[node name="None" type="Control" parent="OutcomeUI/Content/Head"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CharacterList" type="ScrollContainer" parent="OutcomeUI/Content/Head"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+scroll_vertical_enabled = false
+
+[node name="List" type="HBoxContainer" parent="OutcomeUI/Content/Head/CharacterList"]
+margin_left = 182.0
+margin_right = 298.0
+margin_bottom = 42.0
+size_flags_horizontal = 6
+
+[node name="CharacterIcon" parent="OutcomeUI/Content/Head/CharacterList/List" instance=ExtResource( 6 )]
+
+[node name="CharacterIcon2" parent="OutcomeUI/Content/Head/CharacterList/List" instance=ExtResource( 6 )]
+margin_left = 60.0
+margin_right = 116.0
+
+[node name="CharacterCouple" type="HBoxContainer" parent="OutcomeUI/Content/Head"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="LeftMargin" type="Control" parent="OutcomeUI/Content/Head/CharacterCouple"]
+margin_right = 38.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Left" parent="OutcomeUI/Content/Head/CharacterCouple" instance=ExtResource( 5 )]
+margin_left = 38.0
+margin_right = 231.0
+margin_bottom = 138.0
+
+[node name="Heart" type="TextureRect" parent="OutcomeUI/Content/Head/CharacterCouple"]
+margin_left = 231.0
+margin_top = 61.0
+margin_right = 247.0
+margin_bottom = 77.0
+size_flags_vertical = 4
+texture = SubResource( 3 )
+
+[node name="Right" parent="OutcomeUI/Content/Head/CharacterCouple" instance=ExtResource( 5 )]
+margin_left = 247.0
+margin_right = 440.0
+margin_bottom = 138.0
+
+[node name="RightMargin" type="Control" parent="OutcomeUI/Content/Head/CharacterCouple"]
+margin_left = 440.0
+margin_right = 480.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="BirthOrAdoption" type="HBoxContainer" parent="OutcomeUI/Content/Head"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="LeftMargin" type="Control" parent="OutcomeUI/Content/Head/BirthOrAdoption"]
+margin_right = 48.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Left" parent="OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 3 )]
+margin_left = 48.0
+margin_right = 144.0
+margin_bottom = 136.0
+
+[node name="Middle" parent="OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 5 )]
+margin_left = 144.0
+margin_right = 336.0
+margin_bottom = 136.0
+size_flags_stretch_ratio = 2.0
+
+[node name="Right" parent="OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 3 )]
+margin_left = 336.0
+margin_right = 432.0
+margin_bottom = 136.0
+
+[node name="RightMargin" type="Control" parent="OutcomeUI/Content/Head/BirthOrAdoption"]
+margin_left = 432.0
+margin_right = 480.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Quests" type="HBoxContainer" parent="OutcomeUI/Content/Head"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="QuestTable" parent="OutcomeUI/Content/Head/Quests" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 151.0
+margin_right = 329.0
+margin_bottom = 98.0
+size_flags_horizontal = 6
+
+[node name="Description" parent="OutcomeUI/Content" instance=ExtResource( 8 )]
+margin_top = 28.0
+margin_bottom = 244.0
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 5 )
+fit_content_height = false
+scroll_active = true
+
+[node name="Buttons" type="HBoxContainer" parent="OutcomeUI/Content"]
+margin_top = 244.0
+margin_right = 480.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Button" parent="OutcomeUI/Content/Buttons"]
+margin_right = 160.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+text = "No"
+
+[node name="Third" type="Button" parent="OutcomeUI/Content/Buttons"]
+margin_left = 160.0
+margin_right = 320.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+text = "Third"
+
+[node name="Ok" type="Button" parent="OutcomeUI/Content/Buttons"]
+margin_left = 320.0
+margin_right = 480.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+text = "Next Event"
