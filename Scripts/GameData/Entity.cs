@@ -6,7 +6,7 @@ public class Entity : Resource {
 
     /*** Piece ***/
     [Export] public Combat.Alignment alignment;
-    [Export] public bool actor;
+    [Export] public bool actor = true;
 
 
     /*** Constant ***/

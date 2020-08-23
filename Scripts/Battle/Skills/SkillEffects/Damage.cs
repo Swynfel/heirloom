@@ -5,8 +5,12 @@ using Godot;
 namespace Combat.SkillEffects {
     class Damage : SkillEffect {
         [Export] public int damage = 3;
+        [Export] public bool noFriendlyFire = false;
         public override void Apply(Element element, Piece launcher, SkillArea area) {
             foreach (Piece piece in area.AllPieces()) {
+                if (noFriendlyFire && piece.entity.alignment == launcher.entity.alignment) {
+                    continue;
+                }
                 float modifier = 1f;
                 switch (piece.entity.affinity[element]) {
                     case (ElementAffinity.IMMUNE):

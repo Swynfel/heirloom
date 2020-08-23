@@ -5,6 +5,16 @@ using Godot;
 namespace Combat {
     public class Tile : Node2D {
 
+        public enum GroundType {
+            ERROR,
+            NONE,
+            GRASS,
+            DIRT,
+            DRY,
+            SAND,
+            STONE,
+            WOOD,
+        }
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Battle/Tile.tscn");
         private static Tile Instance() {
             return (Tile) template.Instance();
@@ -16,9 +26,7 @@ namespace Combat {
 
         public List<Piece> pieces { get; } = new List<Piece>();
 
-        [Export] public bool sprite;
-
-        public static Tile Create(Board board, int x, int y) {
+        public static Tile Create(Board board, int x, int y, GroundType ground) {
             Tile tile = Instance();
             board.AddChild(tile);
             tile.board = board;
@@ -26,10 +34,16 @@ namespace Combat {
             tile.x = x;
             tile.y = y;
             tile.Position = new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT);
+            tile.GetNode<Sprite>("Sprite").Frame = (int) ground;
             return tile;
         }
 
         public Tile GetNeighbor(Direction direction) {
+            (int x, int y) = GetNeighborCoords(direction);
+            return board.GetTile(x, y);
+        }
+
+        public (int, int) GetNeighborCoords(Direction direction) {
             int _x = x;
             int _y = y;
             switch (direction) {
@@ -46,7 +60,7 @@ namespace Combat {
                     _y++;
                     break;
             }
-            return board.GetTile(_x, _y);
+            return (_x, _y);
         }
 
         public List<Tile> GetNeighbors() {
@@ -87,15 +101,31 @@ namespace Combat {
         private const int STRENGTH_OFFSET = 2;
 
         public void ResetDisplay() {
-            SelectDisplay(0);
+            SelectDisplay(0, TileColor.NONE);
         }
 
-        public void SelectDisplay(int strength) {
-            SelectDisplay(strength, Colors.White);
+        private readonly Color NONE_COLOR = Colors.Transparent;
+        private readonly Color VALID_COLOR = Color.Color8(0, 132, 16, 162);
+        private readonly Color ERROR_COLOR = Color.Color8(140, 10, 0, 170);
+        private readonly Color SECONDARY_COLOR = Color.Color8(0, 132, 16, 162);
+
+        public enum TileColor {
+            NONE,
+            VALID,
+            ERROR,
+            SECONDARY,
+        }
+
+        public void SelectDisplay(int strength, TileColor c) {
+            Color color = c == TileColor.NONE ? NONE_COLOR :
+            c == TileColor.VALID ? VALID_COLOR :
+            c == TileColor.ERROR ? ERROR_COLOR : SECONDARY_COLOR;
+            SelectDisplay(strength, color);
         }
 
         public void SelectDisplay(int strength, Color color) {
             Position = new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT - STRENGTH_OFFSET * strength);
+            GetNode<Control>("Control").Modulate = color;
             foreach (Piece piece in pieces) {
                 // TODO: let piece handle its position
                 piece.Position = Position;

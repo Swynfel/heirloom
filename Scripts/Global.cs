@@ -38,4 +38,10 @@ public static class Global {
     public static T Random<T>(this IEnumerable<T> list) {
         return list.ElementAt(Global.rng.Next(0, list.Count()));
     }
+
+    public static T PopRandom<T>(this List<T> list) {
+        T r = list.Random();
+        list.Remove(r);
+        return r;
+    }
 }

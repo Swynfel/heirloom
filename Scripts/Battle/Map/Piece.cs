@@ -37,6 +37,7 @@ namespace Combat {
             this.entity = entity;
             battle.AddChild(this);
             battle.pieces.Add(this);
+            GD.Print("actor " + entity.actor);
             if (entity.actor) {
                 battle.actors.Add(this);
             }

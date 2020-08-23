@@ -66,6 +66,19 @@ namespace Combat {
             }
             return y > 0 ? Direction.UP : Direction.DOWN;
         }
+        public static Direction DirectionTo(int _x, int _y, Tile other) {
+            int x = other.x - _x;
+            int y = other.y - _y;
+            int X = Math.Abs(x);
+            int Y = Math.Abs(y);
+            if (X == Y) {
+                return Direction.NONE;
+            }
+            if (X > Y) {
+                return x > 0 ? Direction.LEFT : Direction.RIGHT;
+            }
+            return y > 0 ? Direction.UP : Direction.DOWN;
+        }
 
         public static IEnumerable<Tile> AllTiles(Func<Tile, bool> predicate) {
             return Battle.current.board.tiles.Where(predicate);
@@ -150,9 +163,9 @@ namespace Combat {
             return new TileFlow(tile, direction, newFlag);
         }
 
-        public void UpdateDisplay(int strength = 1) {
+        public void UpdateDisplay(int strength = 1, Tile.TileColor color = Tile.TileColor.VALID) {
             // TODO: Draw arrows
-            tile.SelectDisplay(strength);
+            tile.SelectDisplay(strength, color);
         }
     }
     public struct PieceFlow {

@@ -27,12 +27,12 @@ namespace Combat {
             tiles = null;
         }
 
-        public void CreateTerrain() {
+        public void CreateTerrain(Func<int, int, Tile.GroundType> tileType) {
             Clear();
             tiles = new Tile[width * height];
             for (int x = 0 ; x < width ; x++) {
                 for (int y = 0 ; y < height ; y++) {
-                    Tile tile = Tile.Create(this, x, y);
+                    Tile tile = Tile.Create(this, x, y, tileType(x, y));
                     tile.GetNode("Control").Connect("mouse_entered", this, nameof(on_TileHovered), Global.ArrayFrom(tile));
                     tile.GetNode("Control").Connect("mouse_exited", this, nameof(on_TileExited), Global.ArrayFrom(tile));
                     tiles[y * width + x] = tile;

@@ -15,6 +15,7 @@ areaRange = 0
 [sub_resource type="Resource" id=2]
 script = ExtResource( 3 )
 damage = 4
+noFriendlyFire = false
 
 [resource]
 resource_local_to_scene = true

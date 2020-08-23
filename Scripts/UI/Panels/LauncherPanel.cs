@@ -32,8 +32,13 @@ namespace UI {
         public void Launch() {
             SkillArea skillArea = area.Done();
             skill.effect.Apply(skill.element, launcher, skillArea);
-            // Some skills don't end turn
-            Global.battleUI.EndTurn();
+            // Hack
+            if (skill != SkillHandler.WALK) {
+                Global.battleUI.EndTurn();
+            } else {
+                Global.battleUI.SwitchState(BattleUI.BattleState.SKILL);
+                Global.battleUI.skillPanel.Deactivate(0);
+            }
         }
 
         public override void _Process(float delta) {

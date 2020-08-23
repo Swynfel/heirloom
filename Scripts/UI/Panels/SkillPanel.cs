@@ -25,6 +25,7 @@ namespace UI {
             skills = entity.skills;
             int i = 0;
             foreach (Skill skill in skills) {
+                slots[i].Disabled = false;
                 slots[i].Set(skill, (i + 1).ToString());
                 i++;
             }
@@ -32,6 +33,10 @@ namespace UI {
                 slots[i].Hide();
                 i++;
             }
+        }
+
+        public void Deactivate(int i) {
+            slots[i].Disabled = true;
         }
 
         public bool enabled { get; private set; }

@@ -33,12 +33,13 @@ namespace Combat.SkillAreas {
             }
             area.Clear();
             // Set area
+            bool valid = CanTarget(center);
             foreach (Tile newTile in BoardUtils.AreaOf(center, areaRange, areaConstraint)) {
                 var flow = new TileFlow(newTile);
                 area.Add(flow);
-                flow.UpdateDisplay(1);
+                flow.UpdateDisplay(1, valid ? Tile.TileColor.SECONDARY : Tile.TileColor.ERROR);
             }
-            new TileFlow(center).UpdateDisplay(CanTarget(center) ? 2 : 1);
+            new TileFlow(center).UpdateDisplay(CanTarget(center) ? 2 : 1, valid ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
         }
 
         public override bool IsValid() {

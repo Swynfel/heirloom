@@ -28,9 +28,9 @@ namespace Combat.SkillAreas {
             }
             area.Clear();
             // Set area
-            Tile hackTile = launcher.on.GetNeighbor(direction.Opposite());
+            (int x, int y) = launcher.on.GetNeighborCoords(direction.Opposite());
             foreach (Tile newTile in BoardUtils.AllTiles(t => {
-                if (hackTile.DirectionTo(t) != direction) {
+                if (BoardUtils.DirectionTo(x, y, t) != direction) {
                     return false;
                 }
                 float distance = BoardUtils.DistanceBetween(launcher.on, constraint, t);
@@ -38,7 +38,7 @@ namespace Combat.SkillAreas {
             })) {
                 var flow = new TileFlow(newTile, direction);
                 area.Add(flow);
-                flow.UpdateDisplay(2);
+                flow.UpdateDisplay(2, Tile.TileColor.VALID);
             }
         }
 

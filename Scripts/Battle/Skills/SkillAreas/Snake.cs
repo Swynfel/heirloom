@@ -24,7 +24,7 @@ namespace Combat.SkillAreas {
             base.Start(launcher);
             TileFlow first = new TileFlow(launcher.on);
             area.Add(first);
-            first.UpdateDisplay(2);
+            first.UpdateDisplay(2, IsValid() ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
         }
 
         private int currentLength { get => area.Count - 1; }
@@ -40,11 +40,11 @@ namespace Combat.SkillAreas {
                 if (flow.tile == tile) {
                     flow = flow.WithDirection(Direction.NONE);
                     area[i] = flow;
-                    flow.UpdateDisplay(2);
                     for (int k = i + 1 ; k < count ; k++) {
                         area[k].tile.ResetDisplay();
                     }
                     area.RemoveRange(i + 1, count - i - 1);
+                    flow.UpdateDisplay(2, IsValid() ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
                     return false;
                 }
             }
@@ -90,7 +90,8 @@ namespace Combat.SkillAreas {
                 // Add the extra
                 area.AddRange(extra);
                 foreach (TileFlow flow in extra) {
-                    flow.UpdateDisplay(flow.tile == tile ? 2 : 1);
+                    var color = flow.tile != tile ? Tile.TileColor.SECONDARY : IsValid() ? Tile.TileColor.VALID : Tile.TileColor.ERROR;
+                    flow.UpdateDisplay(flow.tile == tile ? 2 : 1, color);
                 }
             }
         }
@@ -102,9 +103,9 @@ namespace Combat.SkillAreas {
                 if (currentLength < maxRange) {
                     TileFlow flow = new TileFlow(tile);
                     area.Add(flow);
-                    flow.UpdateDisplay(2);
+                    flow.UpdateDisplay(2, IsValid() ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
                     area[area.IndexOf(prev)] = prev.WithDirection(direction);
-                    prev.UpdateDisplay(1);
+                    prev.UpdateDisplay(1, Tile.TileColor.SECONDARY);
                 }
             }
         }
@@ -117,7 +118,7 @@ namespace Combat.SkillAreas {
             ClearDisplay();
             area.RemoveRange(1, area.Count - 1);
             area[0] = new TileFlow(area[0].tile);
-            area[0].UpdateDisplay(2);
+            area[0].UpdateDisplay(2, IsValid() ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
         }
     }
 }

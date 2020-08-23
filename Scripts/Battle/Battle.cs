@@ -23,12 +23,9 @@ namespace Combat {
             camera = GetNode<Camera2D>("Camera");
         }
 
-        private bool boardLoaded = false;
+        private bool battleStarted = false;
 
         public override void _Process(float delta) {
-            if (!boardLoaded) {
-                LoadBoard();
-            }
             if (pendingNextTurn && !Game.busy) {
                 pendingNextTurn = false;
                 int i = actors.IndexOf(currentActor);
@@ -49,23 +46,14 @@ namespace Combat {
             pendingNextTurn = true;
         }
 
-        public void LoadBoard() {
-            boardLoaded = true;
-            board.width = 8;
-            board.height = 5;
-            board.CreateTerrain();
-            Piece.Create(this,
-                new Entity(Alignment.FRIENDLY, true, 10),
-                board.GetTile(2, 2)
-            );
-            Piece.Create(this,
-                new Entity(Alignment.FRIENDLY, true, 11),
-                board.GetTile(2, 4)
-            );
-            Piece.Create(this,
-                new Entity(Alignment.HOSTILE, true, 12),
-                board.GetTile(3, 2)
-            );
+        public void StartBattle() {
+            battleStarted = true;
+            // HACK
+            if (Village.quest == null) {
+                Village.quest = Game.data.quests[0];
+                Village.actions[Family.familyMembers[0]] = VillageAction.QUEST;
+            }
+            Village.quest.battle.Generate(this, Village.actions.Where(VillageAction.QUEST));
             TurnOf(actors[0]);
             camera.Position = board.GetCenter();
         }

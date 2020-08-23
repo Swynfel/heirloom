@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 damage = 6
+noFriendlyFire = false
