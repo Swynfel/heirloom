@@ -23,6 +23,7 @@ public class GameData : Resource {
     [Export] public Riches inventory = new Riches(12, 44, new List<Item> { Item.ARTEFACT_SHIELD, Item.ARTEFACT_SWORD, Item.ARTEFACT_CROWN, Item.DAGGER, Item.VASE });
 
     [Export] public History history = new History();
+    [Export] public Memory memory = new Memory();
 
     [Export] public AdventureProgress progress = new AdventureProgress();
 

@@ -22,7 +22,7 @@ public class SmartText : RichTextLabel {
     }
 
     private void MetaClicked(string info) {
-        int i = int.Parse(info);
-        GD.Print(Game.data.family.Remember(i));
+        var i = Memory.MetaTag.Parse(info);
+        GD.Print(i.Remember());
     }
 }

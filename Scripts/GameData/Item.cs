@@ -28,6 +28,11 @@ public class Item : Resource {
     [Export] public Entity holder = null;
     [Export] public Entity lastHolder = null;
 
+    [Export] public int rememberId = -1;
+    public string MetaName() {
+        return Memory.memory.Tag(this).Box(name);
+    }
+
     public void SetHolder(Entity entity) {
         if (holder != null) {
             holder.heldItem = null;

@@ -13,7 +13,7 @@ public class Entity : Resource {
     [Export] public string name;
 
     public string MetaName() {
-        return string.Format("[rem][url={1}]{0}[/url][/rem]", name, Game.data.family.Remember(this));
+        return Memory.memory.Tag(this).Box(name);
     }
 
     public static string MetaNames(IEnumerable<Entity> entities) {
