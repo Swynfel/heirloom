@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Damage.cs" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+minRange = 0
+maxRange = 0
+constraint = 0
+areaConstraint = 0
+areaRange = 1
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+damage = 5
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+name = "Burst"
+element = 0
+icon = 10
+area = SubResource( 1 )
+effect = SubResource( 2 )
+template = "*"
+tags = "cac"
+description = "Attacks entities around you for 5 damage"

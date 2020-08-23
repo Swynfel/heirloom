@@ -9,7 +9,7 @@ public enum Element {
     LIGHT = 2,
     METAL = 3,
     WATER = 4,
-    WIND = 5,
+    AIR = 5,
     PLANT = 6,
     DARK = 7,
 }
@@ -113,7 +113,7 @@ public class ElementalAffinity : Elemental<ElementAffinity> {
 public static class ElementUtils {
     public const int TOTAL_ELEMENTS = 8;
 
-    private static readonly List<Element> ALL_ELEMENTS = new List<Element> { Element.FIRE, Element.LIGHT, Element.METAL, Element.WATER, Element.WIND, Element.PLANT, Element.DARK };
+    private static readonly List<Element> ALL_ELEMENTS = new List<Element> { Element.FIRE, Element.LIGHT, Element.METAL, Element.WATER, Element.AIR, Element.PLANT, Element.DARK };
 
     public static List<Element> GetAllElements() {
         return new List<Element>(ALL_ELEMENTS);
@@ -132,5 +132,9 @@ public static class ElementUtils {
 
     public static Color GetColor(Element element) {
         return ELEMENT_COLORS[(int) element];
+    }
+
+    public static char Letter(this Element element) {
+        return "*FLMWAPD"[(int) element];
     }
 }

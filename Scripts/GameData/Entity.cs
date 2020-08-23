@@ -54,9 +54,9 @@ public class Entity : Resource {
 
     /*** Skills ***/
     // TODO: Move in actors / character class
-    [Export] public Skill skillWalk = Skill.Load("walk");
-    [Export] public Skill skill1 = Skill.Load("teleport");
-    [Export] public Skill skill2 = Skill.Load("point");
+    [Export] public Skill skillWalk = SkillHandler.WALK;
+    [Export] public Skill skill1;
+    [Export] public Skill skill2;
     [Export] public Skill skill3;
     [Export] public Skill skillSpecial = null;
 
@@ -128,6 +128,7 @@ public class Entity : Resource {
         } else {
             this.health = maxHealth;
         }
+        SkillHandler.FillSkills(this);
     }
 
     [Signal] public delegate void health_modified(int new_health, int delta);

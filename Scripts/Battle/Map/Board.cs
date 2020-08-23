@@ -7,7 +7,7 @@ namespace Combat {
         public static int TILE_WIDTH = 32;
         public static int TILE_HEIGHT = 24;
 
-        private Tile[] tiles = null;
+        public Tile[] tiles { get; private set; } = null;
 
         [Export] public int width;
 

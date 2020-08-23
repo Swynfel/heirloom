@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Heal.cs" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+minRange = 0
+maxRange = 4
+constraint = 1
+areaConstraint = 0
+areaRange = 0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+heal = 6
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+name = "Heal Wave"
+element = 0
+icon = 6
+area = SubResource( 1 )
+effect = SubResource( 2 )
+template = "*"
+tags = "heal"
+description = "Heal a single ally for 6"

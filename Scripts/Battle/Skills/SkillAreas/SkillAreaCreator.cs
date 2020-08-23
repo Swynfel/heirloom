@@ -5,9 +5,9 @@ using Godot;
 
 namespace Combat {
     public enum Constraint {
-        SQUARE,
-        DIAMOND,
-        PLUS,
+        SQUARE, // SQUARE_CONE
+        DIAMOND, // DIAMOND_CONE
+        PLUS, // LINE_CONE
         CROSS,
     }
     public abstract class SkillAreaCreator : Resource {

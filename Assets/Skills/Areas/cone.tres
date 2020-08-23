@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Cone.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+minRange = 1
+maxRange = 4
+constraint = 0

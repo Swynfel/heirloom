@@ -1,8 +1,8 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
-[ext_resource path="res://Assets/Skills/Effects/damage.tres" type="Resource" id=3]
+[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Damage.cs" type="Script" id=3]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -12,14 +12,18 @@ constraint = 1
 areaConstraint = 0
 areaRange = 0
 
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+damage = 5
+
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Point"
-element = 1
-icon = 8
+name = "Shot"
+element = 0
+icon = 11
 area = SubResource( 1 )
-effect = ExtResource( 3 )
-template = null
-tags = null
-description = null
+effect = SubResource( 2 )
+template = "*"
+tags = "middle"
+description = "Shoot an enemy in middle range"

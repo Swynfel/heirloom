@@ -45,6 +45,32 @@ namespace Combat {
             }
         }
 
+        // TODO: Very dirty
+        public static IEnumerable<Tile> AreaOf(Tile center, int distance, Constraint constraint) {
+            if (distance == 0) {
+                return new Tile[] { center };
+            }
+            return AllTiles(t => DistanceBetween(center, constraint, t) <= distance);
+        }
+
+        public static Direction DirectionTo(this Tile center, Tile other) {
+            int x = other.x - center.x;
+            int y = other.y - center.y;
+            int X = Math.Abs(x);
+            int Y = Math.Abs(y);
+            if (X == Y) {
+                return Direction.NONE;
+            }
+            if (X > Y) {
+                return x > 0 ? Direction.LEFT : Direction.RIGHT;
+            }
+            return y > 0 ? Direction.UP : Direction.DOWN;
+        }
+
+        public static IEnumerable<Tile> AllTiles(Func<Tile, bool> predicate) {
+            return Battle.current.board.tiles.Where(predicate);
+        }
+
         private class ComparablePriorityElement : IComparer<(int, int, TileFlow)> {
             public int Compare((int, int, TileFlow) a, (int, int, TileFlow) b) {
                 return a.Item1.CompareTo(b.Item1);

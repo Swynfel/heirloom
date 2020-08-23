@@ -19,3 +19,6 @@ element = 0
 icon = 0
 area = SubResource( 1 )
 effect = ExtResource( 3 )
+template = ""
+tags = "special"
+description = "Walk along a path"

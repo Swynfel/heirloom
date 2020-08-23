@@ -35,4 +35,7 @@ public static class Global {
     public static T Random<T>(this T[] list) {
         return list[Global.rng.Next(0, list.Length)];
     }
+    public static T Random<T>(this IEnumerable<T> list) {
+        return list.ElementAt(Global.rng.Next(0, list.Count()));
+    }
 }

@@ -5,52 +5,65 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Target : SkillAreaCreator {
+        [Export] public Constraint areaConstraint = Constraint.SQUARE;
+        [Export] public int areaRange = 0;
+        //[Export] public bool friendlyFire = 0;
+
+        public Tile center;
         public Target() : base(maxRange: 4) { }
         public Target(int minRange = 1, int maxRange = 4, Constraint constraint = Constraint.SQUARE) : base(minRange, maxRange, constraint) { }
-        public Target(Target other) : base(other) { }
+        public Target(Target other) : base(other) {
+            areaConstraint = other.areaConstraint;
+            areaRange = other.areaRange;
+        }
         public override SkillAreaCreator Clone() {
             return new Target(this);
         }
 
         public override void Start(Piece launcher) {
             base.Start(launcher);
-            SetArea(launcher.on);
+            SetCenter(launcher.on);
         }
 
-        private void SetArea(Tile tile) {
-            if (area.Count > 0) {
-                TileFlow single = area[0];
-                area.Clear();
-                single.tile.ResetDisplay();
+        private void SetCenter(Tile tile) {
+            center = tile;
+            // Clear area
+            foreach (Tile oldTile in area.AllTiles()) {
+                oldTile.ResetDisplay();
             }
-            TileFlow flow = new TileFlow(tile);
-            area.Add(flow);
-            flow.UpdateDisplay(CanTarget(tile) ? 2 : 1);
+            area.Clear();
+            // Set area
+            foreach (Tile newTile in BoardUtils.AreaOf(center, areaRange, areaConstraint)) {
+                var flow = new TileFlow(newTile);
+                area.Add(flow);
+                flow.UpdateDisplay(1);
+            }
+            new TileFlow(center).UpdateDisplay(CanTarget(center) ? 2 : 1);
         }
 
         public override bool IsValid() {
-            return CanTarget(area[0].tile);
+            return CanTarget(center);
         }
 
         public override void Hover(Tile tile) {
             if (CanSelect(tile)) {
-                SetArea(tile);
+                SetCenter(tile);
             }
         }
 
         public override void Key(Direction direction) {
-            Tile tile = area.Last().tile.GetNeighbor(direction);
+            Tile tile = center.GetNeighbor(direction);
             if (CanSelect(tile)) {
-                SetArea(tile);
+                SetCenter(tile);
             }
         }
 
         public override void Undo() {
-            if (area[0].tile == launcher.on) {
+            if (center == launcher.on) {
                 ForceCancel();
                 return;
             }
-            SetArea(launcher.on);
+            SetCenter(launcher.on);
         }
     }
 }

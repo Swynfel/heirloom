@@ -9,6 +9,8 @@ script = ExtResource( 2 )
 minRange = 1
 maxRange = 2
 constraint = 0
+areaConstraint = 0
+areaRange = 0
 
 [resource]
 resource_local_to_scene = true
@@ -18,3 +20,6 @@ element = 7
 icon = 5
 area = SubResource( 1 )
 effect = ExtResource( 3 )
+template = null
+tags = null
+description = null

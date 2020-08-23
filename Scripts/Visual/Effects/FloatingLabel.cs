@@ -14,9 +14,13 @@ namespace Visual.Effects {
         }
 
         private static Color DAMAGE_COLOR = new Color(0.75f, 0, 0);
-        private static Color DAMAGE_OUTLINE_COLOR = new Color(1, 1, 1, 0.65f);
+        private static Color HEALING_COLOR = new Color(0, 0, 0);
+        private static Color OUTLINE_COLOR = new Color(1, 1, 1, 0.65f);
         public static void CreateDamage(Combat.Piece piece, int damage) {
-            Create(piece, new Vector2(0, -12), damage.ToString(), DAMAGE_COLOR, DAMAGE_OUTLINE_COLOR);
+            Create(piece, new Vector2(0, -12), damage.ToString(), DAMAGE_COLOR, OUTLINE_COLOR);
+        }
+        public static void CreateHealing(Combat.Piece piece, int healing) {
+            Create(piece, new Vector2(0, -12), "+" + healing.ToString(), HEALING_COLOR, OUTLINE_COLOR);
         }
 
         private Label label;
