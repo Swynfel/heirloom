@@ -8,6 +8,7 @@ public class History : Resource {
     public History() {
         past = new List<SeasonHistory>();
         now = null;
+        now = new SeasonHistory(Date.START);
     }
 
     public static void Append(string line) {

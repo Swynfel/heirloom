@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public class Entity : Resource {
@@ -14,6 +15,29 @@ public class Entity : Resource {
     public string MetaName() {
         return string.Format("[rem][url={1}]{0}[/url][/rem]", name, Game.data.family.Remember(this));
     }
+
+    public static string MetaNames(IEnumerable<Entity> entities) {
+        string previous = null;
+        string last = null;
+        foreach (Entity entity in entities) {
+            if (last != null) {
+                if (previous == null) {
+                    previous = last;
+                } else {
+                    previous += ", " + last;
+                }
+            }
+            last = entity.MetaName();
+        }
+        if (last == null) {
+            return "nobody";
+        }
+        if (previous == null) {
+            return last;
+        }
+        return previous + " and " + last;
+    }
+
     public ElementalAffinity affinity {
         get => ElementalAffinity.Deserialize(_affinity);
         set => _affinity = value.Serialize();
@@ -99,9 +123,15 @@ public class Entity : Resource {
     }
 
     [Signal] public delegate void health_modified(int new_health, int delta);
+    [Signal] public delegate void fallen();
     public void ModifyHealth(int delta) {
-        health += delta;
+        int newHealth = Math.Max(0, Math.Min(health + delta, maxHealth));
+        delta = newHealth - health;
+        health = newHealth;
         EmitSignal(nameof(health_modified), health, delta);
+        if (health == 0) {
+            EmitSignal(nameof(fallen));
+        }
     }
 
     private static string[] NAMES = { "Alice", "Bob", "Charles", "Denis", "Elise", "Felix", "Gwendoline", "Harry", "Isabelle", "John", "Karen", "Louis", "Mary" };

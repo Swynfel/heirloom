@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Godot;
 public class QuestReward : Resource {
 
@@ -56,5 +57,53 @@ public class QuestReward : Resource {
         if (sum < 100) return "a lot of";
         if (sum < 150) return "heaps of";
         return "countless";
+    }
+
+    public bool Special() {
+        switch (group) {
+            case Group.DUNGEON_CROWN:
+            case Group.DUNGEON_SHIELD:
+            case Group.VICTORY:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public Riches Generate() {
+        int lootLeft = intensity + Global.rng.Next(0, intensity / 3);
+        bool dungeonTreasureBoost = group == Group.DUNGEON;
+        int treasureLikeliness = intensity;
+        if (dungeonTreasureBoost) {
+            treasureLikeliness += treasureLikeliness / 2;
+        }
+        // Items
+        List<Item> items = new List<Item>();
+        while (lootLeft > 0 && treasureLikeliness > 0) {
+            if (dungeonTreasureBoost || Global.rng.Next(0, 100) < intensity) {
+                dungeonTreasureBoost = false;
+                Item treasure = Item.VASE; // TODO: Randomly generate
+                if (treasure.estimatedPrice > lootLeft) {
+                    break;
+                }
+                treasureLikeliness -= 50;
+                lootLeft -= treasure.estimatedPrice / 2;
+            } else {
+                break;
+            }
+        }
+        // Gold and Food
+        int gold = 0;
+        int food = 0;
+        if (group == Group.FOOD_GOLD) {
+            float frac = 0.3f + 0.5f * (float) Global.rng.NextDouble();
+            gold = (int) (lootLeft * frac);
+            food = lootLeft - gold;
+        } else if (group == Group.FOOD) {
+            food = lootLeft;
+        } else {
+            gold = lootLeft;
+        }
+        return new Riches(gold, food, items);
     }
 }

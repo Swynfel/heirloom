@@ -7,7 +7,10 @@ namespace UI {
     public class Outcome : CanvasLayer {
 
         public static Outcome instance { get; private set; }
-        public Label title;
+        private Label title;
+        public void SetTitle(string title) {
+            this.title.Text = title;
+        }
 
         private Control _content;
         private Control content {
@@ -52,7 +55,6 @@ namespace UI {
         }
 
         // Couple
-
         private Visual.Tables.CharacterTable coupleLeft;
         private Visual.Tables.CharacterTable coupleRight;
         public void SetCouple(Entity left, Entity right) {
@@ -62,8 +64,6 @@ namespace UI {
         }
 
         // Birth or Adoption
-
-
         private Visual.Icons.CharacterIcon boaLeft;
         private Visual.Tables.CharacterTable boaMiddle;
         private Visual.Icons.CharacterIcon boaRight;
@@ -84,15 +84,22 @@ namespace UI {
         }
 
         // Quests
-
         private Visual.Tables.QuestTable questTable;
         public void SetQuest(Quest quest) {
             OpenHead(Head.QUESTS);
             questTable.SetQuest(quest);
         }
 
-        // Buttons
+        // Description
+        private SmartText smartDescription;
+        public void ClearDescription() {
+            smartDescription.Clear();
+        }
+        public void AddDescription(string s) {
+            smartDescription.AppendBbcode(s);
+        }
 
+        // Buttons
         private Button buttonValidate;
         private Button buttonNo;
         private Button buttonThird;
@@ -133,6 +140,7 @@ namespace UI {
 
         public override void _Ready() {
             instance = this;
+            title = N<Label>("Title");
             head = N<TabContainer>("Head");
             characterList = N<Control>("Head/CharacterList/List");
             coupleLeft = N<Visual.Tables.CharacterTable>("Head/CharacterCouple/Left");
@@ -141,12 +149,15 @@ namespace UI {
             boaMiddle = N<Visual.Tables.CharacterTable>("Head/BirthOrAdoption/Middle");
             boaRight = N<Visual.Icons.CharacterIcon>("Head/BirthOrAdoption/Right");
             questTable = N<Visual.Tables.QuestTable>("Head/Quests/QuestTable");
+            smartDescription = N<SmartText>("Description");
             buttonValidate = N<Button>("Buttons/Validate");
             buttonNo = N<Button>("Buttons/No");
             buttonThird = N<Button>("Buttons/Third");
             buttonValidate.Connect("pressed", this, nameof(pressed), Global.ArrayFrom(ButtonOutcome.VALIDATE));
             buttonNo.Connect("pressed", this, nameof(pressed), Global.ArrayFrom(ButtonOutcome.NO));
             buttonThird.Connect("pressed", this, nameof(pressed), Global.ArrayFrom(ButtonOutcome.THIRD));
+
+            OutcomeProcess.Process();
         }
     }
 }
