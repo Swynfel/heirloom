@@ -7,7 +7,7 @@ The game uses the [Godot](https://godotengine.org/) game engine.
 
 The repo uses [git lfs](https://git-lfs.github.com/) to store images and sounds, so start by installing it on your computer. Then you can clone the repository with
 ```
-git lfs clone git@github.com:TeamCourgette/my-little-roguelike.git
+git lfs clone git@github.com:Swynfel/heirloom.git
 ```
 
 You need to install the [Godot 3.2.2, Mono Version](https://godotengine.org/download/). It requires MSBuild, so make sure to follow all the steps on the page.
