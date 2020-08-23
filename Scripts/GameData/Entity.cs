@@ -141,9 +141,7 @@ public class Entity : Resource {
             EmitSignal(nameof(fallen));
         }
     }
-
-    private static string[] NAMES = { "Alice", "Bob", "Charles", "Denis", "Elise", "Felix", "Gwendoline", "Harry", "Isabelle", "John", "Karen", "Louis", "Mary" };
     public static string RandomName() {
-        return NAMES[Global.rng.Next(0, NAMES.Length)];
+        return NameGenerator.RandomName();
     }
 }
