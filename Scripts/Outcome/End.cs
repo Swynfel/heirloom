@@ -8,6 +8,7 @@ using P = OutcomeProcess;
 namespace OutcomeProcesses {
     public static class End {
         public static async Task Process() {
+            await Food();
             await Age();
             CleanJobs();
         }
@@ -126,6 +127,63 @@ namespace OutcomeProcesses {
             }
             P.ui.SetButtons("Continue");
             await P.ui.ButtonPressed();
+        }
+
+        private static async Task Food() {
+            int food = Game.data.family.FoodConsumption();
+            if (Game.data.inventory.food >= food) {
+                Game.data.inventory.food -= food;
+                P.ui.NoHead();
+                if (Game.data.inventory.food >= food) {
+                    P.ui.SetTitle("Plenty of food");
+                    P.ui.SetDescription(string.Format("The family consumes {0} units of food. There is still plenty left.", food));
+                } else {
+                    P.ui.SetTitle("Low on food...");
+                    P.ui.SetDescription(string.Format("The family consumes {0} units of food. There might be not enough food for next time, be sure to send to people to hunt.", food));
+                }
+                P.ui.SetButtons("Continue");
+                await P.ui.ButtonPressed();
+                return;
+            }
+
+            P.ui.SetTitle("We are starving...");
+            P.ui.NoHead();
+            P.ui.SetDescription(string.Format("There is no food left... {0} would have been required, but we had only {1}.\n", food, Game.data.inventory.food));
+
+            int missing = food - Game.data.inventory.food;
+            Game.data.inventory.food = 0;
+
+            List<Entity> starved = new List<Entity>();
+            List<Entity> sick = new List<Entity>();
+
+            foreach (Entity e in Family.familyMembers.RandomOrder()) {
+                e.maxHealth -= 2;
+                e.ModifyHealth(-1);
+                if (e.maxHealth <= 0) {
+                    starved.Add(e);
+                    Game.data.family.Die(e);
+                } else {
+                    sick.Add(e);
+                }
+                missing -= Family.FoodConsumption(e);
+                if (missing <= 0) {
+                    break;
+                }
+            }
+            string history = "";
+            if (sick.Count > 0) {
+                string sickStr = string.Format("{0} {1} sick and lost 2 max health.\n", Entity.MetaNames(sick), sick.Count <= 1 ? "is" : "are");
+                history += sickStr;
+                P.ui.AddDescription(sickStr);
+            }
+            if (starved.Count > 0) {
+                string starvedStr = string.Format("{0} starved.\n", Entity.MetaNames(starved));
+                history += starvedStr;
+                P.ui.AddDescription(starvedStr);
+            }
+            P.ui.SetButtons("Continue");
+            await P.ui.ButtonPressed();
+            return;
         }
 
         public static void CleanJobs() {

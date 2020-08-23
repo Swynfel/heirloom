@@ -45,6 +45,13 @@ public static class Global {
         return r;
     }
 
+    public static IEnumerable<T> RandomOrder<T>(this IEnumerable<T> list) {
+        List<T> elements = new List<T>(list);
+        while (elements.Count > 0) {
+            yield return elements.PopRandom();
+        }
+    }
+
     public static string FancyJoin(this IEnumerable<string> list, string none = "") {
         string previous = null;
         string last = null;

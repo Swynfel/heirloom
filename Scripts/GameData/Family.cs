@@ -45,25 +45,25 @@ public class Family : Resource {
     public int FoodConsumption() {
         int food = 0;
         foreach (Entity e in members) {
-            switch (e.ageGroup) {
-                case Date.AgeGroup.BABY:
-                    food += 2;
-                    break;
-                case Date.AgeGroup.CHILD:
-                    food += 3;
-                    break;
-                case Date.AgeGroup.TEEN:
-                    food += 5;
-                    break;
-                case Date.AgeGroup.YOUNG_ADULT:
-                case Date.AgeGroup.ADULT:
-                    food += 4;
-                    break;
-                case Date.AgeGroup.SENIOR:
-                    food += 3;
-                    break;
-            }
+            food += FoodConsumption(e);
         }
         return food;
+    }
+    public static int FoodConsumption(Entity e) {
+        switch (e.ageGroup) {
+            case Date.AgeGroup.BABY:
+                return 2;
+            case Date.AgeGroup.CHILD:
+                return 3;
+            case Date.AgeGroup.TEEN:
+                return 5;
+            case Date.AgeGroup.YOUNG_ADULT:
+            case Date.AgeGroup.ADULT:
+                return 4;
+            case Date.AgeGroup.SENIOR:
+                return 3;
+            default:
+                return 0;
+        }
     }
 }
