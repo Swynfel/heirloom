@@ -25,5 +25,28 @@ namespace Combat.SkillEffects {
                 Visual.Effects.FloatingLabel.CreateHealing(piece, final_healing);
             }
         }
+
+        public override float Heuristic(Element element, Piece launcher, SkillArea area) {
+            float heuristic = 0f;
+            foreach (Piece piece in area.AllPieces()) {
+                if (piece.entity.alignment != launcher.entity.alignment) {
+                    continue;
+                }
+                float modifier = 1f;
+                switch (piece.entity.affinity[element]) {
+                    case (ElementAffinity.RESISTANT):
+                        modifier = 2f;
+                        break;
+                    default:
+                        modifier = 1f;
+                        break;
+                }
+                float final_floating_heal = modifier * heal;
+                int final_healing = (int) final_floating_heal;
+                int h = piece.entity.ModifyHealthSimulation(final_healing);
+                heuristic += (piece.entity.alignment == launcher.entity.alignment) ? h : -h;
+            }
+            return heuristic;
+        }
     }
 }

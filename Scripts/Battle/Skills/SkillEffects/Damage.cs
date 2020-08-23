@@ -29,5 +29,31 @@ namespace Combat.SkillEffects {
                 Visual.Effects.FloatingLabel.CreateDamage(piece, final_damage);
             }
         }
+
+        public override float Heuristic(Element element, Piece launcher, SkillArea area) {
+            float heuristic = 0f;
+            foreach (Piece piece in area.AllPieces()) {
+                if (noFriendlyFire && piece.entity.alignment == launcher.entity.alignment) {
+                    continue;
+                }
+                float modifier = 1f;
+                switch (piece.entity.affinity[element]) {
+                    case (ElementAffinity.IMMUNE):
+                        modifier = 0f;
+                        break;
+                    case (ElementAffinity.RESISTANT):
+                        modifier = 0.5f;
+                        break;
+                    case (ElementAffinity.WEAK):
+                        modifier = 2f;
+                        break;
+                }
+                float final_floating_damage = -modifier * damage;
+                int final_damage = (int) final_floating_damage;
+                int h = piece.entity.ModifyHealthSimulation(final_damage);
+                heuristic += (piece.entity.alignment == launcher.entity.alignment) ? 2 * h : -h;
+            }
+            return heuristic;
+        }
     }
 }

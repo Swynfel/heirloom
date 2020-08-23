@@ -90,6 +90,13 @@ namespace Combat {
             }
             public static ComparablePriorityElement comparer = new ComparablePriorityElement();
         }
+
+        private class ComparablePriorityElementB : IComparer<(int, Tile)> {
+            public int Compare((int, Tile) a, (int, Tile) b) {
+                return a.Item1.CompareTo(b.Item1);
+            }
+            public static ComparablePriorityElementB comparer = new ComparablePriorityElementB();
+        }
         public static List<TileFlow> ShortestPath(Tile from, Tile to, int maxLength = int.MaxValue, Func<Tile, bool> valid = null) {
             TileFlow toTileFlow = new TileFlow(to);
             if (from == to) {
@@ -136,6 +143,36 @@ namespace Combat {
             }
             // Cannot be reached
             return null;
+        }
+
+        public static Dictionary<Tile, List<TileFlow>> AllReachableTiles(Tile from, int maxLength = int.MaxValue, Func<Tile, bool> valid = null) {
+            List<(int, Tile)> priorityQueue = new List<(int, Tile)>();
+            Dictionary<Tile, List<TileFlow>> encountered = new Dictionary<Tile, List<TileFlow>>();
+            priorityQueue.Add((0, from));
+            encountered[from] = new List<TileFlow> { new TileFlow(from) };
+            while (priorityQueue.Count > 0) {
+                var first = priorityQueue[0];
+                int dist = first.Item1;
+                if (dist >= maxLength) {
+                    break;
+                }
+                Tile head = first.Item2;
+                priorityQueue.RemoveAt(0);
+                foreach (TileFlow neighbor in head.GetNeighborOutFlows()) {
+                    if (!encountered.ContainsKey(neighbor.tile) && (valid == null || valid(neighbor.tile))) {
+                        List<TileFlow> neighborPath = new List<TileFlow>(encountered[head]);
+                        neighborPath.Add(new TileFlow(head, neighbor.direction));
+                        encountered.Add(neighbor.tile, neighborPath);
+                        var item = (dist + 1, neighbor.tile);
+                        int index = priorityQueue.BinarySearch(item, ComparablePriorityElementB.comparer);
+                        if (index < 0) {
+                            index = -index - 1;
+                        }
+                        priorityQueue.Insert(index, item);
+                    }
+                }
+            }
+            return encountered;
         }
     }
     public struct TileFlow {

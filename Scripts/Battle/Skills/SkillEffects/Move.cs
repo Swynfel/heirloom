@@ -9,5 +9,9 @@ namespace Combat.SkillEffects {
         public override void Apply(Element element, Piece launcher, SkillArea area) {
             launcher.MoveOn(area.AllTiles().Last());
         }
+
+        public override float Heuristic(Element element, Piece launcher, SkillArea area) {
+            return 0f;
+        }
     }
 }

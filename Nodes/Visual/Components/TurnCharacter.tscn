@@ -7,7 +7,6 @@
 [ext_resource path="res://Nodes/Visual/Components/HealthBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Visual/Icons/TurnCharacter.cs" type="Script" id=7]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 2 )

@@ -4,6 +4,8 @@ using Godot;
 
 namespace Combat {
     public class SkillArea : List<TileFlow> {
+        public SkillArea() : base() { }
+        public SkillArea(IEnumerable<TileFlow> tileFlows) : base(tileFlows) { }
         internal IEnumerable<Tile> AllTiles() {
             foreach (TileFlow flow in this) {
                 yield return flow.tile;

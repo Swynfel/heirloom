@@ -71,8 +71,7 @@ namespace UI {
                 skillPanel.Load(piece.entity);
             } else {
                 SwitchState(BattleState.OBSERVE);
-                // HACK
-                Global.battle.NextTurn();
+                new EnemyAI(piece).Play(); // TODO: Make nice async stuff
             }
         }
     }

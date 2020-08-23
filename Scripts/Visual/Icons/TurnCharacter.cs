@@ -21,9 +21,15 @@ namespace Visual.Icons {
                 setup = true;
                 name = GetNode<Label>("Left/NameHolder/Name");
                 icon = GetNode<Control>("Right/Icon");
+                GetNode<Button>("Right").Connect("pressed", this, nameof(OpenCharacter));
                 health = GetNode<HealthBar>("Left/HealthHolder/HealthBar");
                 affinity = GetNode<ElementalAffinityIcon>("Left/Elements");
             }
+        }
+
+        private Entity entity;
+        public void OpenCharacter() {
+            MetaPopup.instance.OpenEntity(entity);
         }
 
         public override void _Ready() {
@@ -31,6 +37,7 @@ namespace Visual.Icons {
         }
         public void Set(Combat.Piece piece) {
             TrySetup();
+            entity = piece.entity;
             name.Text = piece.entity.name;
             icon.QueueFreeChildren();
             Node2D clonedDisplay = (Node2D) piece.GetNode("Display").Duplicate();

@@ -42,6 +42,14 @@ namespace Combat.SkillAreas {
             new TileFlow(center).UpdateDisplay(CanTarget(center) ? 2 : 1, valid ? Tile.TileColor.VALID : Tile.TileColor.ERROR);
         }
 
+        public SkillArea SkillAreaIfTarget(Tile tile) {
+            if (CanSelect(tile)) {
+                return new SkillArea(BoardUtils.AreaOf(tile, areaRange, areaConstraint).Select(t => new TileFlow(t)));
+            } else {
+                return null;
+            }
+        }
+
         public override bool IsValid() {
             return CanTarget(center);
         }

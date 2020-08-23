@@ -35,6 +35,7 @@ namespace Combat {
             }
             this.battle = battle;
             this.entity = entity;
+            GetNode<Visual.CharacterAppearance>("Display/Character").data = entity.appearance;
             battle.AddChild(this);
             entity.Connect(nameof(Entity.fallen), this, nameof(Delete));
             battle.pieces.Add(this);

@@ -17,7 +17,7 @@ namespace Combat {
         [Export] public int maxRange;
         [Export] public Constraint constraint;
 
-        protected Piece launcher;
+        public Piece launcher;
 
         public SkillAreaCreator(int minRange = 1, int maxRange = 3, Constraint constraint = Constraint.SQUARE) {
             this.minRange = minRange;
@@ -40,7 +40,7 @@ namespace Combat {
             }
         }
 
-        protected bool CanSelect(Tile tile) {
+        public bool CanSelect(Tile tile) {
             return BoardUtils.DistanceBetween(launcher.on, constraint, tile) <= maxRange;
         }
 
@@ -48,7 +48,6 @@ namespace Combat {
             int distance = BoardUtils.DistanceBetween(launcher.on, constraint, tile);
             return distance <= maxRange && distance >= minRange;
         }
-
 
         // Override
         public virtual SkillArea Done() {

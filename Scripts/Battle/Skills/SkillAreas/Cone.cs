@@ -41,6 +41,16 @@ namespace Combat.SkillAreas {
                 flow.UpdateDisplay(2, Tile.TileColor.VALID);
             }
         }
+        public SkillArea SkillAreaIfTarget(Direction direction) {
+            (int x, int y) = launcher.on.GetNeighborCoords(direction.Opposite());
+            return new SkillArea(BoardUtils.AllTiles(t => {
+                if (BoardUtils.DirectionTo(x, y, t) != direction) {
+                    return false;
+                }
+                float distance = BoardUtils.DistanceBetween(launcher.on, constraint, t);
+                return minRange <= distance && distance <= maxRange;
+            }).Select(t => new TileFlow(t, direction)));
+        }
 
         public override void Hover(Tile tile) {
             Direction dir = launcher.on.DirectionTo(tile);

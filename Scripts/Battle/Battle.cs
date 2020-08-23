@@ -27,6 +27,10 @@ namespace Combat {
 
         public override void _Process(float delta) {
             if (pendingNextTurn && !Game.busy) {
+                pendingNextTurnTimer -= delta;
+                if (pendingNextTurnTimer > 0) {
+                    return;
+                }
                 pendingNextTurn = false;
                 int i = actors.IndexOf(currentActor);
                 TurnOf(actors[(i + 1) % actors.Count]);
@@ -41,9 +45,11 @@ namespace Combat {
         }
 
         private bool pendingNextTurn = false;
+        private float pendingNextTurnTimer = 0.5f;
 
         public void NextTurn() {
             pendingNextTurn = true;
+            pendingNextTurnTimer = 0.5f;
         }
 
         public void StartBattle() {

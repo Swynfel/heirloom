@@ -142,6 +142,11 @@ public class Entity : Resource {
             EmitSignal(nameof(fallen));
         }
     }
+    public int ModifyHealthSimulation(int delta) {
+        int newHealth = Math.Max(0, Math.Min(health + delta, maxHealth));
+        delta = newHealth - health;
+        return delta;
+    }
     public static string RandomName() {
         return NameGenerator.RandomName();
     }
