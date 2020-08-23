@@ -53,6 +53,12 @@ public class MetaPopup : CenterContainer {
         Open();
     }
 
+    public void OpenSkill(Skill skill) {
+        Tabs.CurrentTab = 2;
+        Tabs.GetNode<Visual.Tables.SkillTable>("SkillTable").SetSkill(skill);
+        Open();
+    }
+
     private void Open() {
         GD.Print("OPEN");
         Popup.PopupCentered();

@@ -3,7 +3,7 @@ using Combat;
 using Godot;
 
 namespace UI {
-    public class LauncherPanel : Panel {
+    public class LauncherPanel : Control {
 
         public Skill skill { get; private set; }
         public Combat.SkillAreaCreator area;
@@ -17,6 +17,7 @@ namespace UI {
                 Global.board.Connect(nameof(Board.tile_hovered), this, nameof(on_TileHovered));
                 connectedToBoard = true;
             }
+            GetNode<Visual.Tables.SkillTable>("SkillTable").SetSkill(skill);
             this.skill = skill;
             area = skill.area.Clone();
             launcher = Global.battle.currentActor;

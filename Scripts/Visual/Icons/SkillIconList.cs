@@ -4,11 +4,19 @@ using Godot;
 
 namespace Visual.Icons {
     public class SkillIconList : HBoxContainer {
+
+        [Export] public bool lookable = true;
         public void SetSkills(IEnumerable<Skill> skills) {
             this.QueueFreeChildren();
             foreach (Skill s in skills) {
                 if (s != null) {
-                    AddChild(SkillButton.CreateCondensed(s));
+                    SkillButton b = SkillButton.CreateCondensed(s);
+                    AddChild(b);
+                    if (lookable) {
+                        b.Connect("pressed", this, nameof(Open), Global.ArrayFrom(s));
+                    } else {
+                        b.MouseFilter = MouseFilterEnum.Ignore;
+                    }
                 }
             }
         }
@@ -20,6 +28,10 @@ namespace Visual.Icons {
         public void SetTalents(Entity entity) {
             // TODO
             this.QueueFreeChildren();
+        }
+
+        public void Open(Skill skill) {
+            MetaPopup.instance.OpenSkill(skill);
         }
     }
 }

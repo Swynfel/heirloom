@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/Visual/Components/CharacterTableBig.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Nodes/Visual/Components/SkillTable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/UI/MetaPopup.cs" type="Script" id=4]
 [ext_resource path="res://Nodes/Visual/Components/ItemTable.tscn" type="PackedScene" id=5]
 
@@ -32,8 +33,8 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 7
+size_flags_vertical = 7
 tabs_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -55,3 +56,12 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
+noSelector = true
+
+[node name="SkillTable" parent="MetaPopup/Popup/Container" instance=ExtResource( 3 )]
+visible = false
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 240, 72 )

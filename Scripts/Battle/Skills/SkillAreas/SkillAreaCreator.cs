@@ -9,6 +9,7 @@ namespace Combat {
         DIAMOND, // DIAMOND_CONE
         PLUS, // LINE_CONE
         CROSS,
+        PATH,
     }
     public abstract class SkillAreaCreator : Resource {
         protected SkillArea area;
