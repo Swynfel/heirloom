@@ -17,10 +17,25 @@ public static class SkillHandler {
     };
 
     public static Skill FindRandomSkillFor(Entity entity) {
-        return RandomSkillOut(entity.coreSkills.Where(s => s != null).Select(s => s.element));
+        Element[] elements = entity.coreSkills.Where(s => s != null).Select(s => s.element).ToArray();
+        while (true) {
+            Skill skill = RandomSkillOut(elements);
+            bool fail = false;
+            foreach (Skill coreSkill in entity.coreSkills) {
+                if (coreSkill != null && !AreCompatible(skill, coreSkill)) {
+                    fail = true;
+                }
+            }
+            if (!fail) {
+                return skill;
+            }
+        }
     }
 
     public static void FillSkills(Entity entity) {
+        entity.skill1 = null;
+        entity.skill2 = null;
+        entity.skill3 = null;
         entity.skill1 = FindRandomSkillFor(entity);
         entity.skill2 = FindRandomSkillFor(entity);
         entity.skill3 = FindRandomSkillFor(entity);
@@ -66,6 +81,20 @@ public static class SkillHandler {
             }
             skills.Remove(template);
         }
+    }
+
+    public static bool AreCompatible(Skill a, Skill b) {
+        if (a.element == b.element && a.element != Element.NONE) {
+            return false;
+        }
+        // Hack to avoid identical
+        if (a.description == b.description && a.description != "") {
+            return false;
+        }
+        // if (a.tags == b.tags && a.tags !="") {
+        //     return false;
+        // }
+        return true;
     }
 
     public static bool CheckTemplateOut(Skill template, Element e, string[] tags) {

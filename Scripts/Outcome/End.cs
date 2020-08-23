@@ -15,7 +15,11 @@ namespace OutcomeProcesses {
         }
 
         private static void Crown() {
-            Entity crownHolder = Family.familyMembers.First(e => e.heldItem.special == "crown");
+
+            GD.Print("AAA");
+            Entity crownHolder = Family.familyMembers.FirstOrDefault(e => e?.heldItem?.special == "crown");
+
+            GD.Print("AAA");
             if (crownHolder != null) {
                 crownHolder.maxHealth++;
                 crownHolder.ModifyHealth(1);

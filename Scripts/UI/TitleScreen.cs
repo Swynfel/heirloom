@@ -17,7 +17,7 @@ public class TitleScreen : CanvasLayer {
 
     public void on_New() {
         GameData.New();
-        GD.Print("TODO: Start Game");
+        GetTree().ChangeScene("Scenes/Village.tscn");
     }
 
     public void on_Load() {

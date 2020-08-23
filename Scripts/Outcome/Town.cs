@@ -13,11 +13,11 @@ namespace OutcomeProcesses {
             foreach (Entity e in Family.familyMembers) {
                 switch (e.Action()) {
                     case VillageAction.FIND_QUEST:
-                        await ActionLookForQuest(e);
+                        await ActionLookForDungeon(e); // ActionLookForQuest(e);
                         break;
-                    case VillageAction.FIND_DUNGEON:
-                        await ActionLookForDungeon(e);
-                        break;
+                    // case VillageAction.FIND_DUNGEON:
+                    //     await ActionLookForDungeon(e);
+                    //     break;
                     case VillageAction.WORK:
                         workers.Add(e);
                         break;
@@ -43,40 +43,40 @@ namespace OutcomeProcesses {
             }
         }
 
-        private static async Task ActionLookForQuest(Entity e) {
-            // TODO:[TALENT]
-            float x = (float) Global.rng.NextDouble();
-            Quest quest;
-            if (x < 0.1f) {
-                quest = null;
-                P.ui.SetTitle("No quest found...");
-                P.ui.NoHead();
-                P.ui.SetDescription(string.Format(
-                    "{0} didn't find any quest...", e.MetaName()
-                ));
-                P.ui.SetButtons("Continue");
-            } else if (x < 0.2f) {
-                quest = QuestGeneration.GenerateRandomDungeon(noRare: true);
-                P.ui.SetTitle("Dungeon found!");
-                P.ui.SetQuest(quest);
-                P.ui.SetDescription(string.Format(
-                    "{0} found a dungeon while looking for a quest!", e.MetaName()
-                ));
-                P.ui.SetButtons("Accept", "Decline");
-            } else {
-                quest = QuestGeneration.GenerateRandomQuest();
-                P.ui.SetTitle("Quest found!");
-                P.ui.SetQuest(quest);
-                P.ui.SetDescription(string.Format(
-                    "{0} found a quest!", e.MetaName()
-                ));
-                P.ui.SetButtons("Accept", "Decline");
-            }
-            var pressed = await P.ui.ButtonPressed();
-            if (quest != null && pressed.Yes()) {
-                AddLover(e, quest);
-            }
-        }
+        // private static async Task ActionLookForQuest(Entity e) {
+        //     // TODO:[TALENT]
+        //     float x = (float) Global.rng.NextDouble();
+        //     Quest quest;
+        //     if (x < 0.1f) {
+        //         quest = null;
+        //         P.ui.SetTitle("No quest found...");
+        //         P.ui.NoHead();
+        //         P.ui.SetDescription(string.Format(
+        //             "{0} didn't find any quest...", e.MetaName()
+        //         ));
+        //         P.ui.SetButtons("Continue");
+        //     } else if (x < 0.2f) {
+        //         quest = QuestGeneration.GenerateRandomDungeon(noRare: true);
+        //         P.ui.SetTitle("Dungeon found!");
+        //         P.ui.SetQuest(quest);
+        //         P.ui.SetDescription(string.Format(
+        //             "{0} found a dungeon while looking for a quest!", e.MetaName()
+        //         ));
+        //         P.ui.SetButtons("Accept", "Decline");
+        //     } else {
+        //         quest = QuestGeneration.GenerateRandomQuest();
+        //         P.ui.SetTitle("Quest found!");
+        //         P.ui.SetQuest(quest);
+        //         P.ui.SetDescription(string.Format(
+        //             "{0} found a quest!", e.MetaName()
+        //         ));
+        //         P.ui.SetButtons("Accept", "Decline");
+        //     }
+        //     var pressed = await P.ui.ButtonPressed();
+        //     if (quest != null && pressed.Yes()) {
+        //         AddLover(e, quest);
+        //     }
+        // }
 
         private static async Task ActionLookForDungeon(Entity e) {
             // TODO:[TALENT]
@@ -95,7 +95,7 @@ namespace OutcomeProcesses {
                 P.ui.SetTitle("Quest found!");
                 P.ui.SetQuest(quest);
                 P.ui.SetDescription(string.Format(
-                    "{0} found a quest while looking for a dungeon!", e.MetaName()
+                    "{0} found a quest!", e.MetaName()
                 ));
                 P.ui.SetButtons("Accept", "Decline");
             } else {
@@ -229,7 +229,7 @@ namespace OutcomeProcesses {
                 return;
             }
 
-            Entity potentialChild = new Entity(); // TODO: Child
+            Entity potentialChild = Entity.Orphan();
             int gold = 5 * Global.rng.Next(2, 7);
             P.ui.SetTitle("Visit at the Orphanage");
             P.ui.SetAdoption(e, potentialChild);
@@ -287,7 +287,7 @@ namespace OutcomeProcesses {
             if (x < 0.3f) {
                 return;
             }
-            Entity child = new Entity(); // TODO: Birth
+            Entity child = Entity.FromBirth(e, e.lover); // TODO: Birth
             P.ui.SetTitle("New member of the family!");
             P.ui.SetBirth(e, e.lover, child);
             P.ui.SetDescription(string.Format(

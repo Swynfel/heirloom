@@ -7,7 +7,7 @@ public enum VillageAction {
     REST,
     QUEST,
     FIND_QUEST,
-    FIND_DUNGEON,
+    // FIND_DUNGEON.
     WORK,
     HUNT,
     ORPHANAGE,
@@ -54,7 +54,8 @@ public static class VillageActionExtensions {
             VillageAction.QUEST,
             VillageAction.WORK,
             VillageAction.HUNT,
-            VillageAction.FIND_DUNGEON,
+            VillageAction.FIND_QUEST,
+            // VillageAction.FIND_DUNGEON,
             VillageAction.ORPHANAGE
         };
         if (entity.lover == null) {
@@ -85,8 +86,8 @@ public static class VillageActionExtensions {
                 return ("Quest", "busy adventuring");
             case VillageAction.FIND_QUEST:
                 return ("Find Quest", "looks for a quest");
-            case VillageAction.FIND_DUNGEON:
-                return ("Find Dungeon", "looks for a dungeon containing rare items");
+            // case VillageAction.FIND_DUNGEON:
+            //     return ("Find Dungeon", "looks for a dungeon containing rare items");
             case VillageAction.WORK:
                 return ("Work", "gets some money");
             case VillageAction.HUNT:

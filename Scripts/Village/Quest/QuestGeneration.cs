@@ -1,7 +1,7 @@
 public static class QuestGeneration {
 
     public static Quest GenerateRandomQuest() {
-        return GenerateRandomDungeon(noRare: true);
+        return GenerateRandomDungeon();
     }
 
     // TODO: Create special quests

@@ -102,7 +102,7 @@ public class Entity : Resource {
         if (birth.HasValue) {
             this.birth = birth.Value;
         } else {
-            Date d = Game.data?.date ?? new Date(0, 0);
+            Date d = Game.data?.date ?? Date.START;
             d = d.Plus(Global.rng.Next(-16, +1));
             this.birth = d;
         }
@@ -112,6 +112,50 @@ public class Entity : Resource {
             this.health = maxHealth;
         }
         SkillHandler.FillSkills(this);
+    }
+
+    public void SetAge(int age) {
+        birth = Game.data.date.Plus(-age);
+        maxHealth = HealthAtAge(Date.Age(age));
+        health = maxHealth;
+    }
+
+    public static Entity FromBirth(Entity parentA, Entity parentB) {
+        Entity baby = new Entity();
+        baby.SetAge(0);
+        baby.skill1 = parentA.skills.Random();
+        baby.skill2 = parentB.skills.Where(s => SkillHandler.AreCompatible(s, baby.skill1)).Random();
+        baby.skill3 = null;
+        baby.skill3 = SkillHandler.FindRandomSkillFor(baby);
+        return baby;
+    }
+
+    public static Entity Orphan() {
+        Entity orphan = new Entity();
+        orphan.SetAge(Global.rng.Next(1, 4));
+        return orphan;
+    }
+
+    public static int HealthAtAge(Date.AgeGroup age, int shake = 3) {
+        if (shake > 0) {
+            return HealthAtAge(age, 0) + Global.rng.Next(-shake, shake + 1);
+        }
+        switch (age) {
+            case Date.AgeGroup.BABY:
+                return 5;
+            case Date.AgeGroup.CHILD:
+                return 9;
+            case Date.AgeGroup.TEEN:
+                return 13;
+            case Date.AgeGroup.YOUNG_ADULT:
+                return 15;
+            case Date.AgeGroup.ADULT:
+                return 14;
+            case Date.AgeGroup.SENIOR:
+                return 10;
+            default:
+                return 5;
+        }
     }
 
     [Signal] public delegate void health_modified(int new_health, int delta);

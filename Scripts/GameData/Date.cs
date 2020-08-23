@@ -47,7 +47,7 @@ public struct Date {
         return SeasonsPassed() - date.SeasonsPassed();
     }
     public static int Delta(Date date) {
-        return Game.data.date.Minus(date);
+        return (Game.data?.date ?? Date.START).Minus(date);
     }
 
     public override string ToString() {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class Family : Resource {
@@ -15,8 +16,13 @@ public class Family : Resource {
     }
 
     public void Add(Entity entity) {
+        entity.alignment = Combat.Alignment.FRIENDLY;
         members.Add(entity);
-        alive.Add(entity);
+        int index = alive.Select(e => -e.age).ToList().BinarySearch(-entity.age);
+        if (index < 0) {
+            index = -index - 1;
+        }
+        alive.Insert(index, entity);
     }
 
     public void Die(Entity entity) {
@@ -69,8 +75,11 @@ public class Family : Resource {
 
     public static Family StartingFamily() {
         Entity eldest = new Entity();
+        eldest.SetAge(9);
         Entity middle = new Entity();
+        middle.SetAge(7);
         Entity youngest = new Entity();
+        youngest.SetAge(5);
         return new Family(new Entity[] { eldest, middle, youngest });
     }
 }

@@ -19,7 +19,7 @@ namespace UI {
             questList.QueueFreeChildren();
             foreach (Quest quest in Game.data.quests) {
                 Button b = new Button();
-                b.Text = quest.name;
+                b.Text = quest?.name ?? "";
                 b.Connect("pressed", this, nameof(OpenQuest), Global.ArrayFrom(quest));
                 // b.Connect("focus_entered", this, nameof(OpenQuest), Global.ArrayFrom(i));
                 questList.AddChild(b);
