@@ -48,6 +48,7 @@ public class GameData : Resource {
         };
         data.inventory = new Riches(5, 20, new List<Item> { Item.ARTEFACT_SWORD
         });
+        History.Append(string.Format("{0} have been passed the {1}.", Entity.MetaNames(data.family.alive), Item.ARTEFACT_SWORD.MetaName()));
         return data;
     }
     public Error Save() {

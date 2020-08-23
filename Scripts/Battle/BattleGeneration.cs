@@ -62,8 +62,6 @@ public class BattleGeneration : Resource {
         }
 
         foreach (Entity enemy in RandomEnemies(count)) {
-            enemy.actor = true;
-            enemy.alignment = Alignment.HOSTILE;
             Tile tile = tiles.PopRandom();
             foreach (Tile n in tile.GetNeighbors()) {
                 tiles.Remove(n);
@@ -74,7 +72,11 @@ public class BattleGeneration : Resource {
 
     private static IEnumerable<Entity> RandomEnemies(int memberCount) {
         while (memberCount > 0) {
-            yield return new Entity();
+            Entity e = new Entity();
+            e.actor = true;
+            e.alignment = Alignment.HOSTILE;
+            e.SetAge(Global.rng.Next(7, 12));
+            yield return e;
             memberCount--;
         }
     }

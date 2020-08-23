@@ -154,7 +154,7 @@ namespace OutcomeProcesses {
             P.ui.SetTitle("Hunt");
             foreach (Entity e in entities) {
                 // TODO:[TALENT]
-                int earn = Global.rng.Next(1, 10);
+                int earn = Global.rng.Next(3, 10);
                 food += earn;
             }
             string s = string.Format(
