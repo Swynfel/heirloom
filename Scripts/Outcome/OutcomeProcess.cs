@@ -9,6 +9,15 @@ public static class OutcomeProcess {
         if (Village.quest != null) {
             await new Battle().Process();
         }
+        await Town.Process();
+        // Clean
+        foreach (Entity e in Family.familyMembers) {
+            GD.Print(e.name);
+            if (e.Action() == VillageAction.QUEST) {
+                Village.actions[e] = VillageAction.REST;
+            }
+        }
+
         ui.SetTitle("DONE");
         GD.Print("DONE");
     }

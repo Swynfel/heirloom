@@ -8,6 +8,7 @@ public struct Date {
 
     public enum AgeGroup {
         UNBORN,
+        NEWBORN,
         BABY,
         CHILD,
         TEEN,
@@ -100,10 +101,12 @@ public struct Date {
         if (delta < 0) {
             return AgeGroup.UNBORN;
         } else if (delta < 1) {
-            return AgeGroup.BABY;
+            return AgeGroup.NEWBORN;
         } else if (delta < 2) {
-            return AgeGroup.CHILD;
+            return AgeGroup.BABY;
         } else if (delta < 4) {
+            return AgeGroup.CHILD;
+        } else if (delta < 6) {
             return AgeGroup.TEEN;
         } else if (delta < 8) {
             return AgeGroup.YOUNG_ADULT;

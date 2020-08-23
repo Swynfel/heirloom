@@ -1,9 +1,7 @@
 public static class QuestGeneration {
 
     public static Quest GenerateRandomQuest() {
-        Quest quest = new Quest();
-
-        return quest;
+        return GenerateRandomDungeon(noRare: true);
     }
 
     // TODO: Create special quests
@@ -11,46 +9,48 @@ public static class QuestGeneration {
     private static readonly Quest SHIELD_QUEST;
     private static readonly Quest FINAL_QUEST;
 
-    public static Quest GenerateRandomDungeon(bool failIfNotRare = false) {
+    public static Quest GenerateRandomDungeon(bool failIfNotRare = false, bool noRare = false) {
         // Should be rare?
-        bool rare;
-        if (!Game.data.progress.foundFinalQuest) {
-            int luckTweak = 2;
-            if (Game.data.progress.foundCrownQuest) {
-                luckTweak -= 2;
+        if (!noRare) {
+            bool rare;
+            if (!Game.data.progress.foundFinalQuest) {
+                int luckTweak = 2;
+                if (Game.data.progress.foundCrownQuest) {
+                    luckTweak -= 2;
+                }
+                if (Game.data.progress.foundShieldQuest) {
+                    luckTweak -= 2;
+                }
+                luckTweak += Game.data.progress.dungeonsFound;
+                rare = Global.rng.Next(0, 5) <= luckTweak;
+            } else {
+                rare = false;
             }
-            if (Game.data.progress.foundShieldQuest) {
-                luckTweak -= 2;
+            if (failIfNotRare && !rare) {
+                return null;
             }
-            luckTweak += Game.data.progress.dungeonsFound;
-            rare = Global.rng.Next(0, 5) <= luckTweak;
-        } else {
-            rare = false;
-        }
-        if (failIfNotRare && !rare) {
-            return null;
-        }
-        // Load rare
-        if (rare) {
-            if (!Game.data.progress.foundCrownQuest && !Game.data.progress.foundShieldQuest) {
-                if (Global.rng.Next(0, 2) == 0) {
+            // Load rare
+            if (rare) {
+                if (!Game.data.progress.foundCrownQuest && !Game.data.progress.foundShieldQuest) {
+                    if (Global.rng.Next(0, 2) == 0) {
+                        Game.data.progress.foundCrownQuest = true;
+                        return CROWN_QUEST;
+                    } else {
+                        Game.data.progress.foundShieldQuest = true;
+                        return SHIELD_QUEST;
+                    }
+                }
+                if (!Game.data.progress.foundCrownQuest) {
                     Game.data.progress.foundCrownQuest = true;
                     return CROWN_QUEST;
-                } else {
+                }
+                if (!Game.data.progress.foundShieldQuest) {
                     Game.data.progress.foundShieldQuest = true;
                     return SHIELD_QUEST;
                 }
+                Game.data.progress.foundFinalQuest = true;
+                return FINAL_QUEST;
             }
-            if (!Game.data.progress.foundCrownQuest) {
-                Game.data.progress.foundCrownQuest = true;
-                return CROWN_QUEST;
-            }
-            if (!Game.data.progress.foundShieldQuest) {
-                Game.data.progress.foundShieldQuest = true;
-                return SHIELD_QUEST;
-            }
-            Game.data.progress.foundFinalQuest = true;
-            return FINAL_QUEST;
         }
         // Generate normal quest
         Quest quest = new Quest();

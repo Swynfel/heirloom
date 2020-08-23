@@ -18,6 +18,7 @@ namespace OutcomeProcesses {
             HurtInBattle(true);
             P.ui.SetButtons("Continue");
             await P.ui.ButtonPressed();
+            // Final
             foreach (Entity entity in questers) {
                 if (entity.health <= 0) {
                     entity.health = 1;
@@ -42,6 +43,7 @@ namespace OutcomeProcesses {
             s += Found(riches);
             P.ui.AddDescription(s);
             History.Append(s);
+            Game.data.quests.Remove(quest);
         }
 
         private void HurtInBattle(bool won) {
@@ -81,6 +83,8 @@ namespace OutcomeProcesses {
                     string.Join(", ", wounds.Select(x => string.Format("{0} lost {1} max health", x.Item1.MetaName(), x.Item2)))
                 );
             }
+            P.ui.AddDescription("\n\n" + s);
+            History.Append(s);
             foreach ((Entity e, int w) in wounds) {
                 e.maxHealth -= w;
                 // TODO: Check if death

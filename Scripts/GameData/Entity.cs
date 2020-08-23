@@ -74,6 +74,8 @@ public class Entity : Resource {
     }
 
     [Export] private int _birth = (Game.data?.date.SeasonsPassed()).GetValueOrDefault();
+
+    [Export] public Entity lover = null;
     [Export] public int rememberId = -1;
     public Date birth {
         get => Date.FromSeasonsPassed(_birth);

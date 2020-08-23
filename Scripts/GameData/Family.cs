@@ -55,18 +55,20 @@ public class Family : Resource {
         foreach (Entity e in members) {
             switch (e.ageGroup) {
                 case Date.AgeGroup.BABY:
+                    food += 2;
+                    break;
                 case Date.AgeGroup.CHILD:
-                    food++;
+                    food += 3;
                     break;
                 case Date.AgeGroup.TEEN:
-                    food += 2;
+                    food += 5;
                     break;
                 case Date.AgeGroup.YOUNG_ADULT:
                 case Date.AgeGroup.ADULT:
-                    food += 3;
+                    food += 4;
                     break;
                 case Date.AgeGroup.SENIOR:
-                    food += 2;
+                    food += 3;
                     break;
             }
         }

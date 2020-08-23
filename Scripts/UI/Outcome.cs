@@ -43,6 +43,9 @@ namespace UI {
                 current = head;
             }
         }
+        public void NoHead() {
+            OpenHead(Head.NONE);
+        }
 
         // Character
         private Control characterList;
@@ -99,10 +102,15 @@ namespace UI {
             smartDescription.AppendBbcode(s);
         }
 
+        public void SetDescription(string s) {
+            ClearDescription();
+            AddDescription(s);
+        }
+
         // Buttons
-        private Button buttonValidate;
-        private Button buttonNo;
-        private Button buttonThird;
+        public Button buttonValidate;
+        public Button buttonNo;
+        public Button buttonThird;
 
         public enum ButtonOutcome {
             VALIDATE,
@@ -159,5 +167,11 @@ namespace UI {
 
             OutcomeProcess.Process();
         }
+    }
+}
+
+public static class OutcomeExtensions {
+    public static bool Yes(this UI.Outcome.ButtonOutcome button) {
+        return button == UI.Outcome.ButtonOutcome.VALIDATE;
     }
 }
