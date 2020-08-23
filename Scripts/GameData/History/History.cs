@@ -11,6 +11,11 @@ public class History : Resource {
         now = new SeasonHistory(Date.START);
     }
 
+
+    public static void Clear() {
+        Game.data.history = new History();
+    }
+
     public static void Append(string line) {
         Game.data.history.now.events.Add(line);
     }

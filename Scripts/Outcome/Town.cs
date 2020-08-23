@@ -82,7 +82,7 @@ namespace OutcomeProcesses {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
             Quest quest;
-            if (x < 0.1f) {
+            if (x < 0f) { // ERROR OTHERWISE
                 quest = null;
                 P.ui.SetTitle("No dungeon found...");
                 P.ui.NoHead();
@@ -237,8 +237,9 @@ namespace OutcomeProcesses {
                 "{0} found a cute child called {1}. The owners of the orphanage ask for a donation of {2}.",
                 e.MetaName(), potentialChild.name, gold
             ));
+            GD.Print("XXX");
             bool enoughMoney = Game.data.inventory.gold >= gold;
-            P.ui.SetButtons(string.Format("Adopt (Pay {})", gold), "Decline", "Bargain");
+            P.ui.SetButtons(string.Format("Adopt (Pay {0})", gold), "Decline", "Bargain");
             if (!enoughMoney) {
                 P.ui.buttonValidate.Text = "Not enough gold";
                 P.ui.buttonValidate.Disabled = true;
@@ -251,7 +252,7 @@ namespace OutcomeProcesses {
                     P.ui.AddDescription(
                         string.Format("\n You convince the orphanage that {0} is enough.", gold)
                     );
-                    P.ui.SetButtons(string.Format("Adopt (Pay {})", gold), "Decline");
+                    P.ui.SetButtons(string.Format("Adopt (Pay {0})", gold), "Decline");
                     enoughMoney = Game.data.inventory.gold >= gold;
                     if (!enoughMoney) {
                         P.ui.buttonValidate.Text = "Not enough gold";

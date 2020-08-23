@@ -47,6 +47,11 @@ public class BattleGeneration : Resource {
         height += size - f;
         board.width = Global.rng.Next(5 + size, 11);
         board.height = Global.rng.Next(4 + size, 7);
+        Tile.GroundType groundType = new Tile.GroundType[] {
+            Tile.GroundType.DIRT, Tile.GroundType.GRASS,
+            Tile.GroundType.SAND, Tile.GroundType.DRY,
+            Tile.GroundType.STONE, Tile.GroundType.WOOD,
+        }.Random();
         board.CreateTerrain((x, y) => Tile.GroundType.GRASS);
 
         List<Tile> tiles = new List<Tile>(board.tiles);
