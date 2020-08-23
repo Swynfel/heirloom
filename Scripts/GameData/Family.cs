@@ -19,6 +19,13 @@ public class Family : Resource {
         alive.Add(entity);
     }
 
+    public void Die(Entity entity) {
+        members.Add(entity);
+        alive.Remove(entity);
+        entity.death = Game.data.date;
+        entity.heldItem = null; // TODO: Something cleaner: Popup to ask heir ?
+    }
+
     public void AddRange(IEnumerable<Entity> entities) {
         foreach (Entity e in entities) {
             Add(e);

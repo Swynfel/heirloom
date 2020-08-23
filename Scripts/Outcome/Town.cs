@@ -6,7 +6,7 @@ using Godot;
 using P = OutcomeProcess;
 
 namespace OutcomeProcesses {
-    public class Town {
+    public static class Town {
         public static async Task Process() {
             List<Entity> workers = new List<Entity>();
             List<Entity> hunters = new List<Entity>();
@@ -131,6 +131,7 @@ namespace OutcomeProcesses {
 
         private static async Task ActionWork(List<Entity> entities) {
             int gold = 0;
+            P.ui.SetTitle("Work");
             foreach (Entity e in entities) {
                 // TODO:[TALENT]
                 int earn = Global.rng.Next(1, 10);
@@ -150,6 +151,7 @@ namespace OutcomeProcesses {
 
         private static async Task ActionHunt(List<Entity> entities) {
             int food = 0;
+            P.ui.SetTitle("Hunt");
             foreach (Entity e in entities) {
                 // TODO:[TALENT]
                 int earn = Global.rng.Next(1, 10);

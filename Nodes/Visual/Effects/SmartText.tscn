@@ -16,7 +16,7 @@ margin_right = 480.0
 margin_bottom = 37.0
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "Someone did something and stuff
+bbcode_text = "[url=C0][rem]Someone[/rem][/url] did something and stuff
 Someone did something and stuff"
 meta_underlined = false
 text = "Someone did something and stuff

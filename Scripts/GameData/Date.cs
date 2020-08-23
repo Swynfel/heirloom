@@ -121,6 +121,7 @@ public struct Date {
     }
 
     public static readonly Date START = new Date(100, Season.SPRING);
+    public static readonly Date NEVER = FromSeasonsPassed(int.MinValue);
 }
 
 public static class DateExtensions {

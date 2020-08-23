@@ -56,12 +56,12 @@ public static class VillageActionExtensions {
             VillageAction.FIND_DUNGEON,
             VillageAction.ORPHANAGE
         };
-        if (true) {// TODO: Check if single
+        if (entity.lover == null) {
+            list.Add(VillageAction.FIND_LOVE);
+        } else {
             if (entity.ageGroup != Date.AgeGroup.SENIOR) {
                 list.Add(VillageAction.LOVE);
             }
-        } else {
-            list.Add(VillageAction.FIND_LOVE);
         }
         return list;
     }

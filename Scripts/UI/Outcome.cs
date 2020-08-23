@@ -136,12 +136,18 @@ namespace UI {
 
         public async Task<ButtonOutcome> ButtonPressed() {
             await ToSignal(this, nameof(button_pressed));
+            bufferUsed = false;
             return buttonJustPressed;
         }
 
+        private bool bufferUsed = false;
         private ButtonOutcome buttonJustPressed;
         [Signal] delegate void button_pressed();
         private void pressed(int b) {
+            if (bufferUsed) {
+                return;
+            }
+            bufferUsed = true;
             buttonJustPressed = (ButtonOutcome) b;
             EmitSignal(nameof(button_pressed));
         }
@@ -165,7 +171,7 @@ namespace UI {
             buttonNo.Connect("pressed", this, nameof(pressed), Global.ArrayFrom(ButtonOutcome.NO));
             buttonThird.Connect("pressed", this, nameof(pressed), Global.ArrayFrom(ButtonOutcome.THIRD));
 
-            OutcomeProcess.Process();
+            Task task = OutcomeProcess.Process();
         }
     }
 }

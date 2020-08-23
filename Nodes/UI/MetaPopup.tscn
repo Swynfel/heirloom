@@ -5,23 +5,27 @@
 [ext_resource path="res://Scripts/UI/MetaPopup.cs" type="Script" id=4]
 [ext_resource path="res://Nodes/Visual/Components/ItemTable.tscn" type="PackedScene" id=5]
 
-[node name="MetaPopup" type="CenterContainer"]
+[node name="MetaPopup" type="CanvasLayer"]
+layer = 100
+
+[node name="MetaPopup" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Popup" type="PopupPanel" parent="."]
+[node name="Popup" type="PopupPanel" parent="MetaPopup"]
 visible = true
 margin_left = 156.0
 margin_top = 41.0
 margin_right = 324.0
 margin_bottom = 229.0
 
-[node name="Container" type="TabContainer" parent="Popup"]
+[node name="Container" type="TabContainer" parent="MetaPopup/Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -35,7 +39,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CharacterTable" parent="Popup/Container" instance=ExtResource( 2 )]
+[node name="CharacterTable" parent="MetaPopup/Popup/Container" instance=ExtResource( 2 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -43,7 +47,7 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="ItemTable" parent="Popup/Container" instance=ExtResource( 5 )]
+[node name="ItemTable" parent="MetaPopup/Popup/Container" instance=ExtResource( 5 )]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -13,7 +13,6 @@ namespace UI {
                 container.AddChild(SeasonHistoryTable.Create(season));
                 container.AddChild(new HSeparator());
             }
-            History.NextYear();
             container.AddChild(SeasonHistoryTable.Create(Game.data.history.now));
             ScrollVertical = (int) GetVScrollbar().MaxValue;
         }

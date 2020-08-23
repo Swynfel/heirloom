@@ -75,11 +75,17 @@ public class Entity : Resource {
 
     [Export] private int _birth = (Game.data?.date.SeasonsPassed()).GetValueOrDefault();
 
+    [Export] private int _death = Date.NEVER.SeasonsPassed();
     [Export] public Entity lover = null;
     [Export] public int rememberId = -1;
     public Date birth {
         get => Date.FromSeasonsPassed(_birth);
         set => _birth = value.SeasonsPassed();
+    }
+
+    public Date death {
+        get => Date.FromSeasonsPassed(_death);
+        set => _death = value.SeasonsPassed();
     }
     public int age { get => Date.Delta(birth); }
     public Date.AgeGroup ageGroup { get => Date.Age(age); }

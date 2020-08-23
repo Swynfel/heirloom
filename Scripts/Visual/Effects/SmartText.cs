@@ -9,7 +9,7 @@ public class SmartText : RichTextLabel {
 
     public static SmartText Create(string value) {
         SmartText smartText = Instance();
-        smartText.Text = value;
+        smartText.BbcodeText = value;
         return smartText;
     }
     public override void _Ready() {

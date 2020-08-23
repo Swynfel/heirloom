@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Godot;
 
 public class GameData : Resource {
-    public Date date { get; private set; }
+    public Date date { get; set; }
     [Export] private int _date;
 
     [Export] public string name;

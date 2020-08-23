@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 
 namespace UI {
@@ -99,7 +100,14 @@ namespace UI {
         }
 
         private void NextSeason() {
-            GD.Print("TODO: Next season");
+            if (Village.actions.Where(VillageAction.QUEST).Count() == 0) {
+                Village.quest = null;
+            }
+            if (Village.quest != null) {
+                GetTree().ChangeScene("Scenes/Battle.tscn");
+            } else {
+                GetTree().ChangeScene("Scenes/Outcome.tscn");
+            }
         }
     }
 }
