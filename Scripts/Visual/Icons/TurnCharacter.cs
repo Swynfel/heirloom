@@ -44,7 +44,7 @@ namespace Visual.Icons {
             icon.AddChild(clonedDisplay);
             clonedDisplay.Position = new Vector2(0, 8);
             health.SetHealth(piece.entity.health, piece.entity.maxHealth);
-            piece.entity.Connect(nameof(Entity.health_modified), health, nameof(HealthBar.SetHealth));
+            piece.entity.Connect(nameof(Entity.health_modified), health, nameof(HealthBar.ChangeHealth));
             affinity.SetAffinity(piece.entity.affinity);
         }
 

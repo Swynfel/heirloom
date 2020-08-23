@@ -44,4 +44,26 @@ public static class Global {
         list.Remove(r);
         return r;
     }
+
+    public static string FancyJoin(this IEnumerable<string> list, string none = "") {
+        string previous = null;
+        string last = null;
+        foreach (string word in list) {
+            if (last != null) {
+                if (previous == null) {
+                    previous = last;
+                } else {
+                    previous += ", " + last;
+                }
+            }
+            last = word;
+        }
+        if (last == null) {
+            return none;
+        }
+        if (previous == null) {
+            return last;
+        }
+        return previous + " and " + last;
+    }
 }

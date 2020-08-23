@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class Entity : Resource {
@@ -17,25 +18,7 @@ public class Entity : Resource {
     }
 
     public static string MetaNames(IEnumerable<Entity> entities) {
-        string previous = null;
-        string last = null;
-        foreach (Entity entity in entities) {
-            if (last != null) {
-                if (previous == null) {
-                    previous = last;
-                } else {
-                    previous += ", " + last;
-                }
-            }
-            last = entity.MetaName();
-        }
-        if (last == null) {
-            return "nobody";
-        }
-        if (previous == null) {
-            return last;
-        }
-        return previous + " and " + last;
+        return entities.Select(e => e.MetaName()).FancyJoin("nobody");
     }
 
     public ElementalAffinity affinity {

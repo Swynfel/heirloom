@@ -66,7 +66,7 @@ namespace Combat {
 
         public static bool won = false;
 
-        public void CheckIfFinished() {
+        public async void CheckIfFinished() {
             bool friends = false;
             bool enemies = false;
             foreach (Piece piece in actors) {
@@ -82,6 +82,13 @@ namespace Combat {
                 }
             }
             won = !enemies; // TODO: Draws?
+            Game.StartBusy();
+            var t = new Timer();
+            t.WaitTime = 2;
+            t.OneShot = true;
+            AddChild(t);
+            t.Start();
+            await ToSignal(t, "timeout");
             GetTree().ChangeScene("Scenes/Outcome.tscn");
         }
     }

@@ -24,6 +24,10 @@ namespace Visual.Icons {
             content.AnchorRight = Math.Max(0, Math.Min(1, ((float) currentHealth) / maxHealth));
             label.Text = string.Format("{0}/{1}", currentHealth, maxHealth);
         }
+
+        public void ChangeHealth(int newHealth, int delta) {
+            SetCurrentHealth(newHealth);
+        }
         public void SetCurrentHealth(int currentHealth) {
             SetHealth(currentHealth, maxHealth);
         }

@@ -40,6 +40,10 @@ namespace UI {
                 Global.battleUI.SwitchState(BattleUI.BattleState.SKILL);
                 Global.battleUI.skillPanel.Deactivate(0);
             }
+            BoardUtils.AllTiles(t => {
+                t.ResetDisplay();
+                return false;
+            });
         }
 
         public override void _Process(float delta) {

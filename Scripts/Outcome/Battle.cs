@@ -13,9 +13,12 @@ namespace OutcomeProcesses {
             quest = Village.quest;
             questers = Village.actions.Where(VillageAction.FIND_QUEST).ToList();
             P.ui.SetCharacters(questers);
-            // TODO: Link to battle outcome
-            QuestSuccessContent();
-            HurtInBattle(true);
+            if (Combat.Battle.won) {
+                QuestSuccessContent();
+            } else {
+                QuestFailContent();
+            }
+            HurtInBattle(Combat.Battle.won);
             P.ui.SetButtons("Continue");
             await P.ui.ButtonPressed();
             // Final
@@ -33,6 +36,25 @@ namespace OutcomeProcesses {
         private void QuestSuccessContent() {
             Riches riches = quest.reward.Generate();
             P.ui.SetTitle("Quest Succeeded!");
+            P.ui.ClearDescription();
+            string s = string.Format(
+                QUEST_SUCCESS,
+                Entity.MetaNames(questers),
+                quest.name
+            );
+            s += "\n";
+            s += Found(riches);
+            P.ui.AddDescription(s);
+            History.Append(s);
+            Game.data.quests.Remove(quest);
+            Game.data.inventory.Add(riches);
+        }
+
+        public const string QUEST_FAILED =
+            "{0} failed in their quest \"{1}\"...";
+        private void QuestFailContent() {
+            Riches riches = quest.reward.Generate();
+            P.ui.SetTitle("Quest Failed...");
             P.ui.ClearDescription();
             string s = string.Format(
                 QUEST_SUCCESS,
@@ -92,8 +114,24 @@ namespace OutcomeProcesses {
         }
 
         private string Found(Riches r) {
-            // TODO: Better description
-            return string.Format("They found {0} gold, {1} food and {2} treasure(s).", r.gold, r.food, r.items.Count);
+            List<string> things = new List<string>();
+            if (r.gold > 0) {
+                things.Add(string.Format("{0} gold", r.gold));
+            }
+            if (r.food > 0) {
+                things.Add(string.Format("{0} food", r.food));
+            }
+            if (r.items.Count > 0) {
+                string s;
+                if (r.items.Count == 1) {
+                    s = "the treasure " + r.items[0].MetaName();
+                } else {
+                    s = "the following treasures: ";
+                    s += r.items.Select(item => item.MetaName());
+                }
+                things.Add(s);
+            }
+            return string.Format("They found {0}.", things.FancyJoin("nothing"));
         }
     }
 }

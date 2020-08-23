@@ -17,6 +17,12 @@ public class Riches : Resource {
         }
     }
 
+    public void Add(Riches other) {
+        gold += other.gold;
+        food += other.food;
+        items.AddRange(other.items);
+    }
+
     public bool IsEmpty() {
         return gold == 0 && food == 0 && items.Count == 0;
     }
@@ -25,6 +31,7 @@ public class Riches : Resource {
         return string.Format("{0} gold, {1} food and {2} items", gold, food, items);
     }
 
+    [Obsolete]
     public string ToMinString() {
         List<string> words = new List<string>();
         if (gold != 0) {
