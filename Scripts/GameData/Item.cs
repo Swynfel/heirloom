@@ -19,11 +19,13 @@ public class Item : Resource {
     public bool consumable { get => group == Group.CONSUMABLE; }
     [Export] public Skill skill = null;
 
-    [Export] public float bonusDamage = 0f;
+    [Export] public float bonusDamagePer = 0f;
+    [Export] public int bonusDamage = 0;
     [Export] public int armor = 0;
     [Export] public int estimatedPrice = 30;
     [Export] public string effect = "";
     [Export] public string description = "";
+    [Export] public string special = "";
 
     [Export] public Entity holder = null;
     [Export] public Entity lastHolder = null;
@@ -42,47 +44,57 @@ public class Item : Resource {
             entity.heldItem = this;
         }
     }
+    public static Item ARTEFACT_SWORD = new Item {
+        name = "Legendary Sword",
+        icon = SpriteTemplate.SWORD,
+        group = Group.ARTEFACT,
+        bonusDamage = 3,
+        effect = "+3 damage",
+        description = "legendary sword passed down through your family since the beginning of time"
+    };
 
-    public Item() { }
-    public Item(string name, SpriteTemplate icon, Group group, Skill skill = null, float bonusDamage = 0f, int armor = 0, string effect = "", string description = "") {
-        this.name = name;
-        this.icon = icon;
-        this.group = group;
-        this.skill = skill;
-        this.bonusDamage = bonusDamage;
-        this.armor = armor;
-        this.effect = effect;
-        this.description = description;
-    }
+    public static Item ARTEFACT_CROWN = new Item {
+        name = "Mystical Crown",
+        icon = SpriteTemplate.CROWN,
+        group = Group.ARTEFACT,
+        special = "crown",
+        effect = "+1 max health per season",
+        description = "magical crown said to grant eternal life"
+    };
 
-    public static Item ARTEFACT_SWORD = new Item("Legendary Sword", SpriteTemplate.SWORD, Group.ARTEFACT,
-        bonusDamage: 0.2f, effect: "+20% damage",
-        description: "legendary sword passed down through your family since the beginning of time"
-    );
+    public static Item ARTEFACT_SHIELD = new Item {
+        name = "Divine Shield",
+        icon = SpriteTemplate.SHIELD,
+        group = Group.ARTEFACT,
+        armor = 2,
+        effect = "+2 armor",
+        description = "protects the wielder even against the worst hazards"
+    };
 
-    public static Item ARTEFACT_CROWN = new Item("Mystical Crown", SpriteTemplate.CROWN, Group.ARTEFACT,
-        armor: 1, effect: "+1 armor",
-        description: "magical crown that grants infinite wisdom"
-    );
+    public static Item DAGGER = new Item {
+        name = "Dagger",
+        icon = SpriteTemplate.SWORD,
+        group = Group.EQUIPMENT,
+        estimatedPrice = 60,
+        bonusDamage = 1,
+        effect = "+1 damage",
+        description = "it's sharp, more or less"
+    };
 
-    public static Item ARTEFACT_SHIELD = new Item("Divine Shield", SpriteTemplate.SHIELD, Group.ARTEFACT,
-        armor: 2, effect: "+2 armor",
-        description: "it is said that the wielder and their loved ones cannot die"
-    );
+    public static Item FAN = new Item {
+        name = "Fan",
+        icon = SpriteTemplate.CAST_BALL,
+        group = Group.EQUIPMENT,
+        effect = "none",
+        description = "no effect, but its neat"
+    };
 
-    public static Item DAGGER = new Item("Dagger", SpriteTemplate.SWORD, Group.EQUIPMENT,
-        armor: 1, effect: "+10% damage",
-        description: "it's sharp, more or less"
-    );
-
-    public static Item FAN = new Item("Fan", SpriteTemplate.CAST_BALL, Group.EQUIPMENT,
-        effect: "none",
-        description: "no effect, but its neat"
-    );
-
-    public static Item VASE = new Item("Fancy Vase", SpriteTemplate.CAST_BALL, Group.TREASURE,
-        description: "you could sell it!"
-    );
+    public static Item VASE = new Item {
+        name = "Fancy Vase",
+        icon = SpriteTemplate.CAST_BALL,
+        group = Group.TREASURE,
+        description = "you could sell it!"
+    };
 }
 
 public static class ItemExtensions {

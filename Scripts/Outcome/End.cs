@@ -8,9 +8,18 @@ using P = OutcomeProcess;
 namespace OutcomeProcesses {
     public static class End {
         public static async Task Process() {
+            Crown();
             await Food();
             await Age();
             CleanJobs();
+        }
+
+        private static void Crown() {
+            Entity crownHolder = Family.familyMembers.First(e => e.heldItem.special == "crown");
+            if (crownHolder != null) {
+                crownHolder.maxHealth++;
+                crownHolder.ModifyHealth(1);
+            }
         }
 
         private static void AddTo(Dictionary<Date.AgeGroup, List<Entity>> groups, Date.AgeGroup key, Entity entity) {

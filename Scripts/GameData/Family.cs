@@ -66,4 +66,11 @@ public class Family : Resource {
                 return 0;
         }
     }
+
+    public static Family StartingFamily() {
+        Entity eldest = new Entity();
+        Entity middle = new Entity();
+        Entity youngest = new Entity();
+        return new Family(new Entity[] { eldest, middle, youngest });
+    }
 }

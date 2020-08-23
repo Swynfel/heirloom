@@ -39,8 +39,14 @@ public class GameData : Resource {
 
     public static GameData New() {
         GameData data = (GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
+        Game.data = data; // HACK
         data.date = Date.START;
         data.name = "NAME";
+        data.family = Family.StartingFamily();
+        data.quests = new List<Quest> {
+            new Quest()
+        };
+        data.inventory = new Riches(5, 20, new List<Item> { Item.ARTEFACT_SWORD });
         return data;
     }
     public Error Save() {

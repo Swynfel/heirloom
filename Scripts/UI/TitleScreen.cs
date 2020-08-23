@@ -16,7 +16,7 @@ public class TitleScreen : CanvasLayer {
     }
 
     public void on_New() {
-        Game.data = GameData.New();
+        GameData.New();
         GD.Print("TODO: Start Game");
     }
 

@@ -82,7 +82,10 @@ public class QuestReward : Resource {
         while (lootLeft > 0 && treasureLikeliness > 0) {
             if (dungeonTreasureBoost || Global.rng.Next(0, 100) < intensity) {
                 dungeonTreasureBoost = false;
-                Item treasure = Item.VASE; // TODO: Randomly generate
+                int x = Global.rng.Next(0, 4);
+                Item treasure = x == 0 ? Item.VASE :
+                    x == 1 ? Item.FAN : Item.DAGGER; // TODO: Randomly generate
+                treasure = (Item) treasure.Duplicate();
                 if (treasure.estimatedPrice > lootLeft) {
                     break;
                 }
