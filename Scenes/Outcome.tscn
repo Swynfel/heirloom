@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/UI/Outcome.cs" type="Script" id=2]
 [ext_resource path="res://Nodes/Visual/Components/CharacterIconL.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=4]
 [ext_resource path="res://Nodes/Visual/Components/CharacterTable.tscn" type="PackedScene" id=5]
@@ -24,6 +25,7 @@ border_width_right = 12
 border_color = Color( 1, 1, 1, 0 )
 
 [node name="Outcome" type="CanvasLayer"]
+script = ExtResource( 2 )
 
 [node name="OutcomeUI" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -210,7 +212,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 text = "Third"
 
-[node name="Ok" type="Button" parent="OutcomeUI/Content/Buttons"]
+[node name="Validate" type="Button" parent="OutcomeUI/Content/Buttons"]
 margin_left = 320.0
 margin_right = 480.0
 margin_bottom = 24.0
