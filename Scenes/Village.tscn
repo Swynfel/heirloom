@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Nodes/UI/VillageUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Village/Village.cs" type="Script" id=2]
+[ext_resource path="res://Nodes/Visual/ExtraInfo.tscn" type="PackedScene" id=3]
 
 [node name="Village" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -26,8 +27,4 @@ margin_bottom = 238.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
-margin_left = 384.0
-margin_right = 448.0
-margin_bottom = 238.0
-rect_min_size = Vector2( 64, 0 )
+[node name="ExtraInfo" parent="HBoxContainer" instance=ExtResource( 3 )]

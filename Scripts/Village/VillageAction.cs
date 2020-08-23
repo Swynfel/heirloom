@@ -53,6 +53,7 @@ public static class VillageActionExtensions {
             VillageAction.REST,
             VillageAction.QUEST,
             VillageAction.WORK,
+            VillageAction.HUNT,
             VillageAction.FIND_DUNGEON,
             VillageAction.ORPHANAGE
         };

@@ -4,26 +4,15 @@ using System.Threading.Tasks;
 using Godot;
 
 namespace UI {
-    public class Outcome : CanvasLayer {
+    public class Outcome : Control {
 
         public static Outcome instance { get; private set; }
         private Label title;
         public void SetTitle(string title) {
             this.title.Text = title;
         }
-
-        private Control _content;
-        private Control content {
-            get {
-                if (_content == null) {
-                    _content = GetNode<Control>("OutcomeUI/Content");
-                }
-                return _content;
-            }
-        }
-
         public T N<T>(string p) where T : Node {
-            return content.GetNode<T>(p);
+            return GetNode<T>(p);
         }
 
         // HEAD
