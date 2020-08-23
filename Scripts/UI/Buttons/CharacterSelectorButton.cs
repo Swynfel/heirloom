@@ -22,6 +22,10 @@ public class CharacterSelectorButton : Control {
         popup.Connect("about_to_show", this, nameof(on_Open));
         linked = true;
     }
+
+    public void SetupDeactivated() {
+        popup.Disconnect(nameof(UI.CharacterSelectorPopup.selected), this, nameof(on_Selected));
+    }
     public void Setup(Entity current, bool nullable = false, string comment = null, List<Entity> list = null) {
         Link();
         entities = list;

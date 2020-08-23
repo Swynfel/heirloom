@@ -5,6 +5,7 @@ using Godot;
 namespace Visual.Tables {
     using Icons;
     public class ItemTable : PanelContainer {
+        [Export] bool noSelector = false;
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/ItemTable.tscn");
         public static ItemTable Create(Item item) {
             ItemTable table = (ItemTable) template.Instance();
@@ -16,8 +17,12 @@ namespace Visual.Tables {
         private CharacterSelectorButton characterSelector;
         private void Link() {
             characterSelector = GetNode<CharacterSelectorButton>("List/Bottom/Right/CharacterSelectorButton");
-            characterSelector.Connect(nameof(CharacterSelectorButton.change_to), this, nameof(on_ChangeHolder));
-            characterSelector.GetNode("CharacterSelectorPopup").Connect("about_to_show", this, nameof(on_OpenSelector));
+            if (noSelector) {
+                characterSelector.SetupDeactivated();
+            } else {
+                characterSelector.Connect(nameof(CharacterSelectorButton.change_to), this, nameof(on_ChangeHolder));
+                characterSelector.GetNode("CharacterSelectorPopup").Connect("about_to_show", this, nameof(on_OpenSelector));
+            }
         }
 
         private Item item;

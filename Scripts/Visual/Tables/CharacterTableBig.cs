@@ -20,8 +20,8 @@ namespace Visual.Tables {
             GetNode<Label>("List/Details/List/Age").Text = character.AgeString();
             GetNode<Label>("List/Details/List/Birth").Text = character.birth.ToString();
             //GetNode<Label>("List/Details/List/Action").Text = character.Action().ToString();
-            GetNode<SmartText>("List/Details/List/Lover").Text = character.lover?.MetaName() ?? "None";
-            GetNode<SmartText>("List/Details/List/Item").Text = character.heldItem?.MetaName() ?? "None";
+            GetNode<SmartText>("List/Details/List/Lover").BbcodeText = "[right]" + (character.lover?.MetaName() ?? "None") + "[/right]";
+            GetNode<SmartText>("List/Details/List/Item").BbcodeText = "[right]" + (character.heldItem?.MetaName() ?? "None") + "[/right]";
         }
     }
 }

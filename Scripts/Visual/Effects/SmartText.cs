@@ -14,15 +14,10 @@ public class SmartText : RichTextLabel {
     }
     public override void _Ready() {
         Connect("meta_clicked", this, nameof(MetaClicked));
-        Clear();
-        AppendBbcode("This is a test...");
-        foreach (Entity m in Family.familyMembers) {
-            AppendBbcode(" " + m.MetaName());
-        }
     }
 
     private void MetaClicked(string info) {
-        var i = Memory.MetaTag.Parse(info);
-        GD.Print(i.Remember());
+        var metaTag = Memory.MetaTag.Parse(info);
+        MetaPopup.instance.OpenMemory(metaTag);
     }
 }

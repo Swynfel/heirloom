@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://Scripts/Game.cs"
+MetaPopup="*res://Nodes/UI/MetaPopup.tscn"
 ZoomCamera="*res://Scripts/Visual/Others/ZoomCamera.cs"
 
 [display]
