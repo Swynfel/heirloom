@@ -28,7 +28,7 @@ public class BattleGeneration : Resource {
 
     [Export] public Map map;
     [Export] public EnemyType enemy;
-    [Export] public int count;
+    [Export] public int count = 1;
     public ElementalAffinity elements {
         get => ElementalAffinity.Deserialize(_elements);
         set => _elements = value.Serialize();
@@ -39,7 +39,6 @@ public class BattleGeneration : Resource {
     public void Generate(Battle battle, IEnumerable<Entity> party) {
         Board board = battle.board;
         List<Entity> friendly = party.ToList();
-        //List<Entity> enemies = GenerateEnemies();
         int size = (count + friendly.Count) / 3;
         int width = 5 + size / 2;
         int height = 4;
@@ -61,10 +60,23 @@ public class BattleGeneration : Resource {
             }
             Place(friend, tile);
         }
+
+        foreach (Entity enemy in RandomEnemies(count)) {
+            enemy.actor = true;
+            enemy.alignment = Alignment.HOSTILE;
+            Tile tile = tiles.PopRandom();
+            foreach (Tile n in tile.GetNeighbors()) {
+                tiles.Remove(n);
+            }
+            Place(enemy, tile);
+        }
     }
 
-    public void GenerateEnemies() {
-
+    private static IEnumerable<Entity> RandomEnemies(int memberCount) {
+        while (memberCount > 0) {
+            yield return new Entity();
+            memberCount--;
+        }
     }
 
     public void Place(Entity entity, Tile tile) {

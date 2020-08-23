@@ -36,6 +36,7 @@ namespace Combat {
             this.battle = battle;
             this.entity = entity;
             battle.AddChild(this);
+            entity.Connect(nameof(Entity.fallen), this, nameof(Delete));
             battle.pieces.Add(this);
             GD.Print("actor " + entity.actor);
             if (entity.actor) {
@@ -51,6 +52,7 @@ namespace Combat {
                 if (entity.actor) {
                     battle.actors.Remove(this);
                 }
+                battle.CheckIfFinished();
                 battle = null;
             }
             QueueFree();

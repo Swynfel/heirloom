@@ -57,5 +57,26 @@ namespace Combat {
             TurnOf(actors[0]);
             camera.Position = board.GetCenter();
         }
+
+        public static bool won = false;
+
+        public void CheckIfFinished() {
+            bool friends = false;
+            bool enemies = false;
+            foreach (Piece piece in actors) {
+                switch (piece.entity.alignment) {
+                    case Alignment.FRIENDLY:
+                        if (enemies) return;
+                        friends = true;
+                        break;
+                    case Alignment.HOSTILE:
+                        if (friends) return;
+                        enemies = true;
+                        break;
+                }
+            }
+            won = !enemies; // TODO: Draws?
+            GetTree().ChangeScene("Scenes/Outcome.tscn");
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Combat {
 
         internal IEnumerable<Piece> AllPieces() {
             foreach (TileFlow flow in this) {
-                foreach (Piece piece in flow.tile.pieces) {
+                foreach (Piece piece in flow.tile.pieces.ToArray()) {
                     yield return piece;
                 }
             }
