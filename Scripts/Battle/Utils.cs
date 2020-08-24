@@ -13,7 +13,7 @@ namespace Combat {
         HOSTILE,
     }
 
-    public static class Utils {
+    public static class DirectionUtils {
         public static Direction[] DIRECTIONS = { Direction.RIGHT, Direction.UP, Direction.LEFT, Direction.DOWN };
         public static Direction Opposite(this Direction direction) {
             switch (direction) {

@@ -84,19 +84,8 @@ namespace Combat {
             return Battle.current.board.tiles.Where(predicate);
         }
 
-        private class ComparablePriorityElement : IComparer<(int, int, TileFlow)> {
-            public int Compare((int, int, TileFlow) a, (int, int, TileFlow) b) {
-                return a.Item1.CompareTo(b.Item1);
-            }
-            public static ComparablePriorityElement comparer = new ComparablePriorityElement();
-        }
-
-        private class ComparablePriorityElementB : IComparer<(int, Tile)> {
-            public int Compare((int, Tile) a, (int, Tile) b) {
-                return a.Item1.CompareTo(b.Item1);
-            }
-            public static ComparablePriorityElementB comparer = new ComparablePriorityElementB();
-        }
+        private static readonly Utils.ComparableFunc<(int, int, TileFlow)> INT_INT_TILEFLOW_COMPARER = Utils.ComparableFunc<(int, int, TileFlow)>.FromSelect(t => t.Item1);
+        private static readonly Utils.ComparableFunc<(int, Tile)> INT_TILE_COMPARER = Utils.ComparableFunc<(int, Tile)>.FromSelect(t => t.Item1);
         public static List<TileFlow> ShortestPath(Tile from, Tile to, int maxLength = int.MaxValue, Func<Tile, bool> valid = null) {
             TileFlow toTileFlow = new TileFlow(to);
             if (from == to) {
@@ -133,7 +122,7 @@ namespace Combat {
                         encountered.Add(neighbor.tile, neighbor);
                         heuristic = length + 1 + DiamondDistanceBetween(from, neighbor.tile);
                         var item = (heuristic, length + 1, neighbor);
-                        int index = priorityQueue.BinarySearch(item, ComparablePriorityElement.comparer);
+                        int index = priorityQueue.BinarySearch(item, INT_INT_TILEFLOW_COMPARER);
                         if (index < 0) {
                             index = -index - 1;
                         }
@@ -164,7 +153,7 @@ namespace Combat {
                         neighborPath.Add(new TileFlow(head, neighbor.direction));
                         encountered.Add(neighbor.tile, neighborPath);
                         var item = (dist + 1, neighbor.tile);
-                        int index = priorityQueue.BinarySearch(item, ComparablePriorityElementB.comparer);
+                        int index = priorityQueue.BinarySearch(item, INT_TILE_COMPARER);
                         if (index < 0) {
                             index = -index - 1;
                         }

@@ -35,7 +35,7 @@ public class EnemyAI {
             skill.area.launcher = piece;
             Cone cone = skill.area as Cone;
             if (cone != null) {
-                foreach (Direction dir in Utils.DIRECTIONS) {
+                foreach (Direction dir in DirectionUtils.DIRECTIONS) {
                     SkillArea area = cone.SkillAreaIfTarget(dir);
                     float heuristic = skill.effect.Heuristic(skill.element, piece, area);
                     if (heuristic > bestHeuristic) {

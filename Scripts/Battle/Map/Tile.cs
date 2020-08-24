@@ -65,7 +65,7 @@ namespace Combat {
 
         public List<Tile> GetNeighbors() {
             List<Tile> neighbors = new List<Tile>();
-            foreach (Direction dir in Utils.DIRECTIONS) {
+            foreach (Direction dir in DirectionUtils.DIRECTIONS) {
                 Tile neighbor = GetNeighbor(dir);
                 if (neighbor != null) {
                     neighbors.Add(neighbor);
@@ -76,7 +76,7 @@ namespace Combat {
 
         public List<TileFlow> GetNeighborOutFlows() {
             List<TileFlow> neighbors = new List<TileFlow>();
-            foreach (Direction dir in Utils.DIRECTIONS) {
+            foreach (Direction dir in DirectionUtils.DIRECTIONS) {
                 Tile neighbor = GetNeighbor(dir);
                 if (neighbor != null) {
                     neighbors.Add(new TileFlow(neighbor, dir));
@@ -87,7 +87,7 @@ namespace Combat {
 
         public List<TileFlow> GetNeighborInFlows() {
             List<TileFlow> neighbors = new List<TileFlow>();
-            foreach (Direction dir in Utils.DIRECTIONS) {
+            foreach (Direction dir in DirectionUtils.DIRECTIONS) {
                 Tile neighbor = GetNeighbor(dir);
                 if (neighbor != null) {
                     neighbors.Add(new TileFlow(neighbor, dir.Opposite()));
