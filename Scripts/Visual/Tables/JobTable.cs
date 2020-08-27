@@ -33,6 +33,7 @@ namespace Visual.Tables {
             jobSelector = GetNode<MenuButton>("Body/Right/Button");
             actionName = GetNode<Label>("Body/Right/Job/Name");
             actionDescription = GetNode<Label>("Body/Right/Job/Description");
+            GetNode<Button>("Body/Left/Button").Connect("pressed", this, nameof(CharacterPressed));
             popup = (PopupMenu) jobSelector.Call("get_popup");
             popup.Connect("id_pressed", this, nameof(on_ChangeAction));
             linked = true;
@@ -53,6 +54,9 @@ namespace Visual.Tables {
             }
         }
 
+        private void CharacterPressed() {
+            MetaPopup.instance.OpenEntity(entity);
+        }
 
         private void on_ChangeAction(int id) {
             SetAction((VillageAction) id);
