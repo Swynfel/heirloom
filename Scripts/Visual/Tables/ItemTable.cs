@@ -7,15 +7,12 @@ namespace Visual.Tables {
     public class ItemTable : PanelContainer {
         [Export] bool noSelector = false;
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/ItemTable.tscn");
-        public static ItemTable Create(Item item) {
-            ItemTable table = (ItemTable) template.Instance();
-            table.Link();
-            table.SetItem(item);
-            return table;
+        public static ItemTable New() {
+            return (ItemTable) template.Instance();
         }
 
         private CharacterSelectorButton characterSelector;
-        private void Link() {
+        public override void _Ready() {
             characterSelector = GetNode<CharacterSelectorButton>("List/Bottom/Right/CharacterSelectorButton");
             if (noSelector) {
                 characterSelector.SetupDeactivated();

@@ -50,11 +50,21 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+NAME_PATH = "List/Name"
+APPEARANCE_PATH = "List/Center/Block/Character"
+HEALTHBAR_PATH = "List/HealthHolder/HealthBar"
+ELEMENTS_PATH = "List/Elements"
+SKILLS_PATH = "List/Skills/Skills"
+TALENTS_PATH = "List/Skills/Talents"
+AGE_PATH = "List/Details/List/Age"
+BIRTH_PATH = "List/Details/List/Birth"
+ACTION_PATH = "List/Details/List/Action"
+LOVER_PATH = ""
+ITEM_PATH = ""
 
 [node name="List" type="VBoxContainer" parent="."]
-margin_top = 46.0
 margin_right = 142.0
-margin_bottom = 206.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 142, 160 )
 mouse_filter = 2
 size_flags_horizontal = 3

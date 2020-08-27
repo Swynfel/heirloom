@@ -7,6 +7,7 @@ public class MetaPopup : CenterContainer {
 
     public override void _Ready() {
         instance = this;
+        GetTree().Connect("screen_resized", this, nameof(ScreenResized));
     }
 
     private TabContainer tabs;
@@ -42,7 +43,7 @@ public class MetaPopup : CenterContainer {
 
     public void OpenEntity(Entity entity) {
         Tabs.CurrentTab = 0;
-        Tabs.GetNode<Visual.Tables.CharacterTableBig>("CharacterTable").SetCharacter(entity);
+        Tabs.GetNode<Visual.Tables.CharacterTable>("CharacterTable").SetCharacter(entity);
         Open();
     }
 
@@ -58,7 +59,24 @@ public class MetaPopup : CenterContainer {
         Open();
     }
 
+    private int delayedRefresh = 0;
     private void Open() {
-        Popup.PopupCentered();
+        Popup.RectSize = Popup.RectMinSize;
+        Popup.PopupCenteredMinsize();
+        delayedRefresh = 5;
+    }
+
+    public override void _Process(float delta) {
+        if (delayedRefresh > 0) {
+            delayedRefresh--;
+            if (Popup.Visible) {
+                Popup.SetAsMinsize();
+                Popup.PopupCenteredMinsize();
+            }
+        }
+    }
+
+    private void ScreenResized() {
+        delayedRefresh = 5;
     }
 }

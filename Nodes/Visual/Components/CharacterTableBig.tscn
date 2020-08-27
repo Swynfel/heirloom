@@ -6,7 +6,7 @@
 [ext_resource path="res://Nodes/Visual/Components/ElementalAffinity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/Visual/Components/HealthBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Nodes/Visual/Components/SkillIconHList.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/Visual/Tables/CharacterTableBig.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Visual/Tables/CharacterTable.cs" type="Script" id=7]
 [ext_resource path="res://Nodes/Visual/Effects/SmartText.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -43,6 +43,7 @@ border_color = Color( 0.8, 0.8, 0.8, 0 )
 [node name="CharacterTable" type="CenterContainer"]
 margin_right = 142.0
 margin_bottom = 160.0
+rect_min_size = Vector2( 142, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
@@ -50,6 +51,16 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+NAME_PATH = "List/Name"
+APPEARANCE_PATH = "List/Center/Block/Character"
+HEALTHBAR_PATH = "List/HealthHolder/HealthBar"
+ELEMENTS_PATH = "List/Elements"
+SKILLS_PATH = "List/Skills/Skills"
+TALENTS_PATH = "List/Skills/Talents"
+AGE_PATH = "List/Details/List/Age"
+BIRTH_PATH = "List/Details/List/Birth"
+LOVER_PATH = "List/Details/List/Lover"
+ITEM_PATH = "List/Details/List/Item"
 
 [node name="List" type="VBoxContainer" parent="."]
 margin_right = 142.0
@@ -141,9 +152,10 @@ margin_bottom = 162.0
 size_flags_horizontal = 3
 
 [node name="List" type="GridContainer" parent="List/Details"]
-margin_left = 9.0
-margin_right = 133.0
+margin_left = 5.0
+margin_right = 137.0
 margin_bottom = 58.0
+rect_min_size = Vector2( 132, 0 )
 custom_constants/vseparation = 2
 custom_constants/hseparation = -6
 columns = 2
@@ -155,8 +167,9 @@ text = "Age"
 
 [node name="Age" type="Label" parent="List/Details/List"]
 margin_left = 26.0
-margin_right = 124.0
+margin_right = 132.0
 margin_bottom = 13.0
+size_flags_horizontal = 3
 text = "99 Seasons - very old"
 align = 2
 
@@ -169,8 +182,9 @@ text = "Birth"
 [node name="Birth" type="Label" parent="List/Details/List"]
 margin_left = 26.0
 margin_top = 15.0
-margin_right = 124.0
+margin_right = 132.0
 margin_bottom = 28.0
+size_flags_horizontal = 3
 text = "Autumn 99"
 align = 2
 
@@ -187,6 +201,7 @@ margin_left = 27.0
 margin_top = 34.0
 margin_right = 153.0
 margin_bottom = 49.0
+size_flags_horizontal = 3
 text = "Autumn 99 - half a year ago"
 align = 2
 
@@ -199,8 +214,9 @@ text = "Lover"
 [node name="Lover" parent="List/Details/List" instance=ExtResource( 8 )]
 margin_left = 26.0
 margin_top = 30.0
-margin_right = 124.0
+margin_right = 132.0
 margin_bottom = 43.0
+size_flags_horizontal = 3
 custom_styles/normal = SubResource( 2 )
 bbcode_text = "[right]Lover[/right]"
 text = "Lover"
@@ -214,23 +230,9 @@ text = "Item"
 [node name="Item" parent="List/Details/List" instance=ExtResource( 8 )]
 margin_left = 26.0
 margin_top = 45.0
-margin_right = 124.0
+margin_right = 132.0
 margin_bottom = 58.0
+size_flags_horizontal = 3
 custom_styles/normal = SubResource( 2 )
 bbcode_text = "[right]Item[/right]"
 text = "Item"
-
-[node name="ActionLabel" type="Label" parent="List/Details/List"]
-visible = false
-margin_top = 30.0
-margin_right = 33.0
-margin_bottom = 43.0
-text = "Action"
-
-[node name="Action" type="Label" parent="List/Details/List"]
-visible = false
-margin_top = 30.0
-margin_right = 31.0
-margin_bottom = 43.0
-text = "Quest"
-align = 2

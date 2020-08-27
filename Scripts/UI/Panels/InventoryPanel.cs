@@ -14,14 +14,16 @@ namespace UI {
         private void Refresh() {
             container.QueueFreeChildren();
             foreach (Item item in Game.data.inventory.items) {
-                container.AddChild(Visual.Tables.ItemTable.Create(item));
+                var itemTable = Visual.Tables.ItemTable.New();
+                container.AddChild(itemTable);
+                itemTable.SetItem(item);
             }
         }
 
         private const int MIN_COLUMN_SIZE = 132;
 
         private void on_Resized() {
-            container.Columns = (int) (container.RectSize.x / MIN_COLUMN_SIZE);
+            container.Columns = (int) Math.Max(1, container.RectSize.x / MIN_COLUMN_SIZE);
         }
     }
 }

@@ -21,7 +21,6 @@ namespace Visual.Icons {
                 GetNode<CharacterAppearance>("List/Center/Block/Character").Show();
                 GetNode<CharacterAppearance>("List/Center/Block/Character").data = character.appearance;
             } else {
-
                 GetNode<Label>("List/Name").Text = "None";
                 GetNode<CharacterAppearance>("List/Center/Block/Character").Hide();
             }

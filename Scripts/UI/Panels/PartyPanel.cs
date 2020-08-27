@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Visual.Icons;
+using Visual.Tables;
 
 namespace UI {
     public class PartyPanel : VBoxContainer {
@@ -21,9 +21,9 @@ namespace UI {
             list.QueueFreeChildren();
             buttons.Clear();
             foreach (Entity member in Family.familyMembers.Where(e => e.ageGroup >= Date.AgeGroup.TEEN)) {
-                PartyCharacter character = PartyCharacter.Create(member);
-                character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));
+                PartyCharacter character = PartyCharacter.CreateParty(member);
                 list.AddChild(character);
+                character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));
                 buttons[member] = character;
             }
         }

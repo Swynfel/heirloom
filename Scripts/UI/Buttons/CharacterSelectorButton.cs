@@ -24,9 +24,18 @@ public class CharacterSelectorButton : Control {
     }
 
     public void SetupDeactivated() {
+        Link();
         popup.Disconnect(nameof(UI.CharacterSelectorPopup.selected), this, nameof(on_Selected));
+        GetNode<Button>("CharacterButton").Disconnect("pressed", popup, "popup");
+        GetNode<Button>("CharacterButton").Connect("pressed", this, nameof(OpenMetaPopup));
     }
+
+    private void OpenMetaPopup() {
+        if (current != null) MetaPopup.instance.OpenEntity(current);
+    }
+
     public void Setup(Entity current, bool nullable = false, string comment = null, List<Entity> list = null) {
+        this.current = current;
         Link();
         entities = list;
         popup.Setup(nullable, comment);
