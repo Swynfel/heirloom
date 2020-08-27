@@ -123,8 +123,8 @@ public class Entity : Resource {
     public static Entity FromBirth(Entity parentA, Entity parentB) {
         Entity baby = new Entity();
         baby.SetAge(0);
-        baby.skill1 = parentA.skills.Random();
-        baby.skill2 = parentB.skills.Where(s => SkillHandler.AreCompatible(s, baby.skill1)).Random();
+        baby.skill1 = parentA.coreSkills.Random();
+        baby.skill2 = parentB.coreSkills.Where(s => SkillHandler.AreCompatible(s, baby.skill1)).Random();
         baby.skill3 = null;
         baby.skill3 = SkillHandler.FindRandomSkillFor(baby);
         return baby;

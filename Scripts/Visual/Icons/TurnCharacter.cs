@@ -6,7 +6,7 @@ namespace Visual.Icons {
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/TurnCharacter.tscn");
         public static TurnCharacter Create(Combat.Piece piece) {
             TurnCharacter character = (TurnCharacter) template.Instance();
-            character.Set(piece);
+            character.Configure(piece);
             return character;
         }
 
@@ -35,7 +35,7 @@ namespace Visual.Icons {
         public override void _Ready() {
             TrySetup();
         }
-        public void Set(Combat.Piece piece) {
+        public void Configure(Combat.Piece piece) {
             TrySetup();
             entity = piece.entity;
             name.Text = piece.entity.name;

@@ -12,7 +12,7 @@ namespace Visual.Tables {
         }
         public void SetSkill(Skill skill) {
             GetNode<Label>("Body/Top/Name").Text = skill.name;
-            GetNode<SkillButton>("Body/Top/Skill").Set(skill);
+            GetNode<SkillButton>("Body/Top/Skill").Configure(skill);
             GetNode<Label>("Body/Bottom/Grid/Range").Text = skill.area.minRange + "-" + skill.area.maxRange;
             GetNode<Label>("Body/Bottom/Grid/Type").Text = skill.area.constraint.ToString();
             GetNode<SmartText>("Body/Bottom/Description").Text = skill.description;

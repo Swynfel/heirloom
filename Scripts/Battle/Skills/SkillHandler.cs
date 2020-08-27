@@ -55,10 +55,10 @@ public static class SkillHandler {
             "Metal", "Earth", "Metallic"
         },
         new string[] {
-            "Wind", "Air"
+            "Water", "Cold", "Ice", "Frost"
         },
         new string[] {
-            "Water", "Cold", "Ice", "Frost"
+            "Wind", "Air"
         },
         new string[] {
             "Nature", "Plant"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/Outcome.cs" type="Script" id=2]
@@ -10,15 +10,94 @@
 [ext_resource path="res://Nodes/Visual/Effects/SmartText.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Nodes/Visual/ExtraInfo.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Nodes/Visual/Components/QuestTable.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 11 )
+shader_param/outline = Color( 0, 0, 0, 1 )
+shader_param/primary_0 = Color( 0.4, 0.0196078, 0.0196078, 1 )
+shader_param/primary_1 = Color( 0.521569, 0.054902, 0.054902, 1 )
+shader_param/primary_2 = Color( 0.654902, 0.14902, 0.14902, 1 )
+shader_param/primary_3 = Color( 0.831373, 0.27451, 0.27451, 1 )
+shader_param/secondary_0 = Color( 0.576471, 0.576471, 0.576471, 1 )
+shader_param/secondary_1 = Color( 0.807843, 0.807843, 0.807843, 1 )
+shader_param/secondary_2 = Color( 0.984314, 0.984314, 0.984314, 1 )
+shader_param/skin_0 = Color( 0.917647, 0.647059, 0.384314, 1 )
+shader_param/skin_1 = Color( 0.941176, 0.788235, 0.572549, 1 )
+shader_param/skin_2 = Color( 0.960784, 0.815686, 0.721569, 1 )
+shader_param/skin_3 = Color( 1, 1, 0.952941, 1 )
+shader_param/hair_0 = Color( 0.137255, 0.14902, 0.498039, 1 )
+shader_param/hair_1 = Color( 0.223529, 0.239216, 0.584314, 1 )
+shader_param/hair_2 = Color( 0.560784, 0.615686, 0.831373, 1 )
+shader_param/hair_3 = Color( 0.807843, 0.862745, 0.94902, 1 )
+shader_param/eyebrows = Color( 0.141176, 0.141176, 0.141176, 1 )
+shader_param/eyeball_0 = Color( 1, 1, 1, 1 )
+shader_param/eyeball_1 = Color( 0.933333, 0.933333, 0.933333, 1 )
+shader_param/iris_0 = Color( 0, 0.294118, 0.0235294, 1 )
+shader_param/iris_1 = Color( 0.164706, 0.576471, 0.101961, 1 )
+shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
+
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
 region = Rect2( 48, 16, 16, 16 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 11 )
+shader_param/outline = Color( 0, 0, 0, 1 )
+shader_param/primary_0 = Color( 0.4, 0.0196078, 0.0196078, 1 )
+shader_param/primary_1 = Color( 0.521569, 0.054902, 0.054902, 1 )
+shader_param/primary_2 = Color( 0.654902, 0.14902, 0.14902, 1 )
+shader_param/primary_3 = Color( 0.831373, 0.27451, 0.27451, 1 )
+shader_param/secondary_0 = Color( 0.576471, 0.576471, 0.576471, 1 )
+shader_param/secondary_1 = Color( 0.807843, 0.807843, 0.807843, 1 )
+shader_param/secondary_2 = Color( 0.984314, 0.984314, 0.984314, 1 )
+shader_param/skin_0 = Color( 0.917647, 0.647059, 0.384314, 1 )
+shader_param/skin_1 = Color( 0.941176, 0.788235, 0.572549, 1 )
+shader_param/skin_2 = Color( 0.960784, 0.815686, 0.721569, 1 )
+shader_param/skin_3 = Color( 1, 1, 0.952941, 1 )
+shader_param/hair_0 = Color( 0.137255, 0.14902, 0.498039, 1 )
+shader_param/hair_1 = Color( 0.223529, 0.239216, 0.584314, 1 )
+shader_param/hair_2 = Color( 0.560784, 0.615686, 0.831373, 1 )
+shader_param/hair_3 = Color( 0.807843, 0.862745, 0.94902, 1 )
+shader_param/eyebrows = Color( 0.141176, 0.141176, 0.141176, 1 )
+shader_param/eyeball_0 = Color( 1, 1, 1, 1 )
+shader_param/eyeball_1 = Color( 0.933333, 0.933333, 0.933333, 1 )
+shader_param/iris_0 = Color( 0, 0.294118, 0.0235294, 1 )
+shader_param/iris_1 = Color( 0.164706, 0.576471, 0.101961, 1 )
+shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = ExtResource( 11 )
+shader_param/outline = Color( 0, 0, 0, 1 )
+shader_param/primary_0 = Color( 0.4, 0.0196078, 0.0196078, 1 )
+shader_param/primary_1 = Color( 0.521569, 0.054902, 0.054902, 1 )
+shader_param/primary_2 = Color( 0.654902, 0.14902, 0.14902, 1 )
+shader_param/primary_3 = Color( 0.831373, 0.27451, 0.27451, 1 )
+shader_param/secondary_0 = Color( 0.576471, 0.576471, 0.576471, 1 )
+shader_param/secondary_1 = Color( 0.807843, 0.807843, 0.807843, 1 )
+shader_param/secondary_2 = Color( 0.984314, 0.984314, 0.984314, 1 )
+shader_param/skin_0 = Color( 0.917647, 0.647059, 0.384314, 1 )
+shader_param/skin_1 = Color( 0.941176, 0.788235, 0.572549, 1 )
+shader_param/skin_2 = Color( 0.960784, 0.815686, 0.721569, 1 )
+shader_param/skin_3 = Color( 1, 1, 0.952941, 1 )
+shader_param/hair_0 = Color( 0.137255, 0.14902, 0.498039, 1 )
+shader_param/hair_1 = Color( 0.223529, 0.239216, 0.584314, 1 )
+shader_param/hair_2 = Color( 0.560784, 0.615686, 0.831373, 1 )
+shader_param/hair_3 = Color( 0.807843, 0.862745, 0.94902, 1 )
+shader_param/eyebrows = Color( 0.141176, 0.141176, 0.141176, 1 )
+shader_param/eyeball_0 = Color( 1, 1, 1, 1 )
+shader_param/eyeball_1 = Color( 0.933333, 0.933333, 0.933333, 1 )
+shader_param/iris_0 = Color( 0, 0.294118, 0.0235294, 1 )
+shader_param/iris_1 = Color( 0.164706, 0.576471, 0.101961, 1 )
+shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 12
 border_width_top = 2
@@ -115,30 +194,150 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="LeftMargin" type="Control" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple"]
-margin_right = 38.0
+margin_right = 32.0
 margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
 [node name="Left" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple" instance=ExtResource( 5 )]
-margin_left = 38.0
-margin_right = 231.0
+margin_left = 32.0
+margin_right = 196.0
+
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left" index="0"]
+margin_left = 11.0
+margin_top = 0.0
+margin_right = 153.0
+margin_bottom = 160.0
+
+[node name="Name" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="0"]
+margin_top = 14.0
+margin_bottom = 27.0
+
+[node name="Center" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="1"]
+margin_top = 33.0
+margin_bottom = 57.0
+
+[node name="Character" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Center/Block" index="0"]
+material = SubResource( 2 )
+
+[node name="HealthHolder" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="2"]
+margin_top = 63.0
+margin_bottom = 70.0
+
+[node name="Elements" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="3"]
+margin_top = 76.0
+margin_bottom = 88.0
+
+[node name="Skills" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="4"]
+margin_top = 94.0
+margin_bottom = 112.0
+
+[node name="Details" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List" index="5"]
+margin_top = 118.0
+margin_bottom = 146.0
+
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details" index="0"]
+margin_left = 11.0
+margin_right = 131.0
+margin_bottom = 28.0
+
+[node name="AgeLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="0"]
+margin_right = 28.0
+
+[node name="Age" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="1"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="BirthLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="2"]
+margin_right = 28.0
+
+[node name="Birth" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="3"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="ActionLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="10"]
+visible = false
+
+[node name="Action" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left/List/Details/List" index="11"]
+visible = false
+margin_left = 0.0
+margin_right = 31.0
 
 [node name="Heart" type="TextureRect" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple"]
-margin_left = 231.0
+margin_left = 196.0
 margin_top = 72.0
-margin_right = 247.0
+margin_right = 212.0
 margin_bottom = 88.0
 size_flags_vertical = 4
-texture = SubResource( 2 )
+texture = SubResource( 3 )
 
 [node name="Right" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple" instance=ExtResource( 5 )]
-margin_left = 247.0
-margin_right = 440.0
+margin_left = 212.0
+margin_right = 376.0
+
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right" index="0"]
+margin_left = 11.0
+margin_top = 0.0
+margin_right = 153.0
+margin_bottom = 160.0
+
+[node name="Name" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="0"]
+margin_top = 14.0
+margin_bottom = 27.0
+
+[node name="Center" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="1"]
+margin_top = 33.0
+margin_bottom = 57.0
+
+[node name="Character" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Center/Block" index="0"]
+material = SubResource( 4 )
+
+[node name="HealthHolder" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="2"]
+margin_top = 63.0
+margin_bottom = 70.0
+
+[node name="Elements" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="3"]
+margin_top = 76.0
+margin_bottom = 88.0
+
+[node name="Skills" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="4"]
+margin_top = 94.0
+margin_bottom = 112.0
+
+[node name="Details" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List" index="5"]
+margin_top = 118.0
+margin_bottom = 146.0
+
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details" index="0"]
+margin_left = 11.0
+margin_right = 131.0
+margin_bottom = 28.0
+
+[node name="AgeLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="0"]
+margin_right = 28.0
+
+[node name="Age" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="1"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="BirthLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="2"]
+margin_right = 28.0
+
+[node name="Birth" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="3"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="ActionLabel" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="10"]
+visible = false
+
+[node name="Action" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right/List/Details/List" index="11"]
+visible = false
+margin_left = 0.0
+margin_right = 31.0
 
 [node name="RightMargin" type="Control" parent="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple"]
-margin_left = 440.0
-margin_right = 480.0
+margin_left = 376.0
+margin_right = 410.0
 margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
@@ -150,31 +349,90 @@ anchor_bottom = 1.0
 custom_constants/separation = 0
 
 [node name="LeftMargin" type="Control" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption"]
-margin_right = 48.0
-margin_bottom = 136.0
+margin_right = 41.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Left" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 3 )]
-margin_left = 48.0
-margin_right = 144.0
-margin_bottom = 136.0
+margin_left = 41.0
+margin_right = 123.0
+margin_bottom = 160.0
 
 [node name="Middle" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 5 )]
-margin_left = 144.0
-margin_right = 336.0
-margin_bottom = 136.0
+margin_left = 123.0
+margin_right = 287.0
 size_flags_stretch_ratio = 2.0
 
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle" index="0"]
+margin_left = 11.0
+margin_top = 0.0
+margin_right = 153.0
+margin_bottom = 160.0
+
+[node name="Name" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="0"]
+margin_top = 14.0
+margin_bottom = 27.0
+
+[node name="Center" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="1"]
+margin_top = 33.0
+margin_bottom = 57.0
+
+[node name="Character" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Center/Block" index="0"]
+material = SubResource( 5 )
+
+[node name="HealthHolder" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="2"]
+margin_top = 63.0
+margin_bottom = 70.0
+
+[node name="Elements" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="3"]
+margin_top = 76.0
+margin_bottom = 88.0
+
+[node name="Skills" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="4"]
+margin_top = 94.0
+margin_bottom = 112.0
+
+[node name="Details" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List" index="5"]
+margin_top = 118.0
+margin_bottom = 146.0
+
+[node name="List" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details" index="0"]
+margin_left = 11.0
+margin_right = 131.0
+margin_bottom = 28.0
+
+[node name="AgeLabel" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="0"]
+margin_right = 28.0
+
+[node name="Age" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="1"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="BirthLabel" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="2"]
+margin_right = 28.0
+
+[node name="Birth" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="3"]
+margin_left = 22.0
+margin_right = 120.0
+
+[node name="ActionLabel" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="10"]
+visible = false
+
+[node name="Action" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle/List/Details/List" index="11"]
+visible = false
+margin_left = 0.0
+margin_right = 31.0
+
 [node name="Right" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption" instance=ExtResource( 3 )]
-margin_left = 336.0
-margin_right = 432.0
-margin_bottom = 136.0
+margin_left = 287.0
+margin_right = 369.0
+margin_bottom = 160.0
 
 [node name="RightMargin" type="Control" parent="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption"]
-margin_left = 432.0
-margin_right = 480.0
-margin_bottom = 136.0
+margin_left = 369.0
+margin_right = 410.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
@@ -196,7 +454,7 @@ margin_top = 28.0
 margin_right = 410.0
 margin_bottom = 246.0
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 6 )
 fit_content_height = false
 scroll_active = true
 
@@ -242,3 +500,9 @@ custom_constants/margin_right = 6
 custom_constants/margin_top = 16
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 6
+
+[editable path="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Left"]
+
+[editable path="HBoxContainer/OutcomeUI/Content/Head/CharacterCouple/Right"]
+
+[editable path="HBoxContainer/OutcomeUI/Content/Head/BirthOrAdoption/Middle"]

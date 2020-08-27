@@ -26,7 +26,7 @@ namespace UI {
             int i = 0;
             foreach (Skill skill in skills) {
                 slots[i].Disabled = false;
-                slots[i].Set(skill, (i + 1).ToString());
+                slots[i].Configure(skill, (i + 1).ToString());
                 i++;
             }
             while (i < 5) {

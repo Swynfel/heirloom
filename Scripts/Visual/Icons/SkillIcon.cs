@@ -13,13 +13,13 @@ namespace Visual.Icons {
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/SkillIcon.tscn");
         public static SkillIcon Create(SpriteTemplate sprite, Element element = Element.NONE) {
             SkillIcon icon = (SkillIcon) template.Instance();
-            icon.Set(sprite, element);
+            icon.Configure(sprite, element);
             return icon;
         }
 
         private const int SIZE = 16;
         private static Vector2 DIM = new Vector2(SIZE, SIZE);
-        public void Set(SpriteTemplate sprite, Element element = Element.NONE) {
+        public void Configure(SpriteTemplate sprite, Element element = Element.NONE) {
             int i = (int) sprite;
             ((AtlasTexture) Texture).Region = new Rect2((i % 4) * SIZE, (i / 4) * SIZE, DIM);
             Modulate = ElementUtils.GetColor(element);

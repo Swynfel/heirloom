@@ -7,7 +7,7 @@ namespace Visual.Icons {
         public static PartyCharacter Create(Entity entity = null) {
             PartyCharacter character = (PartyCharacter) template.Instance();
             if (entity != null) {
-                character.Set(entity);
+                character.ConfigureEntity(entity);
             }
             return character;
         }
@@ -30,7 +30,7 @@ namespace Visual.Icons {
             }
         }
 
-        public void Set(Entity entity) {
+        public void ConfigureEntity(Entity entity) {
             TrySetup();
             name.Text = entity.name;
             character.data = entity.appearance;

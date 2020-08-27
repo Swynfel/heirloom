@@ -11,7 +11,7 @@ namespace OutcomeProcesses {
         Quest quest;
         public async Task Process() {
             quest = Village.quest;
-            questers = Village.actions.Where(VillageAction.FIND_QUEST).ToList();
+            questers = Village.actions.Where(VillageAction.QUEST).ToList();
             P.ui.SetCharacters(questers);
             if (Combat.Battle.won) {
                 QuestSuccessContent();
@@ -57,12 +57,10 @@ namespace OutcomeProcesses {
             P.ui.SetTitle("Quest Failed...");
             P.ui.ClearDescription();
             string s = string.Format(
-                QUEST_SUCCESS,
+                QUEST_FAILED,
                 Entity.MetaNames(questers),
                 quest.name
             );
-            s += "\n";
-            s += Found(riches);
             P.ui.AddDescription(s);
             History.Append(s);
             Game.data.quests.Remove(quest);

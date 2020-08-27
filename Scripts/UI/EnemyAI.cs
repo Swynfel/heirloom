@@ -60,7 +60,6 @@ public class EnemyAI {
             }
         }
         if (bestSkill != null) {
-            GD.Print(bestSkill.name + " ON " + bestArea.Count);
             bestSkill.effect.Apply(bestSkill.element, piece, bestArea);
         }
         Global.battle.NextTurn();

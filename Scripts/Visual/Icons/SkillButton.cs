@@ -6,17 +6,17 @@ namespace Visual.Icons {
         private static PackedScene condensedTemplate = (PackedScene) ResourceLoader.Load("res://Nodes/UI/Buttons/SkillButtonCondensed.tscn");
         public static SkillButton CreateCondensed(Skill skill) {
             SkillButton skillButton = (SkillButton) condensedTemplate.Instance();
-            skillButton.Set(skill, "");
+            skillButton.Configure(skill, "");
             return skillButton;
         }
-        public void Set(Skill skill, string i = null) {
+        public void Configure(Skill skill, string i = null) {
             if (skill == null) {
                 Hide();
                 return;
             }
             Show();
-            GetNode<ElementIcon>("Element").Set(skill.element, false);
-            GetNode<SkillIcon>("SkillIcon").Set(skill.icon, skill.element);
+            GetNode<ElementIcon>("Element").Configure(skill.element, false);
+            GetNode<SkillIcon>("SkillIcon").Configure(skill.icon, skill.element);
             if (i != null) {
                 GetNode<Label>("Label").Text = i;
             }

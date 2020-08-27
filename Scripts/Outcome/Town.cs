@@ -10,7 +10,7 @@ namespace OutcomeProcesses {
         public static async Task Process() {
             List<Entity> workers = new List<Entity>();
             List<Entity> hunters = new List<Entity>();
-            foreach (Entity e in Family.familyMembers) {
+            foreach (Entity e in Family.familyMembers.ToArray()) {
                 switch (e.Action()) {
                     case VillageAction.FIND_QUEST:
                         await ActionLookForDungeon(e); // ActionLookForQuest(e);
@@ -82,7 +82,7 @@ namespace OutcomeProcesses {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
             Quest quest;
-            if (x < 0f) { // ERROR OTHERWISE
+            if (x < 0.1f) { // ERROR OTHERWISE
                 quest = null;
                 P.ui.SetTitle("No dungeon found...");
                 P.ui.NoHead();
@@ -118,11 +118,11 @@ namespace OutcomeProcesses {
             }
             var pressed = await P.ui.ButtonPressed();
             if (quest != null && pressed.Yes()) {
-                AddLover(e, quest);
+                AddQuest(e, quest);
             }
         }
 
-        private static void AddLover(Entity finder, Quest quest) {
+        private static void AddQuest(Entity finder, Quest quest) {
             History.Append(string.Format(
                 "{0} found \"{1}\"", finder.MetaName(), quest.name
             ));
@@ -187,6 +187,7 @@ namespace OutcomeProcesses {
                 P.ui.SetButtons("Continue");
             } else {
                 potentialLover = new Entity();
+                potentialLover.SetAge(e.age);
                 P.ui.SetTitle("Is this love?");
                 P.ui.SetCouple(e, potentialLover);
                 P.ui.SetDescription(string.Format(
@@ -237,7 +238,6 @@ namespace OutcomeProcesses {
                 "{0} found a cute child called {1}. The owners of the orphanage ask for a donation of {2}.",
                 e.MetaName(), potentialChild.name, gold
             ));
-            GD.Print("XXX");
             bool enoughMoney = Game.data.inventory.gold >= gold;
             P.ui.SetButtons(string.Format("Adopt (Pay {0})", gold), "Decline", "Bargain");
             if (!enoughMoney) {
@@ -288,7 +288,7 @@ namespace OutcomeProcesses {
             if (x < 0.3f) {
                 return;
             }
-            Entity child = Entity.FromBirth(e, e.lover); // TODO: Birth
+            Entity child = Entity.FromBirth(e, e.lover);
             P.ui.SetTitle("New member of the family!");
             P.ui.SetBirth(e, e.lover, child);
             P.ui.SetDescription(string.Format(

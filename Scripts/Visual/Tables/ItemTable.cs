@@ -28,7 +28,7 @@ namespace Visual.Tables {
         private Item item;
         public void SetItem(Item item) {
             this.item = item;
-            GetNode<SkillIcon>("List/Top/SkillIcon").Set(item.icon);
+            GetNode<SkillIcon>("List/Top/SkillIcon").Configure(item.icon);
             GetNode<Label>("List/Top/Name").Text = item.name;
             GetNode<Label>("List/Bottom/Left/Group").Text = item.group.ToString();
             if (item.equipable) {

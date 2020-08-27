@@ -23,6 +23,8 @@ public static class QuestGeneration {
         return quest;
     }
 
+
+    // Can return null if "failIfNotRare" is true
     public static Quest GenerateRandomDungeon(bool failIfNotRare = false, bool noRare = false) {
         // Should be rare?
         if (!noRare) {
@@ -43,7 +45,9 @@ public static class QuestGeneration {
             if (failIfNotRare && !rare) {
                 return null;
             }
+            rare = false;
             // Load rare
+            // TODO: None for now, so de-activated
             if (rare) {
                 if (!Game.data.progress.foundCrownQuest && !Game.data.progress.foundShieldQuest) {
                     if (Global.rng.Next(0, 2) == 0) {

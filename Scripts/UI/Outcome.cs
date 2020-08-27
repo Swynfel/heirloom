@@ -118,7 +118,7 @@ namespace UI {
             if (third == null) {
                 buttonThird.Hide();
             } else {
-                buttonThird.Text = no;
+                buttonThird.Text = third;
                 buttonThird.Show();
             }
         }

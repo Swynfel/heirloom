@@ -30,7 +30,6 @@ public class MetaPopup : CenterContainer {
     }
 
     public void OpenMemory(Memory.MetaTag tag) {
-        GD.Print("TAG " + tag);
         switch (tag.group) {
             case (Memory.Group.CHARACTER):
                 OpenEntity(tag.RememberEntity());
@@ -60,7 +59,6 @@ public class MetaPopup : CenterContainer {
     }
 
     private void Open() {
-        GD.Print("OPEN");
         Popup.PopupCentered();
     }
 }
