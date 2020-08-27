@@ -12,10 +12,14 @@ namespace UI {
             questList = GetNode<VBoxContainer>("QuestSelection/Selection/List");
             questTable = GetNode<Visual.Tables.QuestTable>("QuestSelection/QuestTable");
             party = GetNode<PartyPanel>("Party");
+            Connect("visibility_changed", this, nameof(Refresh));
             Refresh();
         }
 
         private void Refresh() {
+            if (!Visible) {
+                return;
+            }
             questList.QueueFreeChildren();
             foreach (Quest quest in Game.data.quests) {
                 Button b = new Button();

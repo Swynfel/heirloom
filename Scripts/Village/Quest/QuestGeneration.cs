@@ -1,13 +1,27 @@
 public static class QuestGeneration {
 
     public static Quest GenerateRandomQuest() {
-        return GenerateRandomDungeon();
+        return GenerateRandomBasicDungeon();
     }
 
     // TODO: Create special quests
     private static readonly Quest CROWN_QUEST;
     private static readonly Quest SHIELD_QUEST;
     private static readonly Quest FINAL_QUEST;
+
+    public static Quest GenerateRandomBasicDungeon() {
+        Quest quest = new Quest();
+        int intensity = Global.rng.Next(3, 13);
+        QuestReward reward = new QuestReward(intensity * intensity, QuestReward.Group.DUNGEON);
+        (string name, BattleGeneration battle, int party) = GenerateDungeon(intensity);
+        int extension = (Global.rng.Next(3, 10) + intensity) / 4;
+        quest.name = name;
+        quest.battle = battle;
+        quest.partySize = party;
+        quest.difficulty = Difficulty(party, battle.count, intensity);
+        quest.deadline = Game.data.date.Plus(extension);
+        return quest;
+    }
 
     public static Quest GenerateRandomDungeon(bool failIfNotRare = false, bool noRare = false) {
         // Should be rare?
@@ -53,17 +67,7 @@ public static class QuestGeneration {
             }
         }
         // Generate normal quest
-        Quest quest = new Quest();
-        int intensity = Global.rng.Next(3, 13);
-        QuestReward reward = new QuestReward(intensity * intensity, QuestReward.Group.DUNGEON);
-        (string name, BattleGeneration battle, int party) = GenerateDungeon(intensity);
-        int extension = (Global.rng.Next(3, 10) + intensity) / 4;
-        quest.name = name;
-        quest.battle = battle;
-        quest.partySize = party;
-        quest.difficulty = Difficulty(party, battle.count, intensity);
-        quest.deadline = Game.data.date.Plus(extension);
-        return quest;
+        return GenerateRandomBasicDungeon();
     }
 
     private static string Difficulty(int party, int enemies, int intensity) {
