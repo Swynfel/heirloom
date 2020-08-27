@@ -26,9 +26,13 @@ namespace UI {
             freezePanel = GetNode<Control>("FreezePanel");
             skillPanel.Disable();
             launcherPanel.Disable();
+        }
+
+        public void Start() {
             BattleState firstState = currentState;
             currentState = BattleState.OBSERVE;
             SwitchState(firstState);
+            GetNode<TurnPanel>("TurnPanel").Start();
         }
 
         internal void SwitchState(BattleState state) {

@@ -12,6 +12,10 @@ namespace UI {
             turnCharacters = GetNode<VBoxContainer>("ScrollContainer/TurnCharacterContainer");
             Global.battle.Connect(nameof(Battle.next_turn), this, nameof(UpdateTurn));
         }
+
+        public void Start() {
+            UpdateTurn(Battle.current.actors[0]);
+        }
         public void UpdateTurn(Piece nextActor) {
             turnCharacters.QueueFreeChildren();
             bool shouldAdd = false;

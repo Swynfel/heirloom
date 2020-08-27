@@ -87,6 +87,6 @@ public class BattleGeneration : Resource {
     }
 
     public void Place(Entity entity, Tile tile) {
-        Piece.Create(Battle.current, entity, tile);
+        Battle.current.AddChild(Piece.New(entity, tile));
     }
 }

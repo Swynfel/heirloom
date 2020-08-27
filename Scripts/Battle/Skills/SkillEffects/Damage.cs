@@ -23,12 +23,12 @@ namespace Combat.SkillEffects {
                         modifier = 2f;
                         break;
                 }
-                float final_floating_damage = -modifier * damage;
+                float final_floating_damage = modifier * damage;
                 final_floating_damage += launcher.entity?.heldItem?.bonusDamage ?? 0;
                 final_floating_damage -= piece.entity?.heldItem?.armor ?? 0;
                 int final_damage = (int) Math.Max(0, Math.Ceiling(final_floating_damage));
-                piece.entity.ModifyHealth(final_damage);
-                Visual.Effects.FloatingLabel.CreateDamage(piece, final_damage);
+                piece.entity.ModifyHealth(-final_damage);
+                Visual.Effects.FloatingLabel.CreateDamage(piece, -final_damage);
             }
         }
 
@@ -50,11 +50,11 @@ namespace Combat.SkillEffects {
                         modifier = 2f;
                         break;
                 }
-                float final_floating_damage = -modifier * damage;
-                final_floating_damage += launcher.entity?.heldItem.bonusDamage ?? 0;
-                final_floating_damage -= piece.entity?.heldItem.armor ?? 0;
-                int final_damage = (int) final_floating_damage;
-                int h = piece.entity.ModifyHealthSimulation(final_damage);
+                float final_floating_damage = modifier * damage;
+                final_floating_damage += launcher.entity?.heldItem?.bonusDamage ?? 0;
+                final_floating_damage -= piece.entity?.heldItem?.armor ?? 0;
+                int final_damage = (int) Math.Max(0, Math.Ceiling(final_floating_damage));
+                int h = piece.entity.ModifyHealthSimulation(-final_damage);
                 heuristic += (piece.entity.alignment == launcher.entity.alignment) ? 2 * h : -h;
             }
             return heuristic;

@@ -4,7 +4,7 @@ using Godot;
 
 namespace Combat {
     public class Battle : Node2D {
-        public static Battle current = null;
+        public static Battle current { get; private set; } = null;
 
         public Board board { get; private set; }
         public Camera2D camera { get; private set; }
@@ -21,6 +21,22 @@ namespace Combat {
             board = new Board();
             AddChild(board);
             camera = GetNode<Camera2D>("Camera");
+        }
+
+        public void SetupBattle() {
+            // HACK to force a quest for debugging
+            if (Village.quest == null) {
+                Village.quest = Game.data.quests[0];
+                Village.actions[Family.familyMembers[0]] = VillageAction.QUEST;
+            }
+
+            // Generate battle
+            Village.quest.battle.Generate(this, Village.actions.Where(VillageAction.QUEST));
+
+            // Start battle
+            TurnOf(actors[0]);
+            camera.Position = board.GetCenter();
+            battleStarted = true;
         }
 
         private bool battleStarted = false;
@@ -51,19 +67,6 @@ namespace Combat {
             pendingNextTurn = true;
             pendingNextTurnTimer = 0.5f;
         }
-
-        public void StartBattle() {
-            battleStarted = true;
-            // HACK
-            if (Village.quest == null) {
-                Village.quest = Game.data.quests[0];
-                Village.actions[Family.familyMembers[0]] = VillageAction.QUEST;
-            }
-            Village.quest.battle.Generate(this, Village.actions.Where(VillageAction.QUEST));
-            TurnOf(actors[0]);
-            camera.Position = board.GetCenter();
-        }
-
         public static bool won = false;
 
         public async void CheckIfFinished() {

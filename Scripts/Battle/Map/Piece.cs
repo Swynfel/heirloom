@@ -4,57 +4,32 @@ using Godot;
 namespace Combat {
     public class Piece : Node2D {
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Battle/Piece.tscn");
-        public static Piece Instance() {
-            return (Piece) template.Instance();
-        }
-        public Node2D display { get; private set; }
-        [Export] public Entity entity;
-
-        public Battle battle { get; private set; }
-        public Board board { get { return battle.board; } }
+        public Entity entity { get; private set; }
         public Tile on { get; private set; }
 
-        public static Piece Create(Battle battle, Entity entity, Tile tile = null) {
-            Piece piece = Instance();
-            piece.Setup(battle, entity, tile);
+        public static Piece New(Entity entity, Tile tile = null) {
+            Piece piece = (Piece) template.Instance();
+            piece.entity = entity;
+            piece.on = tile;
             return piece;
         }
+        public Node2D display { get; private set; }
 
-        public void Setup(Battle battle, Entity entity, Tile tile = null) {
-            if (battle == null) {
-                GD.PrintErr("Battle was null, cannot Setup");
-                return;
-            }
+        public void Setup() {
             if (entity == null) {
                 GD.PrintErr("Entity was null, cannot Setup");
                 return;
             }
-            if (this.battle != null) {
-                GD.PrintErr("Piece was already Setup");
-                return;
-            }
-            this.battle = battle;
-            this.entity = entity;
-            GetNode<Visual.CharacterAppearance>("Display/Character").data = entity.appearance;
-            battle.AddChild(this);
-            entity.Connect(nameof(Entity.fallen), this, nameof(Delete));
-            battle.pieces.Add(this);
-            GD.Print("actor " + entity.actor);
-            if (entity.actor) {
-                battle.actors.Add(this);
-            }
-            MoveOn(tile);
         }
 
         public void Delete() {
             MoveOn(null);
-            if (battle != null) {
-                battle.pieces.Remove(this);
+            if (Battle.current != null) {
+                Battle.current.pieces.Remove(this);
                 if (entity.actor) {
-                    battle.actors.Remove(this);
+                    Battle.current.actors.Remove(this);
                 }
-                battle.CheckIfFinished();
-                battle = null;
+                Battle.current.CheckIfFinished();
             }
             QueueFree();
         }
@@ -77,6 +52,12 @@ namespace Combat {
 
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
+            Battle.current.pieces.Add(this);
+            if (entity.actor) {
+                Battle.current.actors.Add(this);
+            }
+            GetNode<Visual.CharacterAppearance>("Display/Character").data = entity.appearance;
+            entity.Connect(nameof(Entity.fallen), this, nameof(Delete));
             Color c = NEUTRAL_COLOR;
             switch (entity.alignment) {
                 case Alignment.FRIENDLY:
@@ -87,6 +68,7 @@ namespace Combat {
                     break;
             }
             (display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.SetShaderParam("outline", c);
+            MoveOn(on);
         }
     }
 }

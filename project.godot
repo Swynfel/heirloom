@@ -84,6 +84,10 @@ undo={
 
 file_logging/enable_file_logging=true
 
+[mono]
+
+debugger_agent/wait_timeout=5000
+
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0
