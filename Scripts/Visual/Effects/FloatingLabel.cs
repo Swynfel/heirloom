@@ -14,7 +14,7 @@ namespace Visual.Effects {
         }
 
         private static Color DAMAGE_COLOR = new Color(0.75f, 0, 0);
-        private static Color HEALING_COLOR = new Color(0, 0, 0);
+        private static Color HEALING_COLOR = new Color(0, 0.6f, 0.1f);
         private static Color OUTLINE_COLOR = new Color(1, 1, 1, 0.65f);
         public static void CreateDamage(Combat.Piece piece, int damage) {
             Create(piece, new Vector2(0, -12), damage.ToString(), DAMAGE_COLOR, OUTLINE_COLOR);
@@ -26,7 +26,7 @@ namespace Visual.Effects {
         private Label label;
 
         private void Load(Node node, Vector2 position, string text, Color color, Color? outline) {
-            float duration = 0.4f;
+            float duration = 0.6f;
             label = GetNode<Label>("Label");
             label.Text = text;
             label.AddColorOverride("font_color", color);

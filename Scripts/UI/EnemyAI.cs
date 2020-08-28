@@ -18,13 +18,15 @@ public class EnemyAI {
         return tile.pieces.Count == 0;
     }
 
-    public void Play() {
-        var reachableTiles = BoardUtils.AllReachableTiles(piece.on, valid: CanStepOn);
+    public async void Play() {
+        var reachableTiles = BoardUtils.AllReachableTiles(piece.on, maxLength: 3, valid: CanStepOn);
         // TODO: Think
         var pair = reachableTiles.ToList().Random();
-        SkillArea a = new SkillArea();
-        a.AddRange(pair.Value);
-        SkillHandler.WALK.effect.Apply(Element.NONE, piece, a);
+        if (pair.Key != piece.on) {
+            SkillArea a = new SkillArea();
+            a.AddRange(pair.Value);
+            await SkillHandler.WALK.effect.Apply(Element.NONE, piece, a);
+        }
 
         Skill[] skills = actor.coreSkills;
         float bestHeuristic = 0;
@@ -33,8 +35,7 @@ public class EnemyAI {
         foreach (Skill skill in skills) {
             // Try Cone
             skill.area.launcher = piece;
-            Cone cone = skill.area as Cone;
-            if (cone != null) {
+            if (skill.area is Cone cone) {
                 foreach (Direction dir in DirectionUtils.DIRECTIONS) {
                     SkillArea area = cone.SkillAreaIfTarget(dir);
                     float heuristic = skill.effect.Heuristic(skill.element, piece, area);
@@ -46,8 +47,7 @@ public class EnemyAI {
                 }
             }
             // Try Target
-            Target target = skill.area as Target;
-            if (target != null) {
+            else if (skill.area is Target target) {
                 foreach (Tile tile in BoardUtils.AllTiles(t => target.CanSelect(t))) {
                     SkillArea area = target.SkillAreaIfTarget(tile);
                     float heuristic = skill.effect.Heuristic(skill.element, piece, area);
@@ -60,7 +60,7 @@ public class EnemyAI {
             }
         }
         if (bestSkill != null) {
-            bestSkill.effect.Apply(bestSkill.element, piece, bestArea);
+            await bestSkill.effect.Apply(bestSkill.element, piece, bestArea);
         }
         Global.battle.NextTurn();
     }
