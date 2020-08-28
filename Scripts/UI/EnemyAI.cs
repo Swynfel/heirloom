@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Combat;
 using Combat.SkillAreas;
 using Godot;
@@ -19,6 +20,7 @@ public class EnemyAI {
     }
 
     public async void Play() {
+        await Task.Delay(1000);
         var reachableTiles = BoardUtils.AllReachableTiles(piece.on, maxLength: 3, valid: CanStepOn);
         // TODO: Think
         var pair = reachableTiles.ToList().Random();

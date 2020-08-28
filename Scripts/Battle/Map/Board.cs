@@ -63,5 +63,13 @@ namespace Combat {
             }
             EmitSignal(nameof(tile_hovered), tile);
         }
+
+        public static Vector2 TileRootPosition(int x, int y) {
+            return new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT);
+        }
+
+        public static Vector2 TileRootPosition(float x, float y) {
+            return new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT);
+        }
     }
 }

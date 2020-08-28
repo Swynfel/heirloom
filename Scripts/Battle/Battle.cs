@@ -7,7 +7,7 @@ namespace Combat {
         public static Battle current { get; private set; } = null;
 
         public Board board { get; private set; }
-        public Camera2D camera { get; private set; }
+        public Visual.BattleCamera camera { get; private set; }
 
         public List<Piece> pieces { get; } = new List<Piece>();
 
@@ -20,7 +20,7 @@ namespace Combat {
             current = this;
             board = new Board();
             AddChild(board);
-            camera = GetNode<Camera2D>("Camera");
+            camera = GetNode<Visual.BattleCamera>("Camera");
         }
 
         public void SetupBattle() {
@@ -60,12 +60,14 @@ namespace Combat {
             currentActor = actor;
         }
 
+        private const float NEXT_TURN_TIMER = 0.2f;
+
         private bool pendingNextTurn = false;
         private float pendingNextTurnTimer = 0.5f;
 
         public void NextTurn() {
             pendingNextTurn = true;
-            pendingNextTurnTimer = 0.5f;
+            pendingNextTurnTimer = NEXT_TURN_TIMER;
         }
         public static bool won = false;
 

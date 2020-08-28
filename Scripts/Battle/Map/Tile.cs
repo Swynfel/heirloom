@@ -33,9 +33,13 @@ namespace Combat {
             tile.Name = string.Format("Tile_{0}_{1}", x, y);
             tile.x = x;
             tile.y = y;
-            tile.Position = new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT);
+            tile.Position = tile.RootPosition();
             tile.GetNode<Sprite>("Sprite").Frame = (int) ground;
             return tile;
+        }
+
+        public Vector2 RootPosition() {
+            return Board.TileRootPosition(x, y);
         }
 
         public Tile GetNeighbor(Direction direction) {
@@ -124,7 +128,7 @@ namespace Combat {
         }
 
         public void SelectDisplay(int strength, Color color) {
-            Position = new Vector2(x * Board.TILE_WIDTH, y * Board.TILE_HEIGHT - STRENGTH_OFFSET * strength);
+            Position = RootPosition() + STRENGTH_OFFSET * strength * Vector2.Up;
             GetNode<Control>("Control").Modulate = color;
             foreach (Piece piece in pieces) {
                 // TODO: let piece handle its position

@@ -54,6 +54,7 @@ namespace Combat {
                 on.pieces.Add(this);
                 if (!keepPosition) {
                     Position = tile.Position;
+                    RootPosition = tile.RootPosition();
                 }
                 ZIndex = (int) Math.Ceiling(tile.Position.y);
             }
@@ -62,7 +63,7 @@ namespace Combat {
         private Tile startTile;
         private Tile endTile;
 
-        public async Task WalkTo(Tile destination) {
+        public async Task WalkTo(Tile destination, float time) {
             if (on == null || destination == null) {
                 GD.PrintErr("Can't use WalkTo with null start/end tile");
             }
@@ -71,21 +72,24 @@ namespace Combat {
             startTile = on;
             endTile = destination;
             ZIndex = (int) Math.Max(Math.Ceiling(on.Position.y), Math.Ceiling(destination.Position.y));
-            tween.InterpolateMethod(this, "WalkToBetween", 0f, 1f, 0.2f, Tween.TransitionType.Cubic, Tween.EaseType.InOut);
+            tween.InterpolateMethod(this, "WalkToBetween", 0f, 1f, time, Tween.TransitionType.Cubic, Tween.EaseType.InOut);
             tween.Start();
             await ToSignal(tween, "tween_all_completed");
             return;
         }
 
+        public Vector2 RootPosition { get; private set; }
+
         private void WalkToBetween(float alpha) {
             float mid = (alpha - 0.5f);
-            mid = 4f * (0.25f - mid * mid);
+            mid = 6f * (0.25f - mid * mid);
+            RootPosition = (1f - alpha) * startTile.RootPosition() + alpha * endTile.RootPosition();
             Position = (1f - alpha) * startTile.Position + alpha * endTile.Position + mid * Vector2.Up;
         }
 
-        private static Color FRIENDLY_COLOR = new Color(0f, 0.1f, 0.1f);
-        private static Color NEUTRAL_COLOR = new Color(0.05f, 0.05f, 0.05f);
-        private static Color HOSTILE_COLOR = new Color(0.35f, 0f, 0f);
+        private static Color FRIENDLY_COLOR = new Color(0f, 0.15f, 0.1f);
+        private static Color NEUTRAL_COLOR = new Color(0.25f, 0.25f, 0.25f);
+        private static Color HOSTILE_COLOR = new Color(0.5f, 0f, 0f);
 
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
