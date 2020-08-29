@@ -81,7 +81,7 @@ namespace Combat {
         }
 
         public static IEnumerable<Tile> AllTiles(Func<Tile, bool> predicate) {
-            return Battle.current.board.tiles.Where(predicate);
+            return Battle.current.board.Tiles.Where(predicate);
         }
 
         private static readonly Utils.ComparableFunc<(int, int, TileFlow)> INT_INT_TILEFLOW_COMPARER = Utils.ComparableFunc<(int, int, TileFlow)>.FromSelect(t => t.Item1);

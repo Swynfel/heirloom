@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace Combat {
@@ -7,7 +9,8 @@ namespace Combat {
         public static int TILE_WIDTH = 32;
         public static int TILE_HEIGHT = 24;
 
-        public Tile[] tiles { get; private set; } = null;
+        private Tile[] tiles = null;
+        public IEnumerable<Tile> Tiles => tiles.Where(t => t != null);
 
         [Export] public int width;
 
@@ -22,6 +25,12 @@ namespace Combat {
                 return;
             }
             foreach (Tile tile in tiles) {
+                if (tile == null) {
+                    continue;
+                }
+                foreach (Piece piece in tile.pieces) {
+                    piece.Delete();
+                }
                 tile.QueueFree();
             }
             tiles = null;
@@ -32,7 +41,11 @@ namespace Combat {
             tiles = new Tile[width * height];
             for (int x = 0 ; x < width ; x++) {
                 for (int y = 0 ; y < height ; y++) {
-                    Tile tile = Tile.Create(this, x, y, tileType(x, y));
+                    Tile.GroundType groundType = tileType(x, y);
+                    if (groundType == Tile.GroundType.NONE) {
+                        continue;
+                    }
+                    Tile tile = Tile.Create(this, x, y, groundType);
                     tile.GetNode("Control").Connect("mouse_entered", this, nameof(on_TileHovered), Global.ArrayFrom(tile));
                     tile.GetNode("Control").Connect("mouse_exited", this, nameof(on_TileExited), Global.ArrayFrom(tile));
                     tiles[y * width + x] = tile;

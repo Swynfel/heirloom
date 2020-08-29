@@ -104,7 +104,7 @@ public static class QuestGeneration {
             return (
                 string.Format("The {0} {1}", CAVE_ADJECTIVES.Random(), DIRT_CAVE_NOUNS.Random()),
                 new BattleGeneration(
-                    BattleGeneration.Map.DIRT_CAVE,
+                    Combat.MapType.DIRT_CAVE,
                     BattleGeneration.EnemyType.BANDITS,
                     count,
                     DIRT_CAVE_ELEMENTAL
@@ -114,7 +114,7 @@ public static class QuestGeneration {
             return (
                 string.Format("The {0} {1}", CAVE_ADJECTIVES.Random(), STONE_CAVE_NOUNS.Random()),
                 new BattleGeneration(
-                    BattleGeneration.Map.STONE_CAVE,
+                    Combat.MapType.STONE_CAVE,
                     BattleGeneration.EnemyType.BANDITS,
                     count,
                     STONE_CAVE_ELEMENTAL
