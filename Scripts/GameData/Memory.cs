@@ -9,14 +9,16 @@ public class Memory : Resource {
 
     public enum Group {
         CHARACTER = 'C',
-        ITEMS = 'I'
+        ITEMS = 'I',
+        INFO = '?',
     }
 
     public const string BBCODE = "[rem][url={1}]{0}[/url][/rem]";
 
     public struct MetaTag {
         public Group group;
-        public int id;
+        public string key;
+        public int id => int.Parse(key);
         public string Box(string s) {
             return string.Format(BBCODE, s, this);
         }
@@ -28,7 +30,7 @@ public class Memory : Resource {
         public static MetaTag Parse(string s) {
             return new MetaTag() {
                 group = (Group) s[0],
-                id = s.Substring(1).ToInt()
+                key = s.Substring(1),
             };
         }
 
@@ -41,6 +43,9 @@ public class Memory : Resource {
         public Item RememberItem() {
             return Memory.memory.RememberItem(this);
         }
+        public InfoText RememberInfo() {
+            return InfoText.Find(key);
+        }
     }
 
     public static Memory memory => Game.data.memory;
@@ -52,7 +57,7 @@ public class Memory : Resource {
         }
         return new MetaTag {
             group = Group.CHARACTER,
-            id = entity.rememberId
+            key = entity.rememberId.ToString(),
         };
     }
     public MetaTag Tag(Item item) {
@@ -62,7 +67,7 @@ public class Memory : Resource {
         }
         return new MetaTag {
             group = Group.ITEMS,
-            id = item.rememberId
+            key = item.rememberId.ToString(),
         };
     }
 
@@ -72,6 +77,8 @@ public class Memory : Resource {
                 return RememberEntity(meta);
             case Group.ITEMS:
                 return RememberItem(meta);
+            case Group.INFO:
+                return RememberInfo(meta);
             default:
                 return null;
         }
@@ -82,5 +89,8 @@ public class Memory : Resource {
     }
     public Item RememberItem(MetaTag meta) {
         return items[meta.id];
+    }
+    public InfoText RememberInfo(MetaTag meta) {
+        return InfoText.Find(meta.key);
     }
 }

@@ -2,10 +2,11 @@
 
 [ext_resource path="res://Scripts/Visual/Tables/SkillTable.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=2]
-[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=3]
 [ext_resource path="res://Nodes/Visual/Effects/SmartText.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Battle/elements.png" type="Texture" id=6]
 [ext_resource path="res://Nodes/UI/Buttons/SkillButton.tscn" type="PackedScene" id=7]
+
 
 [sub_resource type="AtlasTexture" id=4]
 resource_local_to_scene = true

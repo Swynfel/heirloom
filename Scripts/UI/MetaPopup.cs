@@ -38,6 +38,9 @@ public class MetaPopup : CenterContainer {
             case (Memory.Group.ITEMS):
                 OpenItem(tag.RememberItem());
                 break;
+            case (Memory.Group.INFO):
+                OpenInfo(tag.RememberInfo());
+                break;
         }
     }
 
@@ -56,6 +59,12 @@ public class MetaPopup : CenterContainer {
     public void OpenSkill(Skill skill) {
         Tabs.CurrentTab = 2;
         Tabs.GetNode<Visual.Tables.SkillTable>("SkillTable").SetSkill(skill);
+        Open();
+    }
+
+    public void OpenInfo(InfoText info) {
+        Tabs.CurrentTab = 3;
+        Tabs.GetNode<Visual.Tables.InfoTable>("InfoTable").SetInfoText(info);
         Open();
     }
 

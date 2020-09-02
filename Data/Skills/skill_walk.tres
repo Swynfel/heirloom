@@ -2,7 +2,8 @@
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Snake.cs" type="Script" id=2]
-[ext_resource path="res://Assets/Skills/Effects/move.tres" type="Resource" id=3]
+[ext_resource path="res://Data/Skills/Effects/move.tres" type="Resource" id=3]
+
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )

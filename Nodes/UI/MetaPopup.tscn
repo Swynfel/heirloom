@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/Visual/Components/CharacterTableBig.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Nodes/Visual/Components/SkillTable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/UI/MetaPopup.cs" type="Script" id=4]
 [ext_resource path="res://Nodes/Visual/Components/ItemTable.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=6]
+[ext_resource path="res://Nodes/Visual/Components/InfoTable.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 resource_local_to_scene = true
@@ -64,60 +65,60 @@ margin_bottom = -5.0
 noSelector = true
 
 [node name="Panel" parent="MetaPopup/Popup/Container/ItemTable" index="0"]
-margin_right = 142.0
+margin_right = 240.0
 margin_bottom = 162.0
 
 [node name="List" parent="MetaPopup/Popup/Container/ItemTable" index="1"]
-margin_right = 142.0
+margin_right = 240.0
 margin_bottom = 162.0
 
 [node name="Top" parent="MetaPopup/Popup/Container/ItemTable/List" index="0"]
-margin_right = 142.0
+margin_right = 240.0
 margin_bottom = 31.0
 
 [node name="SkillIcon" parent="MetaPopup/Popup/Container/ItemTable/List/Top" index="0"]
-margin_left = 10.0
-margin_right = 26.0
+margin_left = 59.0
+margin_right = 75.0
 margin_bottom = 31.0
 texture = SubResource( 1 )
 
 [node name="Name" parent="MetaPopup/Popup/Container/ItemTable/List/Top" index="1"]
-margin_left = 26.0
+margin_left = 75.0
 margin_top = 9.0
-margin_right = 132.0
+margin_right = 181.0
 margin_bottom = 22.0
 
 [node name="HSeparator" parent="MetaPopup/Popup/Container/ItemTable/List" index="1"]
 margin_top = 33.0
-margin_right = 142.0
+margin_right = 240.0
 margin_bottom = 35.0
 
 [node name="Bottom" parent="MetaPopup/Popup/Container/ItemTable/List" index="2"]
 margin_top = 37.0
-margin_right = 142.0
+margin_right = 240.0
 margin_bottom = 162.0
 
 [node name="Left" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom" index="0"]
-margin_right = 88.0
+margin_right = 186.0
 margin_bottom = 125.0
 
 [node name="Group" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom/Left" index="0"]
-margin_right = 88.0
+margin_right = 186.0
 margin_bottom = 26.0
 
 [node name="Effect" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom/Left" index="1"]
 margin_top = 23.0
-margin_right = 88.0
+margin_right = 186.0
 margin_bottom = 101.0
 
 [node name="Control" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom/Left" index="2"]
 margin_top = 98.0
-margin_right = 88.0
+margin_right = 186.0
 margin_bottom = 125.0
 
 [node name="Right" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom" index="1"]
-margin_left = 86.0
-margin_right = 142.0
+margin_left = 184.0
+margin_right = 240.0
 margin_bottom = 125.0
 
 [node name="Holder" parent="MetaPopup/Popup/Container/ItemTable/List/Bottom/Right" index="0"]
@@ -139,6 +140,13 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 rect_min_size = Vector2( 240, 72 )
+
+[node name="InfoTable" parent="MetaPopup/Popup/Container" instance=ExtResource( 7 )]
+visible = false
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
 
 [node name="Control" type="Control" parent="MetaPopup/Popup/Container"]
 visible = false

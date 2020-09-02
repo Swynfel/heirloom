@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/Outcome.cs" type="Script" id=2]
 [ext_resource path="res://Nodes/Visual/Components/CharacterIconL.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=4]
 [ext_resource path="res://Nodes/Visual/Components/CharacterTable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Nodes/Visual/Components/CharacterIcon.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Fonts/munro-big.tres" type="DynamicFont" id=7]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Nodes/Visual/ExtraInfo.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Nodes/Visual/Components/QuestTable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=11]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )

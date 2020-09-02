@@ -14,6 +14,6 @@ public class Skill : Resource {
     [Export] public string description;
 
     public static Skill Load(string name) {
-        return (Skill) GD.Load("Assets/Skills/skill_" + name + ".tres");
+        return (Skill) GD.Load("Data/Skills/skill_" + name + ".tres");
     }
 }

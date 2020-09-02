@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=1]
 [ext_resource path="res://Nodes/Visual/Components/Icon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Visual/Icons/SkillIcon.cs" type="Script" id=3]
+
 
 [sub_resource type="AtlasTexture" id=1]
 resource_local_to_scene = true

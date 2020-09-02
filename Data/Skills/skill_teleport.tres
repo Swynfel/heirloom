@@ -2,22 +2,23 @@
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
-[ext_resource path="res://Assets/Skills/Effects/damage.tres" type="Resource" id=3]
+[ext_resource path="res://Data/Skills/Effects/move.tres" type="Resource" id=3]
+
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 minRange = 1
-maxRange = 3
-constraint = 1
+maxRange = 2
+constraint = 0
 areaConstraint = 0
 areaRange = 0
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Point"
-element = 1
-icon = 8
+name = "Teleport"
+element = 7
+icon = 5
 area = SubResource( 1 )
 effect = ExtResource( 3 )
 template = null

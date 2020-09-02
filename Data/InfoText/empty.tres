@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "empty"
+Title = "Empty Title"
+Description = "Empty Description [img]icon://fire.png[/img] [?empty]Empty[/?]"

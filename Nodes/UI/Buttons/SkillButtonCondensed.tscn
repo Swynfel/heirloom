@@ -1,11 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Assets/Skills/skill_icons.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Battle/elements.png" type="Texture" id=3]
 [ext_resource path="res://Nodes/Visual/Components/ElementIcon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Visual/Icons/SkillButton.cs" type="Script" id=5]
 [ext_resource path="res://Nodes/Visual/Components/SkillIcon.tscn" type="PackedScene" id=6]
+
 
 
 [sub_resource type="AtlasTexture" id=1]
