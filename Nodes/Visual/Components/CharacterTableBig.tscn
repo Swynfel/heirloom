@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=2]
@@ -35,6 +35,10 @@ shader_param/iris_0 = Color( 0, 0.294118, 0.0235294, 1 )
 shader_param/iris_1 = Color( 0.164706, 0.576471, 0.101961, 1 )
 shader_param/iris_2 = Color( 0.341176, 0.721569, 0.258824, 1 )
 
+[sub_resource type="StyleBoxEmpty" id=3]
+content_margin_left = 4.0
+content_margin_right = 4.0
+
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_right = 4
@@ -63,13 +67,14 @@ LOVER_PATH = "List/Details/List/Lover"
 ITEM_PATH = "List/Details/List/Item"
 
 [node name="List" type="VBoxContainer" parent="."]
+margin_top = 12.0
 margin_right = 142.0
-margin_bottom = 162.0
+margin_bottom = 196.0
 rect_min_size = Vector2( 142, 160 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 6
+custom_constants/separation = 4
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,9 +91,9 @@ __meta__ = {
 }
 
 [node name="Center" type="CenterContainer" parent="List"]
-margin_top = 19.0
+margin_top = 17.0
 margin_right = 142.0
-margin_bottom = 43.0
+margin_bottom = 41.0
 mouse_filter = 2
 
 [node name="Block" type="Control" parent="List/Center"]
@@ -106,9 +111,9 @@ material = SubResource( 1 )
 position = Vector2( 12, 12 )
 
 [node name="HealthHolder" type="Control" parent="List"]
-margin_top = 49.0
+margin_top = 45.0
 margin_right = 142.0
-margin_bottom = 56.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 72, 7 )
 mouse_filter = 2
 
@@ -118,18 +123,34 @@ anchor_right = 0.8
 margin_right = 0.0
 margin_bottom = 7.0
 
-[node name="Elements" parent="List" instance=ExtResource( 4 )]
-margin_top = 62.0
+[node name="Affinity" parent="List" instance=ExtResource( 8 )]
+margin_top = 56.0
 margin_right = 142.0
-margin_bottom = 74.0
+margin_bottom = 68.0
+custom_styles/normal = SubResource( 3 )
+bbcode_text = "[center][url=?affinity][rem]Affinity[/rem][/url][/center]"
+text = "Affinity"
+
+[node name="Elements" parent="List" instance=ExtResource( 4 )]
+margin_top = 72.0
+margin_right = 142.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 0, 12 )
 mouse_filter = 2
 alignment = 1
 
-[node name="Skills" type="HBoxContainer" parent="List"]
-margin_top = 80.0
+[node name="Skills & Talents" parent="List" instance=ExtResource( 8 )]
+margin_top = 88.0
 margin_right = 142.0
-margin_bottom = 98.0
+margin_bottom = 100.0
+custom_styles/normal = SubResource( 3 )
+bbcode_text = "[center][url=?skill][rem]Skills[/rem][/url] & [url=?talent][rem]Talents[/rem][/url][/center]"
+text = "Skills & Talents"
+
+[node name="Skills" type="HBoxContainer" parent="List"]
+margin_top = 104.0
+margin_right = 142.0
+margin_bottom = 122.0
 size_flags_horizontal = 3
 custom_constants/separation = -2
 alignment = 1
@@ -146,9 +167,9 @@ size_flags_horizontal = 7
 size_flags_vertical = 4
 
 [node name="Details" type="CenterContainer" parent="List"]
-margin_top = 104.0
+margin_top = 126.0
 margin_right = 142.0
-margin_bottom = 162.0
+margin_bottom = 184.0
 size_flags_horizontal = 3
 
 [node name="List" type="GridContainer" parent="List/Details"]

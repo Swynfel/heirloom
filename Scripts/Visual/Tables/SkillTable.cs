@@ -15,7 +15,7 @@ namespace Visual.Tables {
             GetNode<SkillButton>("Body/Top/Skill").Configure(skill);
             GetNode<Label>("Body/Bottom/Grid/Range").Text = skill.area.minRange + "-" + skill.area.maxRange;
             GetNode<Label>("Body/Bottom/Grid/Type").Text = skill.area.constraint.ToString();
-            GetNode<SmartText>("Body/Bottom/Description").Text = skill.description;
+            GetNode<SmartText>("Body/Bottom/Description").BbcodeText = skill.BBDescription;
         }
 
         public override void _Ready() {

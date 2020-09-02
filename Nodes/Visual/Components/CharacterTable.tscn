@@ -59,8 +59,6 @@ TALENTS_PATH = "List/Skills/Talents"
 AGE_PATH = "List/Details/List/Age"
 BIRTH_PATH = "List/Details/List/Birth"
 ACTION_PATH = "List/Details/List/Action"
-LOVER_PATH = ""
-ITEM_PATH = ""
 
 [node name="List" type="VBoxContainer" parent="."]
 margin_right = 142.0

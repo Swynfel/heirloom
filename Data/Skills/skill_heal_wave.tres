@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Heal.cs" type="Script" id=3]
 
-[sub_resource type="Resource" id=3]
+[sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 minRange = 0
 maxRange = 2
@@ -19,11 +19,11 @@ heal = 4
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Heal Word"
+name = "Heal Wave"
 element = 0
 icon = 5
-area = SubResource( 3 )
+area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "heal"
-description = "Heal allies in a cross for 4"
+description = "[?heal]Heal[/?] allies in a cross for 4"

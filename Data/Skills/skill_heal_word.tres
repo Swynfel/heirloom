@@ -19,11 +19,11 @@ heal = 6
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Heal Wave"
+name = "Heal Word"
 element = 0
 icon = 6
 area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "heal"
-description = "Heal a single ally for 6"
+description = "[?heal]Heal[/?] a single ally for 6"

@@ -27,4 +27,4 @@ area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "range"
-description = "Snipe an enemy far away"
+description = "Snipe an enemy far away for 4 [?damage]damage[/?]"

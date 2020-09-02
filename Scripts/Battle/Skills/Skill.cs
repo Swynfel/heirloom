@@ -11,7 +11,8 @@ public class Skill : Resource {
     [Export] public SkillEffect effect;
     [Export] public string template;
     [Export] public string tags;
-    [Export] public string description;
+    [Export(PropertyHint.MultilineText)] public readonly string description;
+    public string BBDescription => InfoText.BBfy(description);
 
     public static Skill Load(string name) {
         return (Skill) GD.Load("Data/Skills/skill_" + name + ".tres");

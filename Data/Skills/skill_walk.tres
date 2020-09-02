@@ -4,7 +4,6 @@
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Snake.cs" type="Script" id=2]
 [ext_resource path="res://Data/Skills/Effects/move.tres" type="Resource" id=3]
 
-
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 minRange = 1

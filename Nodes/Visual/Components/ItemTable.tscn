@@ -7,7 +7,6 @@
 [ext_resource path="res://Scripts/Visual/Tables/ItemTable.cs" type="Script" id=5]
 [ext_resource path="res://Assets/Fonts/munro.tres" type="DynamicFont" id=6]
 
-
 [sub_resource type="AtlasTexture" id=1]
 resource_local_to_scene = true
 atlas = ExtResource( 2 )

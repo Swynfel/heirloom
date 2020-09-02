@@ -38,7 +38,7 @@ public class InfoText : Resource {
         dir.ListDirEnd();
     }
 
-    private static string BBfy(string raw) {
+    public static string BBfy(string raw) {
         return raw
             .Replace("[/?]", "[/url][/rem]")
             .Replace("[?", "[rem][url=?")

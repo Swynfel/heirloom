@@ -27,4 +27,4 @@ area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "middle"
-description = "Shoot a 3x3 area for 3 damage"
+description = "Shoot a 3x3 area for 3 [?damage]damage[/?]"
