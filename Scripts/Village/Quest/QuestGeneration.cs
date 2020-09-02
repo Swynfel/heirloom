@@ -10,17 +10,17 @@ public static class QuestGeneration {
     private static readonly Quest FINAL_QUEST;
 
     public static Quest GenerateRandomBasicDungeon() {
-        Quest quest = new Quest();
         int intensity = Global.rng.Next(3, 13);
-        QuestReward reward = new QuestReward(intensity * intensity, QuestReward.Group.DUNGEON);
         (string name, BattleGeneration battle, int party) = GenerateDungeon(intensity);
         int extension = (Global.rng.Next(3, 10) + intensity) / 4;
-        quest.name = name;
-        quest.battle = battle;
-        quest.partySize = party;
-        quest.difficulty = Difficulty(party, battle.count, intensity);
-        quest.deadline = Game.data.date.Plus(extension);
-        return quest;
+        return new Quest() {
+            name = name,
+            reward = new QuestReward(intensity * intensity, QuestReward.Group.DUNGEON),
+            battle = battle,
+            partySize = party,
+            difficulty = Difficulty(party, battle.count, intensity),
+            deadline = Game.data.date.Plus(extension),
+        };
     }
 
 

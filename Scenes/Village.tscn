@@ -22,9 +22,12 @@ __meta__ = {
 [node name="VillageUI" parent="HBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 368.0
-margin_bottom = 238.0
+margin_right = 912.0
+margin_bottom = 736.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ExtraInfo" parent="HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 928.0
+margin_right = 992.0
+margin_bottom = 736.0
