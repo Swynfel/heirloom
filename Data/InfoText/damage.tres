@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "damage"
+Title = "Damage"
+Description = "Damage reduce a target's health. If it reaches zero, the target is knocked-out of [?combat]combat[/?].
+Depending on a target's [?affinity]affinity[/?] to the [?element]element[/?] of the [?skill]skill[/?] used, it might take more or less raw damage:
+[b]Resistant[/b] -50% damage
+[b]Weak[/b] +100% damage
+
+Special effects are applied after to the raw damage, for example if the actor or target have [?item]equipment[/?]:
+If the actor has any weapon, the attack bonus is added to the damage.
+If the target has any armor, it is substracted from the damage, the minimum being 0 damage.
+(See also: [?heal]Healing[/?])"

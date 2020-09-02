@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "item"
+Title = "Items and Equipement"
+Description = "Characters can all carry one equipable item. Some of them grant bonus in [?combat]combat[/?], such as extra damage or armor.
+Some items are very rare and called Artefacts. These can only be equiped by someone younger than the previous wielder. There are three to collect in the game."

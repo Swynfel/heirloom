@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "index"
+Title = "Index"
+Description = "This should not appear during gameplay as it is used for debugging
+[?affinity]affinity[/?]
+[?combat]combat[/?]
+[?damage]damage[/?]
+[?element]element[/?]
+[?heal]heal[/?]
+[?item]item[/?]
+[?skill]skill[/?]"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "heal"
+Title = "Healing"
+Description = "Healing increases a target's health. It can't go over a character's max health.
+Depending on a target's [?affinity]affinity[/?] to the [?element]element[/?] of the [?skill]skill[/?] used, it might get more or less health back:
+[b]Resistant[/b] +50% healing
+[b]Weak[/b] -25% healing
+
+They are no special effects that affects healing for now.
+(See also: [?damage]Damage[/?], [?combat]Combat[/?])"

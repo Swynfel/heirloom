@@ -4,7 +4,7 @@ using Godot;
 namespace Visual.Tables {
     public class InfoTable : Control {
         public override void _Ready() {
-            InfoText found = InfoText.Find("empty");
+            InfoText found = InfoText.Find("index");
             if (found == null) {
                 GD.Print("Null");
             } else {

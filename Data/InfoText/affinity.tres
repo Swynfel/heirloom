@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "affinity"
+Title = "Elemental Affinity"
+Description = "All characters have [?element]elements[/?] they are resistant against, taking less [?damage]damage[/?] and more [?heal]healing[/?] from skills of the corresponding [?element]element[/?]. Symmetrically, they also have [?element]elements[/?] against which they are weak.
+Humans usually have two resistances and two weaknesses, and they are not correlated with the character's [?skill]skills[/?]."

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "skill"
+Title = "Skills"
+Description = "Skills are techniques that can be used in [?combat]combat[/?] to inflict [?damage]damage[/?], [?heal]heal[/?] or move. Humans have a walk skill, and 3 personnal skills - one from each of their parent, and a third one determined randomly.
+Skills usually have an [?element]element[/?], a cast range, an area of effect, and an effect. Appart from walking, using one passes the character's turn."

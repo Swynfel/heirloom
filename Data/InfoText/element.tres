@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "element"
+Title = "Elements"
+Description = "There are seven elements:
+[img]icon://fire.png[/img] Fire
+[img]icon://light.png[/img] Light
+[img]icon://metal.png[/img] Metal
+[img]icon://water.png[/img] Water
+[img]icon://air.png[/img] Air
+[img]icon://plant.png[/img] Plant
+[img]icon://dark.png[/img] Dark
+[?damage]Damage[/?] and [?heal]healing[/?] depends on the element of the [?skill]skill[/?] used, and the target''s [?affinity]elemental affinity[/?]."

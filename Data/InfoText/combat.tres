@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "combat"
+Title = "Combat"
+Description = "During combat, entities cast [?skill]skill[/?] following the turn order displayed on the right, until one team is left and wins.
+Entities are removed when their health reaches zero after taking too many [?damage]damage[/?]."

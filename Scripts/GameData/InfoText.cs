@@ -34,9 +34,8 @@ public class InfoText : Resource {
                 InfoText info = ResourceLoader.Load<InfoText>(DIRECTORY + file);
                 loadedInfoTexts[info.Key] = info;
             }
-
-            dir.ListDirEnd();
         }
+        dir.ListDirEnd();
     }
 
     private static string BBfy(string raw) {
