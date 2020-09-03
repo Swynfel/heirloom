@@ -30,15 +30,13 @@ namespace UI {
             }
         }
 
-        public void Launch() {
-            SkillArea skillArea = area.Done();
+        public async void Launch() {
             enabled = false;
-            skill.effect.Apply(skill.element, launcher, skillArea);
+            await skill.Apply(launcher, area.Done());
             if (skill.condition.passTurn) {
                 Global.battleUI.EndTurn();
             } else {
                 Global.battleUI.SwitchState(BattleUI.BattleState.SKILL);
-                Global.battleUI.skillPanel.Deactivate(0);
             }
             BoardUtils.AllTiles(t => {
                 t.ResetDisplay();

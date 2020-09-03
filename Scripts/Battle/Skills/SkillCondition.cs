@@ -10,9 +10,9 @@ namespace Combat {
         [Export] public int turnCharges = -1;
         [Export] public bool passTurn = true;
 
-        public int remainingCooldown = -1;
-        public int remainingCombatCharges = -1;
-        public int remainingTurnCharges = -1;
+        public int remainingCooldown { get; private set; } = -1;
+        public int remainingCombatCharges { get; private set; } = -1;
+        public int remainingTurnCharges { get; private set; } = -1;
 
         public bool IsValid() {
             return (combatCharges < 0 || remainingCombatCharges > 0)

@@ -72,7 +72,7 @@ public static class SkillHandler {
         return PREFIXES[(int) (element)].Random();
     }
 
-    public static Skill RandomTemplateOut(Element e, string[] tags) {
+    private static Skill RandomTemplateOut(Element e, string[] tags) {
         List<Skill> skills = SKILLS.ToList();
         while (true) {
             Skill template = skills.Random();
@@ -113,15 +113,15 @@ public static class SkillHandler {
         return true;
     }
 
-    public static Skill RandomSkillIn(IEnumerable<Element> elements) {
-        Skill template = (Skill) SKILLS.Random().Duplicate();
+    private static Skill RandomSkillIn(IEnumerable<Element> elements) {
+        Skill template = SKILLS.Random().Clone();
         Element element = elements.Random();
         template.element = element;
         template.name = ElementPrefix(element) + " " + template.name;
         return template;
     }
 
-    public static Skill RandomSkillOut(IEnumerable<Element> elements) {
+    private static Skill RandomSkillOut(IEnumerable<Element> elements) {
         List<Element> includedElements = ElementUtils.GetAllElements();
         includedElements.RemoveAll(e => elements.Contains(e));
         return RandomSkillIn(includedElements);

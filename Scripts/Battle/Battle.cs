@@ -33,6 +33,13 @@ namespace Combat {
             // Generate battle
             Village.quest.battle.Generate(this, Village.actions.Where(VillageAction.QUEST));
 
+            // Ready
+            foreach (Piece actor in actors) {
+                foreach (Skill skill in actor.entity.skills) {
+                    skill?.condition.ResetCombat();
+                }
+            }
+
             // Start battle
             TurnOf(actors[0]);
             camera.Position = board.GetCenter();
@@ -56,6 +63,9 @@ namespace Combat {
         [Signal] public delegate void next_turn(Piece actor);
 
         private void TurnOf(Piece actor) {
+            foreach (Skill skill in actor.entity.skills) {
+                skill?.condition.ResetTurn();
+            }
             EmitSignal(nameof(next_turn), actor);
             currentActor = actor;
         }

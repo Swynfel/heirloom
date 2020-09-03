@@ -135,5 +135,9 @@ namespace Combat {
                 piece.Position = Position;
             }
         }
+
+        public override string ToString() {
+            return $"<{x},{y}>";
+        }
     }
 }

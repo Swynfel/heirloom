@@ -21,11 +21,24 @@ namespace UI {
 
         private Skill[] skills;
 
+        private Entity entity;
+
         public void Load(Entity entity) {
+            this.entity = entity;
+            Refresh();
+        }
+
+        public void Refresh() {
             skills = entity.skills;
             int i = 0;
             foreach (Skill skill in skills) {
-                slots[i].Disabled = false;
+                if (skill == null) {
+                    slots[i].Hide();
+                    i++;
+                    continue;
+                }
+                slots[i].Show();
+                slots[i].Disabled = !skill.condition.IsValid();
                 slots[i].Configure(skill, (i + 1).ToString());
                 i++;
             }
@@ -35,16 +48,13 @@ namespace UI {
             }
         }
 
-        public void Deactivate(int i) {
-            slots[i].Disabled = true;
-        }
-
         public bool enabled { get; private set; }
         public void Disable() {
             Hide();
         }
 
         public void Enable() {
+            Refresh();
             Show();
         }
 

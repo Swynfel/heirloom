@@ -150,7 +150,8 @@ namespace Combat {
                 foreach (TileFlow neighbor in head.GetNeighborOutFlows()) {
                     if (!encountered.ContainsKey(neighbor.tile) && (valid == null || valid(neighbor.tile))) {
                         List<TileFlow> neighborPath = new List<TileFlow>(encountered[head]);
-                        neighborPath.Add(new TileFlow(head, neighbor.direction));
+                        neighborPath[neighborPath.Count - 1] = new TileFlow(head, neighbor.direction);
+                        neighborPath.Add(new TileFlow(neighbor.tile));
                         encountered.Add(neighbor.tile, neighborPath);
                         var item = (dist + 1, neighbor.tile);
                         int index = priorityQueue.BinarySearch(item, INT_TILE_COMPARER);

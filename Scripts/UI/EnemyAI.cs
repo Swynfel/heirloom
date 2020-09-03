@@ -27,7 +27,7 @@ public class EnemyAI {
         if (pair.Key != piece.on) {
             SkillArea a = new SkillArea();
             a.AddRange(pair.Value);
-            await SkillHandler.WALK.effect.Apply(Element.NONE, piece, a);
+            await SkillHandler.WALK.Apply(piece, a);
         }
 
         Skill[] skills = actor.coreSkills;
@@ -35,6 +35,9 @@ public class EnemyAI {
         Skill bestSkill = null;
         SkillArea bestArea = null;
         foreach (Skill skill in skills) {
+            if (!skill.condition.IsValid()) {
+                continue;
+            }
             // Try Cone
             skill.area.launcher = piece;
             if (skill.area is Cone cone) {
@@ -62,7 +65,7 @@ public class EnemyAI {
             }
         }
         if (bestSkill != null) {
-            await bestSkill.effect.Apply(bestSkill.element, piece, bestArea);
+            await bestSkill.Apply(piece, bestArea);
         }
         Global.battle.NextTurn();
     }
