@@ -52,10 +52,10 @@ public class QuestReward : Resource {
     }
 
     private static string RewardQualifier(int sum) {
-        if (sum < 30) return "a little";
-        if (sum < 60) return "some";
-        if (sum < 100) return "a lot of";
-        if (sum < 150) return "heaps of";
+        if (sum < 25) return "a little";
+        if (sum < 50) return "some";
+        if (sum < 90) return "a lot of";
+        if (sum < 130) return "heaps of";
         return "countless";
     }
 
@@ -71,7 +71,7 @@ public class QuestReward : Resource {
     }
 
     public Riches Generate() {
-        int lootLeft = intensity + Global.rng.Next(0, intensity / 3);
+        int lootLeft = intensity + Global.rng.Next(0, intensity / 4 + 10);
         bool dungeonTreasureBoost = group == Group.DUNGEON;
         int treasureLikeliness = intensity;
         if (dungeonTreasureBoost) {

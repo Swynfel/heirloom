@@ -117,6 +117,9 @@ public struct Date {
         }
     }
     public string ContextString() {
+        if (SeasonsPassed() == NEVER.SeasonsPassed()) {
+            return "never";
+        }
         return ToString() + " - " + TextDelta(-Date.Delta(this));
     }
 

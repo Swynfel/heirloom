@@ -44,7 +44,7 @@ public class GameData : Resource {
         data.name = "NAME";
         data.family = Family.StartingFamily();
         data.quests = new List<Quest> {
-            QuestGeneration.GenerateRandomQuest()
+            QuestGeneration.GenerateRandomQuest(maximumIntensity: 5)
         };
         data.inventory = new Riches(5, 20, new List<Item> { Item.ARTEFACT_SWORD
         });

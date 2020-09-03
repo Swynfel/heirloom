@@ -5,6 +5,7 @@ namespace Combat {
     using GT = Tile.GroundType;
     public enum MapType {
         PLAINS,
+        DESERT,
         DIRT_ROAD,
         STONE,
         DIRT_CAVE,
@@ -22,6 +23,16 @@ namespace Combat {
 
         public static Func<int, int, GT> Build(MapType map, int width, int height) {
             switch (map) {
+                case MapType.PLAINS:
+                    return new RoundCornerBoardGeneration(
+                        1, 3, width, height,
+                        new MixBoardGeneration(GT.GRASS.AsGen(), GT.DIRT.AsGen(), 0.1f)
+                    ).Pick;
+                case MapType.DESERT:
+                    return new RoundCornerBoardGeneration(
+                        1, 3, width, height,
+                        new MixBoardGeneration(GT.SAND.AsGen(), GT.DRY.AsGen(), 0f)
+                    ).Pick;
                 case MapType.DIRT_ROAD:
                     return new RoundCornerBoardGeneration(
                         1, 3, width, height,
@@ -37,6 +48,8 @@ namespace Combat {
                         1, 3, width, height,
                         new LakeBoardGeneration(width, height, GT.STONE.AsGen(), GT.NONE.AsGen(), 0f, 2f)
                     ).Pick;
+                case MapType.HIDEOUT:
+                    return GT.WOOD.AsGen().Pick; //TODO: Fancier
                 default:
                     throw new NotImplementedException($"Map type {map} not implemented");
             }
@@ -107,6 +120,27 @@ namespace Combat {
             float along = offset.Dot(direction);
             float off = offset.Cross(direction) + sinusImpact * (float) Math.Sin(sinusStretch * along + bent);
             return Math.Abs(off) > halfThickness ? outside.Pick(x, y) : inside.Pick(x, y);
+        }
+    }
+
+    internal class MixBoardGeneration : BoardGeneration {
+        BoardGeneration main;
+        BoardGeneration secondary;
+        float bias;
+        OpenSimplexNoise noise;
+        public MixBoardGeneration(BoardGeneration main, BoardGeneration secondary, float bias, float period = 2f, float persistence = 0.5f, float lacunarity = 2f) {
+            this.main = main;
+            this.secondary = secondary;
+            this.bias = bias;
+            noise = new OpenSimplexNoise {
+                Period = period,
+                Persistence = persistence,
+                Lacunarity = lacunarity,
+            };
+            noise.Seed = Global.rng.Next();
+        }
+        public override GT Pick(int x, int y) {
+            return noise.GetNoise2d(x, y) <= bias ? main.Pick(x, y) : secondary.Pick(x, y);
         }
     }
 

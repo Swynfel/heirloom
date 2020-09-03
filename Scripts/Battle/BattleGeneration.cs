@@ -10,15 +10,17 @@ public class BattleGeneration : Resource {
 
     public BattleGeneration() { }
 
-    public BattleGeneration(MapType map, EnemyType enemyType, int count, ElementalAffinity elements) {
+    public BattleGeneration(MapType map, EnemyType enemyType, int count, ElementalAffinity elements, string enemyNoun = null) {
         this.map = map;
         this.enemy = enemyType;
+        this.enemyNoun = enemyNoun;
         this.count = count;
         this.elements = elements;
     }
 
     [Export] public MapType map;
     [Export] public EnemyType enemy;
+    [Export] public string enemyNoun;
     [Export] public int count = 1;
     public ElementalAffinity elements {
         get => ElementalAffinity.Deserialize(_elements);
