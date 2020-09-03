@@ -28,9 +28,9 @@ public class BattleGeneration : Resource {
     }
     [Export] private int[] _elements = ElementalAffinity.RandomAffinity().Serialize();
 
-    public void Generate(Battle battle, IEnumerable<Entity> party) {
+    public void Generate(Battle battle, IEnumerable<CharacterEntity> party) {
         Board board = battle.board;
-        List<Entity> friendly = party.ToList();
+        List<CharacterEntity> friendly = party.ToList();
         int size = (count + friendly.Count) / 3;
         int width = 5 + size / 2;
         int height = 4;
@@ -46,7 +46,7 @@ public class BattleGeneration : Resource {
 
     }
 
-    private bool GenerateInternal(Board board, List<Entity> friendly, int width, int height) {
+    private bool GenerateInternal(Board board, List<CharacterEntity> friendly, int width, int height) {
         try {
             board.width = width;
             board.height = height;
@@ -63,7 +63,7 @@ public class BattleGeneration : Resource {
                 return false;
             }
 
-            foreach (Entity friend in friendly) {
+            foreach (CharacterEntity friend in friendly) {
                 friend.actor = true;
                 friend.alignment = Alignment.FRIENDLY;
                 Tile tile = tiles.PopRandom();
@@ -73,7 +73,7 @@ public class BattleGeneration : Resource {
                 Place(friend, tile);
             }
 
-            foreach (Entity enemy in RandomEnemies(count)) {
+            foreach (CharacterEntity enemy in RandomEnemies(count)) {
                 Tile tile = tiles.PopRandom();
                 foreach (Tile n in tile.GetNeighbors()) {
                     tiles.Remove(n);
@@ -87,9 +87,9 @@ public class BattleGeneration : Resource {
         }
     }
 
-    private static IEnumerable<Entity> RandomEnemies(int memberCount) {
+    private static IEnumerable<CharacterEntity> RandomEnemies(int memberCount) {
         while (memberCount > 0) {
-            Entity e = new Entity();
+            CharacterEntity e = new CharacterEntity();
             e.actor = true;
             e.alignment = Alignment.HOSTILE;
             e.SetAge(Global.rng.Next(7, 12));
@@ -98,7 +98,7 @@ public class BattleGeneration : Resource {
         }
     }
 
-    public void Place(Entity entity, Tile tile) {
+    public void Place(CharacterEntity entity, Tile tile) {
         Battle.current.AddChild(Piece.New(entity, tile));
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 using Visual.Icons;
 
@@ -21,15 +22,19 @@ namespace UI {
 
         private Skill[] skills;
 
-        private Entity entity;
+        private CharacterEntity entity;
 
         public void Load(Entity entity) {
-            this.entity = entity;
-            Refresh();
+            if (entity is CharacterEntity characterEntity) {
+                this.entity = characterEntity;
+                Refresh();
+            } else {
+                GD.PrintErr("Non-character entity passed to SkillPanel");
+            }
         }
 
         public void Refresh() {
-            skills = entity.skills;
+            skills = entity.GetSkills().ToArray();
             int i = 0;
             foreach (Skill skill in skills) {
                 if (skill == null) {

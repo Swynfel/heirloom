@@ -45,9 +45,13 @@ public class MetaPopup : CenterContainer {
     }
 
     public void OpenEntity(Entity entity) {
-        Tabs.CurrentTab = 0;
-        Tabs.GetNode<Visual.Tables.CharacterTable>("CharacterTable").SetCharacter(entity);
-        Open();
+        if (entity is CharacterEntity characterEntity) {
+            Tabs.CurrentTab = 0;
+            Tabs.GetNode<Visual.Tables.CharacterTable>("CharacterTable").SetCharacter(characterEntity);
+            Open();
+        } else {
+            GD.PrintErr("Cannot display non-character Entity");
+        }
     }
 
     public void OpenItem(Item item) {

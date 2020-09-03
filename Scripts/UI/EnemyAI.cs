@@ -30,7 +30,7 @@ public class EnemyAI {
             await SkillHandler.WALK.Apply(piece, a);
         }
 
-        Skill[] skills = actor.coreSkills;
+        var skills = actor.GetCoreSkills();
         float bestHeuristic = 0;
         Skill bestSkill = null;
         SkillArea bestArea = null;

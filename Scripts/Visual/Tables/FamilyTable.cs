@@ -12,7 +12,7 @@ namespace Visual.Tables {
 
         private void Refresh() {
             container.QueueFreeChildren();
-            foreach (Entity entity in Game.data.family.alive) {
+            foreach (CharacterEntity entity in Game.data.family.alive) {
                 container.AddChild(CharacterTable.Create(entity));
             }
         }

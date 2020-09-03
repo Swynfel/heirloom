@@ -39,12 +39,9 @@ namespace Visual.Icons {
             TrySetup();
             entity = piece.entity;
             name.Text = piece.entity.name;
-            icon.QueueFreeChildren();
-            Node2D clonedDisplay = (Node2D) piece.GetNode("Display").Duplicate();
-            icon.AddChild(clonedDisplay);
-            clonedDisplay.Position = new Vector2(0, 8);
+            piece.entity.GetAppearance().GenerateOnWithOutline(icon, piece.entity.alignment).Position = Vector2.Zero;
             health.SetHealth(piece.entity.health, piece.entity.maxHealth);
-            piece.entity.Connect(nameof(Entity.health_modified), health, nameof(HealthBar.ChangeHealth));
+            piece.entity.Connect(nameof(CharacterEntity.health_modified), health, nameof(HealthBar.ChangeHealth));
             affinity.SetAffinity(piece.entity.affinity);
         }
 

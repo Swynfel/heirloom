@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using SpriteTemplate = Visual.Icons.SkillIcon.SpriteTemplate;
 
-public class Item : Resource {
+public class Item : Resource, IModifier {
     public enum Group {
         NONE,
         ARTEFACT,
@@ -27,15 +27,26 @@ public class Item : Resource {
     [Export] public string description = "";
     [Export] public string special = "";
 
-    [Export] public Entity holder = null;
-    [Export] public Entity lastHolder = null;
+    public int GetMod(Modifier mod) {
+        switch (mod) {
+            case Modifier.BONUS_DAMAGE:
+                return bonusDamage;
+            case Modifier.ARMOR:
+                return armor;
+            default:
+                return 0;
+        }
+    }
+
+    [Export] public CharacterEntity holder = null;
+    [Export] public CharacterEntity lastHolder = null;
 
     [Export] public int rememberId = -1;
     public string MetaName() {
         return Memory.memory.Tag(this).Box(name);
     }
 
-    public void SetHolder(Entity entity) {
+    public void SetHolder(CharacterEntity entity) {
         if (holder != null) {
             holder.heldItem = null;
         }

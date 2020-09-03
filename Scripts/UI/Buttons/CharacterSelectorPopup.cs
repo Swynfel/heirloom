@@ -21,7 +21,7 @@ namespace UI {
             linked = true;
         }
 
-        public void Setup(bool nullable = false, string comment = null, List<Entity> list = null) {
+        public void Setup(bool nullable = false, string comment = null, List<CharacterEntity> list = null) {
             Link();
             cancel.Visible = nullable;
             if (comment == null) {
@@ -33,11 +33,11 @@ namespace UI {
             Setup(list);
         }
 
-        public void Setup(IEnumerable<Entity> list) {
+        public void Setup(IEnumerable<CharacterEntity> list) {
             Link();
             this.list.QueueFreeChildren();
             if (list != null) {
-                foreach (Entity entity in list) {
+                foreach (CharacterEntity entity in list) {
                     Button button = Visual.Icons.CharacterIcon.CreateButton(entity);
                     button.Connect("pressed", this, nameof(on_Selected), Global.ArrayFrom(entity));
                     this.list.AddChild(button);
@@ -45,11 +45,11 @@ namespace UI {
             }
         }
 
-        [Signal] public delegate void selected(Entity entity);
+        [Signal] public delegate void selected(CharacterEntity entity);
         private void on_Cancel() {
             on_Selected(null);
         }
-        private void on_Selected(Entity entity = null) {
+        private void on_Selected(CharacterEntity entity = null) {
             Hide();
             EmitSignal(nameof(selected), entity);
         }

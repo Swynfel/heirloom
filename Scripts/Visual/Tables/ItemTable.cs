@@ -38,7 +38,7 @@ namespace Visual.Tables {
             }
         }
 
-        private void on_ChangeHolder(Entity entity) {
+        private void on_ChangeHolder(CharacterEntity entity) {
             item.SetHolder(entity);
         }
 

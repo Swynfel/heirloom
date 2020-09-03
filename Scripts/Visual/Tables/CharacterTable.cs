@@ -18,12 +18,12 @@ namespace Visual.Tables {
         [Export] private readonly string ITEM_PATH = "";
 
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/CharacterTable.tscn");
-        public static CharacterTable Create(Entity character) {
+        public static CharacterTable Create(CharacterEntity character) {
             CharacterTable table = (CharacterTable) template.Instance();
             table.SetCharacter(character);
             return table;
         }
-        public void SetCharacter(Entity character) {
+        public void SetCharacter(CharacterEntity character) {
             if (NAME_PATH != "")
                 GetNode<Label>(NAME_PATH).Text = character.name;
             if (APPEARANCE_PATH != "")

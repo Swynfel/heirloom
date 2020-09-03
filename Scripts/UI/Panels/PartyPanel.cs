@@ -8,7 +8,7 @@ namespace UI {
     public class PartyPanel : VBoxContainer {
 
         private int partyMax = 0;
-        private Dictionary<Entity, PartyCharacter> buttons = new Dictionary<Entity, PartyCharacter>();
+        private Dictionary<CharacterEntity, PartyCharacter> buttons = new Dictionary<CharacterEntity, PartyCharacter>();
         private Control list;
         private Label label;
 
@@ -20,7 +20,7 @@ namespace UI {
         public void Refresh() {
             list.QueueFreeChildren();
             buttons.Clear();
-            foreach (Entity member in Family.familyMembers.Where(e => e.ageGroup >= Date.AgeGroup.TEEN)) {
+            foreach (CharacterEntity member in Family.familyMembers.Where(e => e.ageGroup >= Date.AgeGroup.TEEN)) {
                 PartyCharacter character = PartyCharacter.CreateParty(member);
                 list.AddChild(character);
                 character.Connect("pressed", this, nameof(on_ToggleMember), Global.ArrayFrom(member));
@@ -38,7 +38,7 @@ namespace UI {
         public void SetMax(int partyMax) {
             this.partyMax = partyMax;
             if (CurrentSize() > partyMax) {
-                foreach (Entity member in (Family.familyMembers as IEnumerable<Entity>).Reverse()) {
+                foreach (CharacterEntity member in (Family.familyMembers as IEnumerable<CharacterEntity>).Reverse()) {
                     if (Village.actions.EqualsOrFalse(member, VillageAction.QUEST)) {
                         Village.actions[member] = VillageAction.REST;
                         if (CurrentSize() <= partyMax) {
@@ -50,7 +50,7 @@ namespace UI {
             LabelRefresh();
         }
 
-        public void on_ToggleMember(Entity entity) {
+        public void on_ToggleMember(CharacterEntity entity) {
             VillageAction a;
             bool questing = Village.actions.TryGetValue(entity, out a) && a == VillageAction.QUEST;
             if (questing) {

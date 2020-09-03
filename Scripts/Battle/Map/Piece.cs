@@ -87,28 +87,14 @@ namespace Combat {
             Position = (1f - alpha) * startTile.Position + alpha * endTile.Position + mid * Vector2.Up;
         }
 
-        private static Color FRIENDLY_COLOR = new Color(0f, 0.15f, 0.1f);
-        private static Color NEUTRAL_COLOR = new Color(0.25f, 0.25f, 0.25f);
-        private static Color HOSTILE_COLOR = new Color(0.5f, 0f, 0f);
-
         public override void _Ready() {
             display = GetNode<Node2D>("Display");
             Battle.current.pieces.Add(this);
             if (entity.actor) {
                 Battle.current.actors.Add(this);
             }
-            GetNode<Visual.CharacterAppearance>("Display/Character").data = entity.appearance;
-            entity.Connect(nameof(Entity.fallen), this, nameof(Delete));
-            Color c = NEUTRAL_COLOR;
-            switch (entity.alignment) {
-                case Alignment.FRIENDLY:
-                    c = FRIENDLY_COLOR;
-                    break;
-                case Alignment.HOSTILE:
-                    c = HOSTILE_COLOR;
-                    break;
-            }
-            (display.GetNodeOrNull<Node2D>("Character")?.Material as ShaderMaterial)?.SetShaderParam("outline", c);
+            var appearance = entity.GetAppearance().GenerateOnWithOutline(GetNode<CanvasItem>("Display"), entity.alignment);
+            entity.Connect(nameof(CharacterEntity.fallen), this, nameof(Delete));
             MoveOn(on);
         }
     }

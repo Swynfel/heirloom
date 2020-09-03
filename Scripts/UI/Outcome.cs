@@ -38,10 +38,10 @@ namespace UI {
 
         // Character
         private Control characterList;
-        public void SetCharacters(IEnumerable<Entity> characters) {
+        public void SetCharacters(IEnumerable<CharacterEntity> characters) {
             OpenHead(Head.CHARACTER);
             characterList.QueueFreeChildren();
-            foreach (Entity e in characters) {
+            foreach (CharacterEntity e in characters) {
                 characterList.AddChild(Visual.Icons.CharacterIcon.Create(e));
             }
         }
@@ -49,7 +49,7 @@ namespace UI {
         // Couple
         private Visual.Tables.CharacterTable coupleLeft;
         private Visual.Tables.CharacterTable coupleRight;
-        public void SetCouple(Entity left, Entity right) {
+        public void SetCouple(CharacterEntity left, CharacterEntity right) {
             OpenHead(Head.COUPLE);
             coupleLeft.SetCharacter(left);
             coupleRight.SetCharacter(right);
@@ -60,14 +60,14 @@ namespace UI {
         private Visual.Tables.CharacterTable boaMiddle;
         private Visual.Icons.CharacterIcon boaRight;
 
-        public void SetAdoption(Entity parent, Entity child) {
+        public void SetAdoption(CharacterEntity parent, CharacterEntity child) {
             OpenHead(Head.BIRTH_OR_ADOPTION);
             boaLeft.SetCharacter(parent);
             boaMiddle.SetCharacter(child);
             boaRight.Hide();
         }
 
-        public void SetBirth(Entity leftParent, Entity rightParent, Entity child) {
+        public void SetBirth(CharacterEntity leftParent, CharacterEntity rightParent, CharacterEntity child) {
             OpenHead(Head.BIRTH_OR_ADOPTION);
             boaLeft.SetCharacter(leftParent);
             boaMiddle.SetCharacter(child);

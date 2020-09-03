@@ -36,7 +36,7 @@ namespace Visual {
         }
     }
 
-    public class CharacterAppearanceData : Resource {
+    public class CharacterAppearanceData : AppearanceData {
         private const int MIN_EYES = 4;
         private const int MAX_EYES = 12;
         private const int MIN_HEAD = 1;
@@ -132,6 +132,16 @@ namespace Visual {
         private static int[] IRIS_VARIATIONS = { -2, 0, 1 };
         private static int[] SKIN_VARIATIONS = { -2, -1, 0, 1 };
         private static int[] EYEBALL_VARIATIONS = { -1, 0 };
+
+        private static readonly Vector2 OFFSET = 8 * Vector2.Up;
+        public override Node2D GenerateOn(CanvasItem node) {
+            node.QueueFreeChildren();
+            CharacterAppearance appearance = CharacterAppearance.New();
+            node.AddChild(appearance);
+            appearance.data = this;
+            appearance.Position = OFFSET;
+            return appearance;
+        }
 
         public void Paint(CharacterAppearance appearance) {
             appearance.eyes.Frame = eyes;

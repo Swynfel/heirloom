@@ -21,11 +21,11 @@ namespace Visual.Icons {
             }
         }
 
-        public void SetCoreSkills(Entity entity) {
-            SetSkills(entity.coreSkills);
+        public void SetCoreSkills(CharacterEntity entity) {
+            SetSkills(entity.GetCoreSkills());
         }
 
-        public void SetTalents(Entity entity) {
+        public void SetTalents(CharacterEntity entity) {
             // TODO
             this.QueueFreeChildren();
         }

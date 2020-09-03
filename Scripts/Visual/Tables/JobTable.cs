@@ -7,7 +7,7 @@ namespace Visual.Tables {
     using Icons;
     public class JobTable : MarginContainer {
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Visual/Components/JobTable.tscn");
-        public static JobTable Create(Entity entity) {
+        public static JobTable Create(CharacterEntity entity) {
             JobTable table = (JobTable) template.Instance();
             table.Link();
             table.SetEntity(entity);
@@ -39,9 +39,9 @@ namespace Visual.Tables {
             linked = true;
         }
 
-        private Entity entity;
+        private CharacterEntity entity;
         private List<VillageAction> actions;
-        public void SetEntity(Entity entity) {
+        public void SetEntity(CharacterEntity entity) {
             this.entity = entity;
             GetNode<CharacterIcon>("Body/Left/CharacterIcon").SetCharacter(entity);
             actions = entity.AllowedActions();

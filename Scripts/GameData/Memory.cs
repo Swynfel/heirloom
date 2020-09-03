@@ -4,7 +4,7 @@ using Godot;
 
 public class Memory : Resource {
 
-    [Export] private List<Entity> characters = new List<Entity>();
+    [Export] private List<CharacterEntity> characters = new List<CharacterEntity>();
     [Export] private List<Item> items = new List<Item>();
 
     public enum Group {
@@ -37,7 +37,7 @@ public class Memory : Resource {
         public Resource Remember() {
             return Memory.memory.Remember(this);
         }
-        public Entity RememberEntity() {
+        public CharacterEntity RememberEntity() {
             return Memory.memory.RememberEntity(this);
         }
         public Item RememberItem() {
@@ -50,7 +50,7 @@ public class Memory : Resource {
 
     public static Memory memory => Game.data.memory;
 
-    public MetaTag Tag(Entity entity) {
+    public MetaTag Tag(CharacterEntity entity) {
         if (entity.rememberId == -1) {
             entity.rememberId = characters.Count;
             characters.Add(entity);
@@ -84,7 +84,7 @@ public class Memory : Resource {
         }
     }
 
-    public Entity RememberEntity(MetaTag meta) {
+    public CharacterEntity RememberEntity(MetaTag meta) {
         return characters[meta.id];
     }
     public Item RememberItem(MetaTag meta) {

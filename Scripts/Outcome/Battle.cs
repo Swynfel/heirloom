@@ -7,7 +7,7 @@ using P = OutcomeProcess;
 
 namespace OutcomeProcesses {
     public class Battle {
-        List<Entity> questers;
+        List<CharacterEntity> questers;
         Quest quest;
         public async Task Process() {
             quest = Village.quest;
@@ -22,7 +22,7 @@ namespace OutcomeProcesses {
             P.ui.SetButtons("Continue");
             await P.ui.ButtonPressed();
             // Final
-            foreach (Entity entity in questers) {
+            foreach (CharacterEntity entity in questers) {
                 if (entity.health <= 0) {
                     entity.health = 1;
                 } else {
@@ -39,7 +39,7 @@ namespace OutcomeProcesses {
             P.ui.ClearDescription();
             string s = string.Format(
                 QUEST_SUCCESS,
-                Entity.MetaNames(questers),
+                CharacterEntity.MetaNames(questers),
                 quest.name
             );
             s += "\n";
@@ -58,7 +58,7 @@ namespace OutcomeProcesses {
             P.ui.ClearDescription();
             string s = string.Format(
                 QUEST_FAILED,
-                Entity.MetaNames(questers),
+                CharacterEntity.MetaNames(questers),
                 quest.name
             );
             P.ui.AddDescription(s);
@@ -67,8 +67,8 @@ namespace OutcomeProcesses {
         }
 
         private void HurtInBattle(bool won) {
-            List<(Entity, int)> wounds = new List<(Entity, int)>();
-            foreach (Entity e in questers) {
+            List<(CharacterEntity, int)> wounds = new List<(CharacterEntity, int)>();
+            foreach (CharacterEntity e in questers) {
                 if (e.health <= 0) {
                     int wound = Global.rng.Next(-1, 7);
                     if (e.ageGroup == Date.AgeGroup.YOUNG_ADULT) {
@@ -91,7 +91,7 @@ namespace OutcomeProcesses {
             // Wounded
             string s;
             if (wounds.Count == 1) {
-                (Entity e, int w) = wounds[0];
+                (CharacterEntity e, int w) = wounds[0];
                 s = string.Format(
                     "{0} was wounded in battle and lost {1} max health.",
                     e.MetaName(), w
@@ -99,13 +99,13 @@ namespace OutcomeProcesses {
             } else {
                 s = string.Format(
                     "{0} were wounded in battle ({1}).",
-                    Entity.MetaNames(wounds.Select(x => x.Item1)),
+                    CharacterEntity.MetaNames(wounds.Select(x => x.Item1)),
                     string.Join(", ", wounds.Select(x => string.Format("{0} lost {1} max health", x.Item1.MetaName(), x.Item2)))
                 );
             }
             P.ui.AddDescription("\n\n" + s);
             History.Append(s);
-            foreach ((Entity e, int w) in wounds) {
+            foreach ((CharacterEntity e, int w) in wounds) {
                 e.maxHealth -= w;
                 // TODO: Check if death
             }

@@ -34,8 +34,8 @@ namespace Combat.SkillEffects {
                         break;
                 }
                 float final_floating_damage = modifier * damage;
-                final_floating_damage += launcher.entity?.heldItem?.bonusDamage ?? 0;
-                final_floating_damage -= piece.entity?.heldItem?.armor ?? 0;
+                final_floating_damage += launcher.entity.GetMod(Modifier.BONUS_DAMAGE);
+                final_floating_damage -= piece.entity.GetMod(Modifier.ARMOR);
                 int final_damage = (int) Math.Max(0, Math.Ceiling(final_floating_damage));
                 if (simulate) {
                     int h = piece.entity.ModifyHealthSimulation(-final_damage);

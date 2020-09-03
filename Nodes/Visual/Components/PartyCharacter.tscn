@@ -2,10 +2,11 @@
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Characters/character.shader" type="Shader" id=2]
-[ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/Visual/Appearances/Character.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Nodes/Visual/Components/ElementalAffinity.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Nodes/Visual/Components/HealthBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Visual/Tables/PartyCharacter.cs" type="Script" id=6]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true

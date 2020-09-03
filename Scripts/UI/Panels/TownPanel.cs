@@ -14,7 +14,7 @@ namespace UI {
         private void Refresh() {
             if (Visible) {
                 container.QueueFreeChildren();
-                foreach (Entity entity in Family.familyMembers) {
+                foreach (CharacterEntity entity in Family.familyMembers) {
                     container.AddChild(Visual.Tables.JobTable.Create(entity));
                 }
             }

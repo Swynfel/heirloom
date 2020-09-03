@@ -60,7 +60,7 @@ namespace UI {
                 warningQuest.Hide();
                 bool party = false;
                 partyList.QueueFreeChildren();
-                foreach (Entity e in Village.actions.Where(VillageAction.QUEST)) {
+                foreach (CharacterEntity e in Village.actions.Where(VillageAction.QUEST)) {
                     party = true;
                     partyList.AddChild(Visual.Icons.CharacterIcon.Create(e));
                 }
@@ -73,7 +73,7 @@ namespace UI {
             // Idle
             bool idle = false;
             idleList.QueueFreeChildren();
-            foreach (Entity e in Family.familyMembers) {
+            foreach (CharacterEntity e in Family.familyMembers) {
                 if (e.Idle()) {
                     idle = true;
                     idleList.AddChild(Visual.Icons.CharacterIcon.Create(e));

@@ -15,24 +15,24 @@ namespace OutcomeProcesses {
         }
 
         private static void Crown() {
-            Entity crownHolder = Family.familyMembers.FirstOrDefault(e => e?.heldItem?.special == "crown");
+            CharacterEntity crownHolder = Family.familyMembers.FirstOrDefault(e => e?.heldItem?.special == "crown");
             if (crownHolder != null) {
                 crownHolder.maxHealth++;
                 crownHolder.ModifyHealth(1);
             }
         }
 
-        private static void AddTo(Dictionary<Date.AgeGroup, List<Entity>> groups, Date.AgeGroup key, Entity entity) {
+        private static void AddTo(Dictionary<Date.AgeGroup, List<CharacterEntity>> groups, Date.AgeGroup key, CharacterEntity entity) {
             if (!groups.Keys.Contains(key)) {
-                groups[key] = new List<Entity>();
+                groups[key] = new List<CharacterEntity>();
             }
             groups[key].Add(entity);
         }
         private static async Task Age() {
-            Dictionary<Date.AgeGroup, List<Entity>> growups = new Dictionary<Date.AgeGroup, List<Entity>>();
-            List<Entity> deathOfOldAge = new List<Entity>();
+            Dictionary<Date.AgeGroup, List<CharacterEntity>> growups = new Dictionary<Date.AgeGroup, List<CharacterEntity>>();
+            List<CharacterEntity> deathOfOldAge = new List<CharacterEntity>();
             // Preprocess
-            foreach (Entity e in Family.familyMembers) {
+            foreach (CharacterEntity e in Family.familyMembers) {
                 int age = e.age;
                 // AgeGroup.CHILD;
                 if (age == 2) {
@@ -119,7 +119,7 @@ namespace OutcomeProcesses {
                         format = "";
                         break;
                 }
-                string s = string.Format(format, Entity.MetaNames(group.Value));
+                string s = string.Format(format, CharacterEntity.MetaNames(group.Value));
                 if (history == "") {
                     history += s;
                 } else {
@@ -131,11 +131,11 @@ namespace OutcomeProcesses {
                 History.Append(history);
             }
             if (deathOfOldAge.Count >= 1) {
-                string s = string.Format("{0} passed away...", Entity.MetaNames(deathOfOldAge));
+                string s = string.Format("{0} passed away...", CharacterEntity.MetaNames(deathOfOldAge));
                 History.Append(s);
                 P.ui.AddDescription(s);
             }
-            foreach (Entity dead in deathOfOldAge) {
+            foreach (CharacterEntity dead in deathOfOldAge) {
                 Game.data.family.Die(dead);
             }
             P.ui.SetButtons("Continue");
@@ -166,10 +166,10 @@ namespace OutcomeProcesses {
             int missing = food - Game.data.inventory.food;
             Game.data.inventory.food = 0;
 
-            List<Entity> starved = new List<Entity>();
-            List<Entity> sick = new List<Entity>();
+            List<CharacterEntity> starved = new List<CharacterEntity>();
+            List<CharacterEntity> sick = new List<CharacterEntity>();
 
-            foreach (Entity e in Family.familyMembers.RandomOrder()) {
+            foreach (CharacterEntity e in Family.familyMembers.RandomOrder()) {
                 e.maxHealth -= 2;
                 e.ModifyHealth(-1);
                 if (e.maxHealth <= 0) {
@@ -185,12 +185,12 @@ namespace OutcomeProcesses {
             }
             string history = "";
             if (sick.Count > 0) {
-                string sickStr = string.Format("{0} {1} sick and lost 2 max health.\n", Entity.MetaNames(sick), sick.Count <= 1 ? "is" : "are");
+                string sickStr = string.Format("{0} {1} sick and lost 2 max health.\n", CharacterEntity.MetaNames(sick), sick.Count <= 1 ? "is" : "are");
                 history += sickStr;
                 P.ui.AddDescription(sickStr);
             }
             if (starved.Count > 0) {
-                string starvedStr = string.Format("{0} starved.\n", Entity.MetaNames(starved));
+                string starvedStr = string.Format("{0} starved.\n", CharacterEntity.MetaNames(starved));
                 history += starvedStr;
                 P.ui.AddDescription(starvedStr);
             }
@@ -200,7 +200,7 @@ namespace OutcomeProcesses {
         }
 
         public static void CleanJobs() {
-            foreach (Entity e in Family.familyMembers) {
+            foreach (CharacterEntity e in Family.familyMembers) {
                 VillageAction action = e.Action();
                 if (!e.AllowedActions().Contains(action)) {
                     Village.actions[e] = VillageAction.REST;

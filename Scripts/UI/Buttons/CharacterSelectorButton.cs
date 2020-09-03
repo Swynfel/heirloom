@@ -8,8 +8,8 @@ public class CharacterSelectorButton : Control {
     private UI.CharacterSelectorPopup popup;
 
     private bool linked = false;
-    private List<Entity> entities;
-    private Entity current;
+    private List<CharacterEntity> entities;
+    private CharacterEntity current;
 
     public void Link() {
         if (linked) {
@@ -34,7 +34,7 @@ public class CharacterSelectorButton : Control {
         if (current != null) MetaPopup.instance.OpenEntity(current);
     }
 
-    public void Setup(Entity current, bool nullable = false, string comment = null, List<Entity> list = null) {
+    public void Setup(CharacterEntity current, bool nullable = false, string comment = null, List<CharacterEntity> list = null) {
         this.current = current;
         Link();
         entities = list;
@@ -42,7 +42,7 @@ public class CharacterSelectorButton : Control {
         SetCurrent(current);
     }
 
-    private void SetCurrent(Entity current) {
+    private void SetCurrent(CharacterEntity current) {
         if (entities == null) {
             popup.Setup(null);
         } else {
@@ -51,8 +51,8 @@ public class CharacterSelectorButton : Control {
         character.SetCharacter(current);
     }
 
-    [Signal] public delegate void change_to(Entity entity);
-    private void on_Selected(Entity entity) {
+    [Signal] public delegate void change_to(CharacterEntity entity);
+    private void on_Selected(CharacterEntity entity) {
         EmitSignal(nameof(change_to), entity);
         SetCurrent(entity);
     }

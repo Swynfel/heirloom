@@ -8,9 +8,9 @@ using P = OutcomeProcess;
 namespace OutcomeProcesses {
     public static class Town {
         public static async Task Process() {
-            List<Entity> workers = new List<Entity>();
-            List<Entity> hunters = new List<Entity>();
-            foreach (Entity e in Family.familyMembers.ToArray()) {
+            List<CharacterEntity> workers = new List<CharacterEntity>();
+            List<CharacterEntity> hunters = new List<CharacterEntity>();
+            foreach (CharacterEntity e in Family.familyMembers.ToArray()) {
                 switch (e.Action()) {
                     case VillageAction.FIND_QUEST:
                         await ActionLookForDungeon(e); // ActionLookForQuest(e);
@@ -78,7 +78,7 @@ namespace OutcomeProcesses {
         //     }
         // }
 
-        private static async Task ActionLookForDungeon(Entity e) {
+        private static async Task ActionLookForDungeon(CharacterEntity e) {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
             Quest quest;
@@ -122,24 +122,24 @@ namespace OutcomeProcesses {
             }
         }
 
-        private static void AddQuest(Entity finder, Quest quest) {
+        private static void AddQuest(CharacterEntity finder, Quest quest) {
             History.Append(string.Format(
                 "{0} found \"{1}\"", finder.MetaName(), quest.name
             ));
             Game.data.quests.Add(quest);
         }
 
-        private static async Task ActionWork(List<Entity> entities) {
+        private static async Task ActionWork(List<CharacterEntity> entities) {
             int gold = 0;
             P.ui.SetTitle("Work");
-            foreach (Entity e in entities) {
+            foreach (CharacterEntity e in entities) {
                 // TODO:[TALENT]
                 int earn = Global.rng.Next(1, 10);
                 gold += earn;
             }
             string s = string.Format(
                 "{0} worked and earned {1} gold.",
-                Entity.MetaNames(entities), gold
+                CharacterEntity.MetaNames(entities), gold
             );
             P.ui.SetCharacters(entities);
             P.ui.SetButtons("Continue");
@@ -149,17 +149,17 @@ namespace OutcomeProcesses {
             History.Append(s);
         }
 
-        private static async Task ActionHunt(List<Entity> entities) {
+        private static async Task ActionHunt(List<CharacterEntity> entities) {
             int food = 0;
             P.ui.SetTitle("Hunt");
-            foreach (Entity e in entities) {
+            foreach (CharacterEntity e in entities) {
                 // TODO:[TALENT]
                 int earn = Global.rng.Next(3, 10);
                 food += earn;
             }
             string s = string.Format(
                 "{0} hunted and collected {1} food.",
-                Entity.MetaNames(entities), food
+                CharacterEntity.MetaNames(entities), food
             );
             P.ui.SetCharacters(entities);
             P.ui.SetButtons("Continue");
@@ -173,10 +173,10 @@ namespace OutcomeProcesses {
             "{0} looked for love, but didn't find anyone...",
             "No-one captured {0}'s heart...",
         };
-        private static async Task ActionFindLove(Entity e) {
+        private static async Task ActionFindLove(CharacterEntity e) {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
-            Entity potentialLover;
+            CharacterEntity potentialLover;
             if (x < 0.3f) {
                 potentialLover = null;
                 P.ui.SetTitle("Still single");
@@ -186,7 +186,7 @@ namespace OutcomeProcesses {
                 ));
                 P.ui.SetButtons("Continue");
             } else {
-                potentialLover = new Entity();
+                potentialLover = new CharacterEntity();
                 potentialLover.SetAge(e.age);
                 P.ui.SetTitle("Is this love?");
                 P.ui.SetCouple(e, potentialLover);
@@ -202,7 +202,7 @@ namespace OutcomeProcesses {
             }
         }
 
-        private static void AddLover(Entity e, Entity lover) {
+        private static void AddLover(CharacterEntity e, CharacterEntity lover) {
             History.Append(string.Format(
                 "{0} and {1} are now together!", e.MetaName(), lover.MetaName()
             ));
@@ -216,7 +216,7 @@ namespace OutcomeProcesses {
             "{0} visited the orphanage, but no child caught their eyes",
             "{0} went to the orphanage, but no child caught their eyes",
         };
-        private static async Task ActionOrphanage(Entity e) {
+        private static async Task ActionOrphanage(CharacterEntity e) {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
             if (x < 0.3f) {
@@ -230,7 +230,7 @@ namespace OutcomeProcesses {
                 return;
             }
 
-            Entity potentialChild = Entity.Orphan();
+            CharacterEntity potentialChild = CharacterEntity.Orphan();
             int gold = 5 * Global.rng.Next(2, 7);
             P.ui.SetTitle("Visit at the Orphanage");
             P.ui.SetAdoption(e, potentialChild);
@@ -275,20 +275,20 @@ namespace OutcomeProcesses {
             }
         }
 
-        private static void AddOrphan(Entity e, Entity orphan) {
+        private static void AddOrphan(CharacterEntity e, CharacterEntity orphan) {
             History.Append(string.Format(
                 "{0} adopted {1}!", e.MetaName(), orphan.MetaName()
             ));
             Game.data.family.Add(orphan);
         }
 
-        private static async Task ActionLove(Entity e) {
+        private static async Task ActionLove(CharacterEntity e) {
             // TODO:[TALENT]
             float x = (float) Global.rng.NextDouble();
             if (x < 0.3f) {
                 return;
             }
-            Entity child = Entity.FromBirth(e, e.lover);
+            CharacterEntity child = CharacterEntity.FromBirth(e, e.lover);
             P.ui.SetTitle("New member of the family!");
             P.ui.SetBirth(e, e.lover, child);
             P.ui.SetDescription(string.Format(
@@ -300,7 +300,7 @@ namespace OutcomeProcesses {
             AddBirth(e, e.lover, child);
         }
 
-        private static void AddBirth(Entity p1, Entity p2, Entity child) {
+        private static void AddBirth(CharacterEntity p1, CharacterEntity p2, CharacterEntity child) {
             History.Append(string.Format(
                 "{0} and {1} had a child {1}!", p1.MetaName(), p2.MetaName(), child.MetaName()
             ));

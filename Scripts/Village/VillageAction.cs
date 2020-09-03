@@ -29,13 +29,13 @@ public static class VillageActionExtensions {
         return actions.Where(a => a.Value == action).Select(a => a.Key);
     }
 
-    public static VillageAction Action(this Entity entity) {
+    public static VillageAction Action(this CharacterEntity entity) {
         return Village.actions.GetOrDefault(entity, VillageAction.REST);
     }
-    public static bool Idle(this Entity entity) {
+    public static bool Idle(this CharacterEntity entity) {
         return entity.Action() == VillageAction.REST && entity.AllowedActions().Count > 1;
     }
-    public static List<VillageAction> AllowedActions(this Entity entity) {
+    public static List<VillageAction> AllowedActions(this CharacterEntity entity) {
         switch (entity.ageGroup) {
             case Date.AgeGroup.UNBORN:
             case Date.AgeGroup.BABY:
@@ -68,7 +68,7 @@ public static class VillageActionExtensions {
         return list;
     }
 
-    public static (string, string) ActionText(this Entity entity) {
+    public static (string, string) ActionText(this CharacterEntity entity) {
         return ActionText(entity.Action(), entity.ageGroup);
     }
     public static (string, string) ActionText(VillageAction action, Date.AgeGroup age) {

@@ -5,17 +5,17 @@ using Godot;
 
 public class Family : Resource {
 
-    public static List<Entity> familyMembers { get { return Game.data.family.alive; } }
-    [Export] public HashSet<Entity> members = new HashSet<Entity>();
+    public static List<CharacterEntity> familyMembers { get { return Game.data.family.alive; } }
+    [Export] public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
 
-    [Export] public List<Entity> alive = new List<Entity>();
+    [Export] public List<CharacterEntity> alive = new List<CharacterEntity>();
 
     public Family() { }
-    public Family(IEnumerable<Entity> members) {
+    public Family(IEnumerable<CharacterEntity> members) {
         AddRange(members);
     }
 
-    public void Add(Entity entity) {
+    public void Add(CharacterEntity entity) {
         entity.alignment = Combat.Alignment.FRIENDLY;
         members.Add(entity);
         int index = alive.Select(e => -e.age).ToList().BinarySearch(-entity.age);
@@ -25,22 +25,22 @@ public class Family : Resource {
         alive.Insert(index, entity);
     }
 
-    public void Die(Entity entity) {
+    public void Die(CharacterEntity entity) {
         members.Add(entity);
         alive.Remove(entity);
         entity.death = Game.data.date;
         entity.heldItem = null; // TODO: Something cleaner: Popup to ask heir ?
     }
 
-    public void AddRange(IEnumerable<Entity> entities) {
-        foreach (Entity e in entities) {
+    public void AddRange(IEnumerable<CharacterEntity> entities) {
+        foreach (CharacterEntity e in entities) {
             Add(e);
         }
     }
 
-    private static IEnumerable<Entity> RandomMembers(int memberCount) {
+    private static IEnumerable<CharacterEntity> RandomMembers(int memberCount) {
         while (memberCount > 0) {
-            yield return new Entity();
+            yield return new CharacterEntity();
             memberCount--;
         }
     }
@@ -50,12 +50,12 @@ public class Family : Resource {
 
     public int FoodConsumption() {
         int food = 0;
-        foreach (Entity e in members) {
+        foreach (CharacterEntity e in members) {
             food += FoodConsumption(e);
         }
         return food;
     }
-    public static int FoodConsumption(Entity e) {
+    public static int FoodConsumption(CharacterEntity e) {
         switch (e.ageGroup) {
             case Date.AgeGroup.BABY:
                 return 2;
@@ -74,12 +74,12 @@ public class Family : Resource {
     }
 
     public static Family StartingFamily() {
-        Entity eldest = new Entity();
+        CharacterEntity eldest = new CharacterEntity();
         eldest.SetAge(9);
-        Entity middle = new Entity();
+        CharacterEntity middle = new CharacterEntity();
         middle.SetAge(7);
-        Entity youngest = new Entity();
+        CharacterEntity youngest = new CharacterEntity();
         youngest.SetAge(5);
-        return new Family(new Entity[] { eldest, middle, youngest });
+        return new Family(new CharacterEntity[] { eldest, middle, youngest });
     }
 }

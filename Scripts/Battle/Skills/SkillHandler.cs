@@ -18,12 +18,12 @@ public static class SkillHandler {
         Skill.Load("shot"),
     };
 
-    public static Skill FindRandomSkillFor(Entity entity) {
-        Element[] elements = entity.coreSkills.Where(s => s != null).Select(s => s.element).ToArray();
+    public static Skill FindRandomSkillFor(CharacterEntity entity) {
+        Element[] elements = entity.GetCoreSkills().Where(s => s != null).Select(s => s.element).ToArray();
         while (true) {
             Skill skill = RandomSkillOut(elements);
             bool fail = false;
-            foreach (Skill coreSkill in entity.coreSkills) {
+            foreach (Skill coreSkill in entity.GetCoreSkills()) {
                 if (coreSkill != null && !AreCompatible(skill, coreSkill)) {
                     fail = true;
                 }
@@ -34,7 +34,7 @@ public static class SkillHandler {
         }
     }
 
-    public static void FillSkills(Entity entity) {
+    public static void FillSkills(CharacterEntity entity) {
         entity.skill1 = null;
         entity.skill2 = null;
         entity.skill3 = null;
