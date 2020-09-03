@@ -32,9 +32,9 @@ namespace UI {
 
         public void Launch() {
             SkillArea skillArea = area.Done();
+            enabled = false;
             skill.effect.Apply(skill.element, launcher, skillArea);
-            // Hack
-            if (skill != SkillHandler.WALK) {
+            if (skill.condition.passTurn) {
                 Global.battleUI.EndTurn();
             } else {
                 Global.battleUI.SwitchState(BattleUI.BattleState.SKILL);

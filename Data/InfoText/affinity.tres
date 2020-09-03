@@ -7,4 +7,13 @@ script = ExtResource( 1 )
 Key = "affinity"
 Title = "Elemental Affinity"
 Description = "All characters have [?element]elements[/?] they are resistant against, taking less [?damage]damage[/?] and more [?heal]healing[/?] from skills of the corresponding [?element]element[/?]. Symmetrically, they also have [?element]elements[/?] against which they are weak.
-Humans usually have two resistances and two weaknesses, and they are not correlated with the character's [?skill]skills[/?]."
+Humans usually have two resistances and two weaknesses, and they are not correlated with the character's [?skill]skills[/?].
+[center]
+For example:
+[img]icon://help/affinity.png[/img]
+[table=3]
+[cell]Weakness[/cell]  [cell]   Neutral   [/cell]  [cell]Resistant[/cell]
+[cell][img]icon://metal.png[/img] [img]icon://water.png[/img][/cell]  [cell][img]icon://fire.png[/img] [img]icon://plant.png[/img] [img]icon://dark.png[/img][/cell]  [cell][img]icon://light.png[/img] [img]icon://air.png[/img][/cell]
+[cell]+100% damage[/cell]  [cell] [/cell] [cell]-50% damage[/cell]
+[cell]-25% healing[/cell]  [cell] [/cell] [cell]+50% healing[/cell]
+[/table][/center]"

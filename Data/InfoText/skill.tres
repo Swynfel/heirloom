@@ -7,4 +7,9 @@ script = ExtResource( 1 )
 Key = "skill"
 Title = "Skills"
 Description = "Skills are techniques that can be used in [?combat]combat[/?] to inflict [?damage]damage[/?], [?heal]heal[/?] or move. Humans have a walk skill, and 3 personnal skills - one from each of their parent, and a third one determined randomly.
-Skills usually have an [?element]element[/?], a cast range, an area of effect, and an effect. Appart from walking, using one passes the character's turn."
+Skills can have several parameters:
+- an [?element]element[/?]
+- a [?range]cast range and/or area of effect[/?]
+- an effect (e.g. [?damage]damage[/?])
+- [?charge]charges limit[/?]
+Unless mentionned, using a skill passes the character's turn."

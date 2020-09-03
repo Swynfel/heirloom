@@ -63,6 +63,10 @@ public class MetaPopup : CenterContainer {
     }
 
     public void OpenInfo(InfoText info) {
+        if (info == null) {
+            GD.PrintErr("Info is empty");
+            return;
+        }
         Tabs.CurrentTab = 3;
         Tabs.GetNode<Visual.Tables.InfoTable>("InfoTable").SetInfoText(info);
         Open();

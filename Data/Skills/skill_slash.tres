@@ -1,32 +1,24 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
+[ext_resource path="res://Data/Skills/Areas/cone.tres" type="Resource" id=2]
 [ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Damage.cs" type="Script" id=3]
 [ext_resource path="res://Data/Skills/Conditions/default.tres" type="Resource" id=4]
 
 [sub_resource type="Resource" id=1]
-script = ExtResource( 2 )
-minRange = 3
-maxRange = 5
-constraint = 0
-areaConstraint = 0
-areaRange = 0
-
-[sub_resource type="Resource" id=2]
 script = ExtResource( 3 )
-damage = 4
+damage = 6
 noFriendlyFire = false
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Snipe"
+name = "Slash"
 element = 0
-icon = 15
+icon = 13
 condition = ExtResource( 4 )
-area = SubResource( 1 )
-effect = SubResource( 2 )
+area = ExtResource( 2 )
+effect = SubResource( 1 )
 template = "*"
-tags = "range"
-description = "Snipe an enemy far away for 4 [?damage]damage[/?]"
+tags = "cac"
+description = "Attacks entities in front of you for 6 [?damage]damage[/?]"

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Damage.cs" type="Script" id=3]
+[ext_resource path="res://Data/Skills/Conditions/default.tres" type="Resource" id=4]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -14,7 +15,7 @@ areaRange = 1
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 3 )
-damage = 3
+damage = 4
 noFriendlyFire = false
 
 [resource]
@@ -23,8 +24,9 @@ script = ExtResource( 1 )
 name = "Rain of Pain"
 element = 0
 icon = 12
+condition = ExtResource( 4 )
 area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "middle"
-description = "Shoot a 3x3 area for 3 [?damage]damage[/?]"
+description = "Shoot a 3x3 area for 4 [?damage]damage[/?]"

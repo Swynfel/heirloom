@@ -7,6 +7,7 @@ public class Skill : Resource {
     [Export] public string name;
     [Export] public Element element;
     [Export] public SkillIcon.SpriteTemplate icon;
+    [Export] public SkillCondition condition;
     [Export] public SkillAreaCreator area;
     [Export] public SkillEffect effect;
     [Export] public string template;

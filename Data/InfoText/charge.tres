@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "charge"
+Title = "Charges"
+Description = "Some [?skill]skills[/?] can only be used a certain amount of time per turn, or per combat.
+\"Charges per Turn\" are resplendished after every turn, but \"Charges per Combat\" are resplendished only after the end of a combat.
+Of course, only skills that doesn't automatically end the turn can have a \"Charge per Turn\".
+[?heal]Healing[/?] skills have a \"Charge per Combat\" limit to avoid endless [?combat]combats[/?]."

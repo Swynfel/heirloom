@@ -53,7 +53,7 @@ public class GameData : Resource {
         return data;
     }
     public Error Save() {
-        // HACK
+        // Trick to parse date with Godot Resource
         _date = date.SeasonsPassed();
         // Save
         Error error = ResourceSaver.Save(SAVE_FILE, this, SAVE_FORMAT);
@@ -73,7 +73,7 @@ public class GameData : Resource {
             return null;
         }
         GameData data = ResourceLoader.Load<GameData>(SAVE_FILE);
-        // HACK
+        // Trick to parse date with Godot Resource 
         data.date = Date.FromSeasonsPassed(data._date);
         return data;
     }

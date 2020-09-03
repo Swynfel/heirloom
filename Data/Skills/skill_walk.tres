@@ -1,14 +1,15 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Snake.cs" type="Script" id=2]
 [ext_resource path="res://Data/Skills/Effects/move.tres" type="Resource" id=3]
+[ext_resource path="res://Data/Skills/Conditions/once_nopass.tres" type="Resource" id=4]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 minRange = 1
 maxRange = 3
-constraint = 1
+constraint = 4
 blockedByPieces = true
 
 [resource]
@@ -17,6 +18,7 @@ script = ExtResource( 1 )
 name = "Walk"
 element = 0
 icon = 0
+condition = ExtResource( 4 )
 area = SubResource( 1 )
 effect = ExtResource( 3 )
 template = ""

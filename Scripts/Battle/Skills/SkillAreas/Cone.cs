@@ -5,6 +5,8 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Cone : SkillAreaCreator {
+
+        [Export] public bool wide = true;
         public Direction currentDirection;
         public Cone() : base(maxRange: 4) { }
         public Cone(Cone other) : base(other) { }
@@ -28,7 +30,7 @@ namespace Combat.SkillAreas {
             }
             area.Clear();
             // Set area
-            (int x, int y) = launcher.on.GetNeighborCoords(direction.Opposite());
+            (int x, int y) = wide ? launcher.on.GetNeighborCoords(direction.Opposite()) : (launcher.on.x, launcher.on.y);
             foreach (Tile newTile in BoardUtils.AllTiles(t => {
                 if (BoardUtils.DirectionTo(x, y, t) != direction) {
                     return false;

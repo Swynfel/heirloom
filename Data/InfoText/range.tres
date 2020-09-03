@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GameData/InfoText.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Key = "range"
+Title = "Range, Area and Cone"
+Description = "The range, area and cone of a [?skill]skill[/?] are determined by several parameters:
+- A minimum and maximum range, that can be equal.
+- A shape, that determines how this range is determined.
+For example:
+1-3[img]icon://ranges/path_area.png[/img], the range for the walk skill, means you can follow any continuous path of length 1 to 3
+2-4[img]icon://ranges/diamond_area.png[/img] means any cell at a \"diamond\" distance between 2 and 4
+1-5[img]icon://ranges/line_cone.png[/img] means any cell in a strait line at a distance 1 to 5
+0 means only yourself, or entities on the cell selected"

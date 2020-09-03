@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Theme/gui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Nodes/Visual/Components/CharacterTableBig.tscn" type="PackedScene" id=2]
@@ -7,8 +7,19 @@
 [ext_resource path="res://Nodes/Visual/Components/ItemTable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Icons/skill_icons.png" type="Texture" id=6]
 [ext_resource path="res://Nodes/Visual/Components/InfoTable.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Battle/elements.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+resource_local_to_scene = true
+atlas = ExtResource( 8 )
+region = Rect2( 8, 8, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=3]
 resource_local_to_scene = true
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 16, 16 )
@@ -140,6 +151,22 @@ margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
 rect_min_size = Vector2( 240, 72 )
+displayChargesLeft = false
+
+[node name="Panel" parent="MetaPopup/Popup/Container/SkillTable" index="0"]
+margin_right = 324.0
+
+[node name="Body" parent="MetaPopup/Popup/Container/SkillTable" index="1"]
+margin_right = 324.0
+
+[node name="Element" parent="MetaPopup/Popup/Container/SkillTable/Body/Left/Top/Skill" index="0"]
+texture = SubResource( 2 )
+
+[node name="SkillIcon" parent="MetaPopup/Popup/Container/SkillTable/Body/Left/Top/Skill" index="1"]
+texture = SubResource( 3 )
+
+[node name="Label" parent="MetaPopup/Popup/Container/SkillTable/Body/Left/Top/Skill" index="2"]
+visible = false
 
 [node name="InfoTable" parent="MetaPopup/Popup/Container" instance=ExtResource( 7 )]
 visible = false
@@ -160,3 +187,7 @@ margin_bottom = -5.0
 [editable path="MetaPopup/Popup/Container/ItemTable"]
 
 [editable path="MetaPopup/Popup/Container/ItemTable/List/Bottom/Right/CharacterSelectorButton"]
+
+[editable path="MetaPopup/Popup/Container/SkillTable"]
+
+[editable path="MetaPopup/Popup/Container/SkillTable/Body/Left/Top/Skill"]
