@@ -29,4 +29,4 @@ area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "middle"
-description = "Shoot an enemy in middle range for 5 [?damage]damage[/?]"
+description = "Shoot an enemy in middle range"

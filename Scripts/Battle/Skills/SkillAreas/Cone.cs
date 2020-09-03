@@ -57,6 +57,7 @@ namespace Combat.SkillAreas {
         public override void Hover(Tile tile) {
             Direction dir = launcher.on.DirectionTo(tile);
             if (dir != Direction.NONE) {
+                GD.Print(dir);
                 SetDirection(dir);
             }
         }

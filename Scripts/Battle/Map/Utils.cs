@@ -56,28 +56,24 @@ namespace Combat {
         public static Direction DirectionTo(this Tile center, Tile other) {
             int x = other.x - center.x;
             int y = other.y - center.y;
-            int X = Math.Abs(x);
-            int Y = Math.Abs(y);
-            if (X == Y) {
-                return Direction.NONE;
-            }
-            if (X > Y) {
-                return x > 0 ? Direction.LEFT : Direction.RIGHT;
-            }
-            return y > 0 ? Direction.UP : Direction.DOWN;
+            return DirectionOf(x, y);
         }
         public static Direction DirectionTo(int _x, int _y, Tile other) {
             int x = other.x - _x;
             int y = other.y - _y;
+            return DirectionOf(x, y);
+        }
+
+        public static Direction DirectionOf(int x, int y) {
             int X = Math.Abs(x);
             int Y = Math.Abs(y);
             if (X == Y) {
                 return Direction.NONE;
             }
             if (X > Y) {
-                return x > 0 ? Direction.LEFT : Direction.RIGHT;
+                return x < 0 ? Direction.LEFT : Direction.RIGHT;
             }
-            return y > 0 ? Direction.UP : Direction.DOWN;
+            return y < 0 ? Direction.UP : Direction.DOWN;
         }
 
         public static IEnumerable<Tile> AllTiles(Func<Tile, bool> predicate) {

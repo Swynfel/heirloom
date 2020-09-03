@@ -28,5 +28,5 @@ condition = ExtResource( 4 )
 area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
-tags = "middle"
-description = "Shoot a 3x3 area for 4 [?damage]damage[/?]"
+tags = "middle|aoe"
+description = "Shoot a 3x3 area"

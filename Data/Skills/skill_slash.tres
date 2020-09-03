@@ -21,4 +21,4 @@ area = ExtResource( 2 )
 effect = SubResource( 1 )
 template = "*"
 tags = "cac"
-description = "Attacks entities in front of you for 6 [?damage]damage[/?]"
+description = "Attacks entities in front of you"

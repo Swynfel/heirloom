@@ -1,31 +1,31 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Heal.cs" type="Script" id=3]
-[ext_resource path="res://Data/Skills/Conditions/five_charges.tres" type="Resource" id=4]
+[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Cone.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Damage.cs" type="Script" id=3]
+[ext_resource path="res://Data/Skills/Conditions/default.tres" type="Resource" id=4]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
-minRange = 0
-maxRange = 2
+minRange = 1
+maxRange = 3
 constraint = 0
-areaConstraint = 1
-areaRange = 1
+wide = false
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 3 )
-heal = 4
+damage = 4
+noFriendlyFire = false
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-name = "Heal Wave"
+name = "Cone"
 element = 0
-icon = 5
+icon = 14
 condition = ExtResource( 4 )
 area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
-tags = "heal"
-description = "Heal allies or yourself in a cross at close range"
+tags = "aoe"
+description = "Blast entities in a big cone"

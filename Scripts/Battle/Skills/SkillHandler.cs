@@ -9,8 +9,10 @@ public static class SkillHandler {
     public static readonly Skill WALK = Skill.Load("walk");
     public static readonly Skill[] SKILLS = {
         Skill.Load("burst"),
+        Skill.Load("cone"),
         Skill.Load("heal_wave"),
         Skill.Load("heal_word"),
+        Skill.Load("slash"),
         Skill.Load("snipe"),
         Skill.Load("rain_of_pain"),
         Skill.Load("shot"),

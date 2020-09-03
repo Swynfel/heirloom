@@ -28,4 +28,4 @@ area = SubResource( 1 )
 effect = SubResource( 2 )
 template = "*"
 tags = "heal"
-description = "[?heal]Heal[/?] a single ally for 6"
+description = "Heal a single ally at mid-range"
