@@ -92,35 +92,39 @@ namespace OutcomeProcesses {
                 switch (age) {
                     case (Date.AgeGroup.CHILD):
                         format = plural ?
-                        "{0} is now a child (+4 max health)." :
-                        "{0} are now children (+4 max health).";
+                        "{0} are now children (+4 max health)." :
+                        "{0} is now a child (+4 max health).";
                         break;
                     case (Date.AgeGroup.TEEN):
                         format = plural ?
-                        "{0} is now a teenager (+4 max health)." :
-                        "{0} are now teenagers (+4 max health).";
+                        "{0} are now teenagers (+4 max health)." :
+                        "{0} is now a teenager (+4 max health).";
                         break;
                     case (Date.AgeGroup.YOUNG_ADULT):
                         format = plural ?
-                        "{0} is now a young adult (+2 max health)." :
-                        "{0} are now young adults (+2 max health).";
+                        "{0} are now young adults (+2 max health)." :
+                        "{0} is now a young adult (+2 max health).";
                         break;
                     case (Date.AgeGroup.ADULT):
                         format = plural ?
-                        "{0} is now a true adult." :
-                        "{0} are now true adults.";
+                        "{0} are now true adults." :
+                        "{0} is now a true adult.";
                         break;
                     case (Date.AgeGroup.SENIOR):
                         format = plural ?
-                        "{0} is now a senior (will loose 2 max health per season)." :
-                        "{0} are now seniors (will loose 2 max health per season).";
+                        "{0} are now seniors (will loose 2 max health per season)." :
+                        "{0} is now a senior (will loose 2 max health per season).";
                         break;
                     default:
                         format = "";
                         break;
                 }
                 string s = string.Format(format, Entity.MetaNames(group.Value));
-                history += s;
+                if (history == "") {
+                    history += s;
+                } else {
+                    history += "\n " + s;
+                }
                 P.ui.AddDescription(s + "\n");
             }
             if (history != "") {
