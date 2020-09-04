@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Pieces/obstacles.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Pieces/outline.shader" type="Shader" id=2]
+[ext_resource path="res://Scripts/Visual/Pieces/CharacterAppearance.cs" type="Script" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/outline = Color( 0.203922, 0.203922, 0.203922, 1 )
+
+[node name="Obstacle" type="Node2D"]
+material = SubResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Body" type="Sprite" parent="."]
+use_parent_material = true
+texture = ExtResource( 1 )
+hframes = 4
