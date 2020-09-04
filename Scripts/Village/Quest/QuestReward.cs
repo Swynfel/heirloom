@@ -71,6 +71,9 @@ public class QuestReward : Resource {
     }
 
     public Riches Generate() {
+        if (group == Group.NONE) {
+            return new Riches();
+        }
         int lootLeft = intensity + Global.rng.Next(0, intensity / 4 + 10);
         bool dungeonTreasureBoost = group == Group.DUNGEON;
         int treasureLikeliness = intensity;

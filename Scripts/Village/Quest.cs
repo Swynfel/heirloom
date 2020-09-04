@@ -1,5 +1,6 @@
 
 using System;
+using Combat.Generate;
 using Godot;
 
 public class Quest : Resource {
@@ -11,7 +12,7 @@ public class Quest : Resource {
         get => Date.FromSeasonsPassed(_deadline);
         set => _deadline = value.SeasonsPassed();
     }
-    [Export] public BattleGeneration battle = new BattleGeneration();
+    [Export] public BattleGeneration battle;
     [Export] public string difficulty;
     [Export] public int partySize = 2;
 

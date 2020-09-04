@@ -14,6 +14,10 @@ namespace Combat {
             SAND,
             STONE,
             WOOD,
+            TEMPLE_PEBBLES,
+            TEMPLE_FULL,
+            TEMPLE_BORDER,
+            TEMPLE_WATER,
         }
         private static PackedScene template = (PackedScene) ResourceLoader.Load("res://Nodes/Battle/Tile.tscn");
         private static Tile Instance() {

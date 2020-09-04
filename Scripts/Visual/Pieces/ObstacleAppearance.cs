@@ -8,8 +8,6 @@ namespace Visual {
         public static ObstacleAppearance New() {
             return (ObstacleAppearance) template.Instance();
         }
-
-        private bool setup;
         public void SetAppearance(ObstacleAppearanceType id) {
             GetNode<Sprite>("Body").Frame = (int) id;
         }

@@ -12,12 +12,10 @@ namespace Visual.Tables {
             return character;
         }
 
-        private bool setup = false;
         private Control selected;
 
         public override void _Ready() {
             base._Ready();
-            setup = true;
             selected = GetNode<Control>("Selected");
         }
         public void Toggle(bool on) {

@@ -30,8 +30,15 @@ namespace Combat {
                 Village.actions[Family.familyMembers[0]] = VillageAction.QUEST;
             }
 
+            // TODO: Put this somewhere else
+            var party = Village.actions.Where(VillageAction.QUEST);
+            foreach (CharacterEntity friend in party) {
+                friend.actor = true;
+                friend.alignment = Alignment.FRIENDLY;
+            }
+
             // Generate battle
-            Village.quest.battle.Generate(this, Village.actions.Where(VillageAction.QUEST));
+            Village.quest.battle.Generate(this, party);
 
             // Ready
             foreach (Piece actor in actors) {
@@ -43,10 +50,7 @@ namespace Combat {
             // Start battle
             TurnOf(actors[0]);
             camera.Position = board.GetCenter();
-            battleStarted = true;
         }
-
-        private bool battleStarted = false;
 
         public override void _Process(float delta) {
             if (pendingNextTurn && !Game.busy) {
@@ -84,7 +88,7 @@ namespace Combat {
         public async void CheckIfFinished() {
             bool friends = false;
             bool enemies = false;
-            foreach (Piece piece in actors) {
+            foreach (Piece piece in pieces) {
                 switch (piece.entity.alignment) {
                     case Alignment.FRIENDLY:
                         if (enemies) return;

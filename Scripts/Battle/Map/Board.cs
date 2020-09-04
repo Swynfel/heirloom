@@ -36,12 +36,12 @@ namespace Combat {
             tiles = null;
         }
 
-        public void CreateTerrain(Func<int, int, Tile.GroundType> tileType) {
+        public void CreateTerrain(Generate.BoardGeneration boardGen) {
             Clear();
             tiles = new Tile[width * height];
             for (int x = 0 ; x < width ; x++) {
                 for (int y = 0 ; y < height ; y++) {
-                    Tile.GroundType groundType = tileType(x, y);
+                    Tile.GroundType groundType = boardGen.Pick(x, y);
                     if (groundType == Tile.GroundType.NONE) {
                         continue;
                     }
@@ -49,6 +49,10 @@ namespace Combat {
                     tile.GetNode("Control").Connect("mouse_entered", this, nameof(on_TileHovered), Global.ArrayFrom(tile));
                     tile.GetNode("Control").Connect("mouse_exited", this, nameof(on_TileExited), Global.ArrayFrom(tile));
                     tiles[y * width + x] = tile;
+                    Entity potentialEntity = boardGen.Obstacle(x, y);
+                    if (potentialEntity != null) {
+                        AddChild(Piece.New(potentialEntity, tile));
+                    }
                 }
             }
         }

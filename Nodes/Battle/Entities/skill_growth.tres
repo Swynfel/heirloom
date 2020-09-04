@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Battle/Skills/Skill.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Battle/Skills/SkillAreas/Target.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Battle/Skills/SkillEffects/Heal.cs" type="Script" id=3]
+[ext_resource path="res://Data/Skills/Conditions/default.tres" type="Resource" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+minRange = 0
+maxRange = 0
+constraint = 0
+areaConstraint = 1
+areaRange = 0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+heal = 3
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+name = "Growth"
+element = 6
+icon = 6
+condition = ExtResource( 4 )
+area = SubResource( 1 )
+effect = SubResource( 2 )
+template = "p"
+tags = "special|heal"
+description = "Regenerate some of your health"

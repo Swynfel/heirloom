@@ -1,3 +1,6 @@
+using Combat.Generate;
+using MapType = Combat.Generate.MapType;
+
 public static class QuestGeneration {
 
     public static Quest GenerateRandomQuest(int minimumIntensity = 3, int maximumIntensity = 12) {
@@ -8,57 +11,67 @@ public static class QuestGeneration {
         return quest;
     }
 
-    // TODO: Better special quests
-    private static Quest CROWN_QUEST {
+    public static Quest TUTORIAL_QUEST {
         get {
-            (string name, BattleGeneration battle, int party) = GenerateDungeon(10);
             return new Quest() {
-                name = name,
+                name = "Go to Children's village",
+                reward = new QuestReward(0, QuestReward.Group.NONE),
+                battle = new DeterministicBattleGeneration(DeterministicBattleGeneration.DeterministicType.TUTORIAL),
+                partySize = 1,
+                difficulty = "tutorial",
+                deadline = Date.NEVER,
+            };
+        }
+    }
+
+    public static Quest CROWN_QUEST {
+        get {
+            return new Quest() {
+                name = "Ruins of the Eternal Castle",
                 reward = new QuestReward(100, QuestReward.Group.DUNGEON_CROWN),
-                battle = battle,
-                partySize = party,
-                difficulty = Difficulty(party, battle.count, 10),
+                battle = new DeterministicBattleGeneration(DeterministicBattleGeneration.DeterministicType.CROWN),
+                partySize = 5,
+                difficulty = "difficult",
                 deadline = Date.NEVER,
             };
         }
     }
-    private static Quest SHIELD_QUEST {
+    public static Quest SHIELD_QUEST {
         get {
-            (string name, BattleGeneration battle, int party) = GenerateDungeon(10);
+            (string name, ClassicBattleGeneration battle, int party) = GenerateDungeon(10);
             return new Quest() {
-                name = name,
+                name = "Tomb of the Undefeated Hero",
                 reward = new QuestReward(100, QuestReward.Group.DUNGEON_SHIELD),
-                battle = battle,
-                partySize = party,
-                difficulty = Difficulty(party, battle.count, 10),
+                battle = new DeterministicBattleGeneration(DeterministicBattleGeneration.DeterministicType.SHIELD),
+                partySize = 4,
+                difficulty = "difficult",
                 deadline = Date.NEVER,
             };
         }
     }
-    private static Quest FINAL_QUEST {
+    public static Quest FINAL_QUEST {
         get {
-            (string name, BattleGeneration battle, int party) = GenerateDungeon(15);
+            (string name, ClassicBattleGeneration battle, int party) = GenerateDungeon(15);
             return new Quest() {
-                name = "Last Quest",
+                name = "The Last Quest",
                 reward = new QuestReward(200, QuestReward.Group.VICTORY),
-                battle = battle,
-                partySize = party,
-                difficulty = Difficulty(party, battle.count, 15),
-                deadline = Date.NEVER,
+                battle = new DeterministicBattleGeneration(DeterministicBattleGeneration.DeterministicType.FINAL),
+                partySize = 6,
+                difficulty = "impossible",
             };
         }
     }
 
     public static Quest GenerateRandomBasicDungeon() {
         int intensity = Global.rng.Next(4, 13);
-        (string name, BattleGeneration battle, int party) = GenerateDungeon(intensity);
+        (string name, ClassicBattleGeneration battle, int party) = GenerateDungeon(intensity);
         int extension = (Global.rng.Next(3, 10) + intensity) / 4;
         return new Quest() {
             name = name,
             reward = new QuestReward(intensity * intensity, QuestReward.Group.DUNGEON),
             battle = battle,
             partySize = party,
-            difficulty = Difficulty(party, battle.count, intensity),
+            difficulty = Difficulty(party, battle.enemyCount, intensity),
             deadline = Game.data.date.Plus(extension),
         };
     }
@@ -138,16 +151,16 @@ public static class QuestGeneration {
     private static readonly ElementalAffinity DIRT_CAVE_ELEMENTAL = new ElementalAffinity(p1: Element.PLANT, p2: Element.DARK, n1: Element.FIRE);
     private static readonly ElementalAffinity STONE_CAVE_ELEMENTAL = new ElementalAffinity(p1: Element.METAL, p2: Element.DARK, n1: Element.LIGHT);
 
-    private static (string, BattleGeneration, int) GenerateDungeon(int intensity) {
+    private static (string, ClassicBattleGeneration, int) GenerateDungeon(int intensity) {
         int roll = Global.rng.Next(0, 20) + (intensity / 3);
         int count = (Global.rng.Next(1, 6) + intensity) / 3;
         int party = (Global.rng.Next(7, 11) + intensity) / 5;
         if (roll <= 13) {
             return (
                 string.Format("The {0} {1}", CAVE_ADJECTIVES.Random(), DIRT_CAVE_NOUNS.Random()),
-                new BattleGeneration(
-                    Combat.MapType.DIRT_CAVE,
-                    BattleGeneration.EnemyType.BANDITS,
+                new ClassicBattleGeneration(
+                    MapType.DIRT_CAVE,
+                    ClassicBattleGeneration.EnemyType.BANDITS,
                     count,
                     DIRT_CAVE_ELEMENTAL
                 ), party
@@ -155,9 +168,9 @@ public static class QuestGeneration {
         } else {
             return (
                 string.Format("The {0} {1}", CAVE_ADJECTIVES.Random(), STONE_CAVE_NOUNS.Random()),
-                new BattleGeneration(
-                    Combat.MapType.STONE_CAVE,
-                    BattleGeneration.EnemyType.BANDITS,
+                new ClassicBattleGeneration(
+                    MapType.STONE_CAVE,
+                    ClassicBattleGeneration.EnemyType.BANDITS,
                     count,
                     STONE_CAVE_ELEMENTAL
                 ), party
@@ -195,9 +208,9 @@ public static class QuestGeneration {
         string name = string.Format("The {0} {1}", adj, HIDEOUT_NOUNS.Random());
         int count = (Global.rng.Next(1, 6) + intensity) / 3;
         int party = (Global.rng.Next(7, 11) + intensity) / 5;
-        BattleGeneration battle = new BattleGeneration(
-            Combat.MapType.HIDEOUT,
-            BattleGeneration.EnemyType.BANDITS,
+        ClassicBattleGeneration battle = new ClassicBattleGeneration(
+            MapType.HIDEOUT,
+            ClassicBattleGeneration.EnemyType.BANDITS,
             count,
             HIDEOUT_ELEMENTAL,
             enemyNoun: noun
@@ -207,7 +220,7 @@ public static class QuestGeneration {
             reward = new QuestReward(intensity * (intensity + 1) + 5, QuestReward.Group.FOOD_GOLD),
             battle = battle,
             partySize = party,
-            difficulty = Difficulty(party, battle.count, intensity),
+            difficulty = Difficulty(party, battle.enemyCount, intensity),
         };
     }
 
@@ -225,9 +238,9 @@ public static class QuestGeneration {
         string name = string.Format("The {0} {1}", PLAINS_ADJECTIVES.Random(), PLAINS_NOUNS.Random());
         int count = (Global.rng.Next(1, 6) + intensity) / 3;
         int party = (Global.rng.Next(7, 11) + intensity) / 5;
-        BattleGeneration battle = new BattleGeneration(
-            Combat.MapType.PLAINS,
-            BattleGeneration.EnemyType.BANDITS,
+        ClassicBattleGeneration battle = new ClassicBattleGeneration(
+            MapType.PLAINS,
+            ClassicBattleGeneration.EnemyType.BANDITS,
             count,
             PLAINS_ELEMENTAL
         );
@@ -236,7 +249,7 @@ public static class QuestGeneration {
             reward = new QuestReward(intensity * intensity + 5, QuestReward.Group.FOOD),
             battle = battle,
             partySize = party,
-            difficulty = Difficulty(party, battle.count, intensity),
+            difficulty = Difficulty(party, battle.enemyCount, intensity),
         };
     }
 
@@ -252,9 +265,9 @@ public static class QuestGeneration {
         string name = string.Format("The {0} {1}", PLAINS_ADJECTIVES.Random(), PLAINS_NOUNS.Random());
         int count = (Global.rng.Next(1, 6) + intensity) / 3;
         int party = (Global.rng.Next(7, 11) + intensity) / 5;
-        BattleGeneration battle = new BattleGeneration(
-            Combat.MapType.DESERT,
-            BattleGeneration.EnemyType.BANDITS,
+        ClassicBattleGeneration battle = new ClassicBattleGeneration(
+            MapType.DESERT,
+            ClassicBattleGeneration.EnemyType.BANDITS,
             count,
             PLAINS_ELEMENTAL
         );
@@ -263,7 +276,7 @@ public static class QuestGeneration {
             reward = new QuestReward((intensity * intensity) / 2 + 5, QuestReward.Group.GOLD),
             battle = battle,
             partySize = party,
-            difficulty = Difficulty(party, battle.count, intensity),
+            difficulty = Difficulty(party, battle.enemyCount, intensity),
         };
     }
 
@@ -280,9 +293,9 @@ public static class QuestGeneration {
         string name = string.Format("The {0} {1}", ROAD_ADJECTIVES.Random(), ROAD_NOUNS.Random());
         int count = (Global.rng.Next(1, 6) + intensity) / 3;
         int party = (Global.rng.Next(7, 11) + intensity) / 5;
-        BattleGeneration battle = new BattleGeneration(
-            Combat.MapType.DIRT_ROAD,
-            BattleGeneration.EnemyType.BANDITS,
+        ClassicBattleGeneration battle = new ClassicBattleGeneration(
+            MapType.DIRT_ROAD,
+            ClassicBattleGeneration.EnemyType.BANDITS,
             count,
             ROAD_ELEMENTAL
         );
@@ -291,7 +304,7 @@ public static class QuestGeneration {
             reward = new QuestReward(intensity * intensity + 5, QuestReward.Group.FOOD_GOLD),
             battle = battle,
             partySize = party,
-            difficulty = Difficulty(party, battle.count, intensity),
+            difficulty = Difficulty(party, battle.enemyCount, intensity),
         };
     }
 }

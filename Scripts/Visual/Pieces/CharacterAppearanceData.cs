@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using Godot;
 
 namespace Visual {
-    enum ColorVariation {
-        VERY_DARK = 0,
-        DARK = 1,
-        NORMAL = 2,
-        LIGHT = 3,
-    }
-
     // DUO, TRIO, QUARTET
     // Primary, Secondary, Hair, Eye
     public struct ColorDisposition {

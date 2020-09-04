@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Battle/Entities/ObstacleEntity.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Visual/Pieces/ObstacleAppearanceData.cs" type="Script" id=2]
+[ext_resource path="res://Nodes/Battle/Entities/skill_growth.tres" type="Resource" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+id = 1
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+alignment = 0
+actor = true
+name = "Bush"
+_affinity = PoolIntArray( 0, 1, 0, 1, 2, 0, 2, 0 )
+maxHealth = 10
+health = 10
+Skills = [ ExtResource( 3 ) ]
+appearance = SubResource( 1 )

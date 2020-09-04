@@ -4,8 +4,6 @@ using Godot;
 
 namespace UI {
     public class NextPanel : VBoxContainer {
-        GridContainer container;
-
         private Label questName;
         private Control partyContainer;
         private Control partyList;

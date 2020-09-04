@@ -21,13 +21,16 @@ public class EnemyAI {
 
     public async void Play() {
         await Task.Delay(1000);
-        var reachableTiles = BoardUtils.AllReachableTiles(piece.on, maxLength: 3, valid: CanStepOn);
-        // TODO: Think
-        var pair = reachableTiles.ToList().Random();
-        if (pair.Key != piece.on) {
-            SkillArea a = new SkillArea();
-            a.AddRange(pair.Value);
-            await SkillHandler.WALK.Apply(piece, a);
+        Skill walking = actor.GetMoveSkills().FirstOrDefault();
+        if (walking != null && walking.area is Snake snake) {
+            var reachableTiles = BoardUtils.AllReachableTiles(piece.on, maxLength: snake.maxRange, valid: CanStepOn);
+            // TODO: Think
+            var pair = reachableTiles.ToList().Random();
+            if (pair.Key != piece.on) {
+                SkillArea a = new SkillArea();
+                a.AddRange(pair.Value);
+                await SkillHandler.WALK.Apply(piece, a);
+            }
         }
 
         var skills = actor.GetCoreSkills();

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Battle/Entities/ObstacleEntity.cs" type="Script" id=1]
+[ext_resource path="res://Nodes/Battle/Entities/obstacle_appearance.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+alignment = 0
+actor = false
+name = "Boulder"
+_affinity = PoolIntArray( 0, 2, 0, 0, 1, 2, 1, 0 )
+maxHealth = 20
+health = 20
+Skills = [  ]
+appearance = ExtResource( 2 )
