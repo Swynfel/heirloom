@@ -12,6 +12,7 @@ namespace OutcomeProcesses {
             await Food();
             await Age();
             CleanJobs();
+            Game.data.Save();
         }
 
         private static void Crown() {

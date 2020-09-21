@@ -21,7 +21,7 @@ public class TitleScreen : CanvasLayer {
     }
 
     public void on_Load() {
-        var l = GameData.Load();
-        GD.Print("TODO: Load Game");
+        Game.data = GameData.Load();
+        GetTree().ChangeScene("Scenes/Village.tscn");
     }
 }

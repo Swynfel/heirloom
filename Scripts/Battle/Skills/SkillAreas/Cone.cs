@@ -30,6 +30,9 @@ namespace Combat.SkillAreas {
             }
             area.Clear();
             // Set area
+            if (direction == Direction.NONE) {
+                return;
+            }
             (int x, int y) = wide ? launcher.on.GetNeighborCoords(direction.Opposite()) : (launcher.on.x, launcher.on.y);
             foreach (Tile newTile in BoardUtils.AllTiles(t => {
                 if (BoardUtils.DirectionTo(x, y, t) != direction) {
