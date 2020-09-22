@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class Family : Resource {
+public class Family : Resource, ISaveable {
 
     public static List<CharacterEntity> familyMembers { get { return Game.data.family.alive; } }
-    [Export] public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
+    public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
 
-    [Export] public List<CharacterEntity> alive = new List<CharacterEntity>();
+    public List<CharacterEntity> alive = new List<CharacterEntity>();
 
     public Family() { }
     public Family(IEnumerable<CharacterEntity> members) {
@@ -81,5 +81,15 @@ public class Family : Resource {
         CharacterEntity youngest = new CharacterEntity();
         youngest.SetAge(5);
         return new Family(new CharacterEntity[] { eldest, middle, youngest });
+    }
+
+    public void SaveExtraData(Godot.Collections.Dictionary<string, object> data) {
+        data["members"] = members.Select(d => d.rememberId).ToList();
+        data["alive"] = alive.Select(d => d.rememberId).ToList();
+    }
+    public void LoadExtraData(Godot.Collections.Dictionary<string, object> data) {
+        members = new HashSet<CharacterEntity>((data["members"] as Godot.Collections.Array<int>).Select(d => Memory.memory.characters[d]));
+        alive = new List<CharacterEntity>((data["alive"] as Godot.Collections.Array<int>).Select(d => Memory.memory.characters[d]));
+
     }
 }

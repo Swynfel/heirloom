@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class Memory : Resource {
-
-    [Export] private List<CharacterEntity> characters = new List<CharacterEntity>();
-    [Export] private List<Item> items = new List<Item>();
+    [Export] public List<CharacterEntity> characters = new List<CharacterEntity>();
+    [Export] public List<Item> items = new List<Item>();
 
     public enum Group {
         CHARACTER = 'C',
