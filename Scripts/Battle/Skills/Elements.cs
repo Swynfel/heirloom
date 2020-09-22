@@ -21,7 +21,7 @@ public enum ElementAffinity {
     IMMUNE,
 }
 
-public class Elemental<T> {
+public class Elemental<T> : IExportable {
     protected T[] elements = new T[ElementUtils.TOTAL_ELEMENTS];
 
     public Elemental() { }
@@ -47,6 +47,15 @@ public class Elemental<T> {
             }
         }
         return elements;
+    }
+
+    public Godot.Collections.Dictionary SaveProperties() {
+        return new Godot.Collections.Dictionary{
+            {"elements", elements},
+        };
+    }
+    public void LoadProperties(Godot.Collections.Dictionary data) {
+        elements = ((IEnumerable<T>) data["elements"]).ToArray();
     }
 }
 

@@ -5,8 +5,7 @@ using System.Linq;
 using Godot;
 
 public class GameData : Resource {
-    public Date date;
-    [Export] private int _date;
+    [Export] public Date date;
 
     [Export] public Memory memory = new Memory();
     [Export] public string name;
@@ -30,7 +29,7 @@ public class GameData : Resource {
     private GameData() { }
 
     public static GameData New() {
-        GameData data = (GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
+        GameData data = new GameData();//(GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
         Game.data = data; // HACK
         data.date = Date.START;
         data.name = "NAME";
@@ -57,7 +56,7 @@ public class GameData : Resource {
             GD.PrintErr("Savefile could not be opened");
         }
         // Save
-        GD.Print(JSON.Print(this.SaveData()));
+        file.StoreLine(JSON.Print(this.SaveData()));
         return error;
     }
 
@@ -74,15 +73,7 @@ public class GameData : Resource {
         // Load
         GameData data = new GameData();
         var raw_data = new Godot.Collections.Dictionary<string, object>((Godot.Collections.Dictionary) JSON.Parse(file.GetLine()).Result);
-        // Parse
-        // data.name = (string) raw_data["name"];
-        // data.date = Date.Load(raw_data["date"]);
-        // data.memory = Memory.Load(raw_data["memory"]);
-        // data.family = Family.Load(data, raw_data["family"]);
-        // data.quests = (raw_data["quests"] as Godot.Collections.Array<object>).Select(q => Quest.Load(data, q));
-        // data.inventory = Riches.Load(data, raw_data["inventory"]);
-        // data.history = History.Load(data, raw_data["history"]);
-        // data.progress = AdventureProgress.Load(data, raw_data["progress"]);
+        data.LoadData(raw_data);
         return data;
     }
 }

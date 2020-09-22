@@ -18,27 +18,27 @@ public class CharacterEntity : Entity {
     [Export] public Visual.CharacterAppearanceData appearance;
 
     /*** Skills ***/
-    [Export]
+
     public Skill skillWalk {
         get => GetSkillAtIndexOrNull(0);
         set => SetSkillAtIndex(0, value);
     }
-    [Export]
+
     public Skill skill1 {
         get => GetSkillAtIndexOrNull(1);
         set => SetSkillAtIndex(1, value);
     }
-    [Export]
+
     public Skill skill2 {
         get => GetSkillAtIndexOrNull(2);
         set => SetSkillAtIndex(2, value);
     }
-    [Export]
+
     public Skill skill3 {
         get => GetSkillAtIndexOrNull(3);
         set => SetSkillAtIndex(3, value);
     }
-    [Export]
+
     public Skill skillSpecial {
         get => GetSkillAtIndexOrNull(4);
         set => SetSkillAtIndex(4, value);
@@ -63,20 +63,12 @@ public class CharacterEntity : Entity {
     public override IEnumerable<IModifier> GetModifiers() {
         if (heldItem != null) yield return heldItem;
     }
-    [Export] private int _birth = (Game.data?.date.SeasonsPassed()).GetValueOrDefault();
+    [Export] public Date birth = Game.data?.date ?? Date.NEVER;
 
-    [Export] private int _death = Date.NEVER.SeasonsPassed();
+    [Export] public Date death = Date.NEVER;
     [Export] public CharacterEntity lover = null;
     [Export] public int rememberId = -1;
-    public Date birth {
-        get => Date.FromSeasonsPassed(_birth);
-        set => _birth = value.SeasonsPassed();
-    }
 
-    public Date death {
-        get => Date.FromSeasonsPassed(_death);
-        set => _death = value.SeasonsPassed();
-    }
     public int age { get => Date.Delta(birth); }
     public Date.AgeGroup ageGroup { get => Date.Age(age); }
     public string AgeString() {

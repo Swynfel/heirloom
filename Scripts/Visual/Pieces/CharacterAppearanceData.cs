@@ -5,7 +5,7 @@ using Godot;
 namespace Visual {
     // DUO, TRIO, QUARTET
     // Primary, Secondary, Hair, Eye
-    public struct ColorDisposition {
+    public struct ColorDisposition : IExportable {
         private const ushort THREE = 3;
         private ushort disposition;
         public int primary { get => disposition & THREE; }
@@ -26,6 +26,15 @@ namespace Visual {
                 return;
             }
             disposition = (ushort) (p + (s << 2) + (h << 4) + (e << 6));
+        }
+
+        public Godot.Collections.Dictionary SaveProperties() {
+            return new Godot.Collections.Dictionary {
+                {"disposition", disposition}
+            };
+        }
+        public void LoadProperties(Godot.Collections.Dictionary data) {
+            disposition = (ushort) data["disposition"];
         }
     }
 
