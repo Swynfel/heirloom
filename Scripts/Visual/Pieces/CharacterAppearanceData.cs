@@ -34,7 +34,7 @@ namespace Visual {
             };
         }
         public void LoadProperties(Godot.Collections.Dictionary data) {
-            disposition = (ushort) data["disposition"];
+            disposition = Convert.ToUInt16(data["disposition"]);
         }
     }
 

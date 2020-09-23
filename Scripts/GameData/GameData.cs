@@ -26,7 +26,7 @@ public class GameData : Resource {
     [Export] public AdventureProgress progress = new AdventureProgress();
 
     private const string SAVE_FILE = "user://heirloom.save";
-    private GameData() { }
+    public GameData() { }
 
     public static GameData New() {
         GameData data = new GameData();//(GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
@@ -54,9 +54,14 @@ public class GameData : Resource {
         Error error = file.Open(SAVE_FILE, File.ModeFlags.Write);
         if (error != Error.Ok) {
             GD.PrintErr("Savefile could not be opened");
+            return error;
         }
         // Save
-        file.StoreLine(JSON.Print(this.SaveData()));
+        GameDataResourceSaver.Init();
+        int key = GameDataResourceSaver.instance.ToKey(this);
+        file.StoreLine(GameDataResourceSaver.Flush());
+        file.StoreLine(key.ToString());
+        file.Close();
         return error;
     }
 
@@ -69,11 +74,14 @@ public class GameData : Resource {
         Error error = file.Open(SAVE_FILE, File.ModeFlags.Read);
         if (error != Error.Ok) {
             GD.PrintErr("Savefile could not be opened");
+            return null;
         }
         // Load
-        GameData data = new GameData();
-        var raw_data = new Godot.Collections.Dictionary<string, object>((Godot.Collections.Dictionary) JSON.Parse(file.GetLine()).Result);
-        data.LoadData(raw_data);
+        GameDataResourceLoader.Load(file.GetLine());
+        Resource res = GameDataResourceLoader.instance.FromKey(int.Parse(file.GetLine()));
+        GameData data = (GameData) res;
+        GameDataResourceLoader.Done();
+        file.Close();
         return data;
     }
 }

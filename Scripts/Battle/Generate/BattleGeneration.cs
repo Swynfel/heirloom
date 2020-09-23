@@ -14,5 +14,13 @@ namespace Combat.Generate {
         protected void Place(CharacterEntity entity, Tile tile) {
             Battle.current.AddChild(Piece.New(entity, tile));
         }
+
+        public static BattleGeneration CreateFromProperties(Godot.Collections.Dictionary data) {
+            if ((string) data["class"] == "DeterministicBattlerGeneration") {
+                return new DeterministicBattleGeneration();
+            } else {
+                return new ClassicBattleGeneration();
+            }
+        }
     }
 }

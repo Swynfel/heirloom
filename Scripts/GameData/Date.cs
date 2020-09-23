@@ -136,10 +136,6 @@ public struct Date : IExportable {
         year = (int) (float) data["year"];
         season = (Date.Season) (int) (float) data["season"];
     }
-
-    public static Date Create() {
-        return new Date(0, 0);
-    }
 }
 
 public static class DateExtensions {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class Family : Resource, IExtraSaveable {
+public class Family : Resource {
 
     public static List<CharacterEntity> familyMembers { get { return Game.data.family.alive; } }
     public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
@@ -83,13 +83,7 @@ public class Family : Resource, IExtraSaveable {
         return new Family(new CharacterEntity[] { eldest, middle, youngest });
     }
 
-    public void SaveExtraData(Godot.Collections.Dictionary data) {
-        data["members"] = members.Select(d => d.rememberId).ToGodotArray();
-        data["alive"] = alive.Select(d => d.rememberId).ToGodotArray();
-    }
-    public void LoadExtraData(Godot.Collections.Dictionary data) {
-        members = new HashSet<CharacterEntity>((data["members"] as Godot.Collections.Array<int>).Select(d => Memory.memory.characters[d]));
-        alive = new List<CharacterEntity>((data["alive"] as Godot.Collections.Array<int>).Select(d => Memory.memory.characters[d]));
-
+    public bool IncludeDefaultSaveable() {
+        return false;
     }
 }
