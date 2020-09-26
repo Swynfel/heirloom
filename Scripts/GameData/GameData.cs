@@ -25,11 +25,12 @@ public class GameData : Resource {
     [Export] public History history = new History();
     [Export] public AdventureProgress progress = new AdventureProgress();
 
+    private const File.CompressionMode COMPRESSION_MODE = File.CompressionMode.Gzip;
     private const string SAVE_FILE = "user://heirloom.save";
     public GameData() { }
 
     public static GameData New() {
-        GameData data = new GameData();//(GameData) ResourceLoader.Load("res://Assets/empty_save.tres");
+        GameData data = new GameData();
         Game.data = data; // HACK
         data.date = Date.START;
         data.name = "NAME";
@@ -51,7 +52,7 @@ public class GameData : Resource {
 
     public Error Save() {
         File file = new File();
-        Error error = file.Open(SAVE_FILE, File.ModeFlags.Write);
+        Error error = file.OpenCompressed(SAVE_FILE, File.ModeFlags.Write, COMPRESSION_MODE);
         if (error != Error.Ok) {
             GD.PrintErr("Savefile could not be opened");
             return error;
@@ -71,7 +72,7 @@ public class GameData : Resource {
             return null;
         }
         File file = new File();
-        Error error = file.Open(SAVE_FILE, File.ModeFlags.Read);
+        Error error = file.OpenCompressed(SAVE_FILE, File.ModeFlags.Read, COMPRESSION_MODE);
         if (error != Error.Ok) {
             GD.PrintErr("Savefile could not be opened");
             return null;
