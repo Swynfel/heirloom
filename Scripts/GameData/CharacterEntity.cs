@@ -158,6 +158,6 @@ public class CharacterEntity : Entity {
         }
     }
     public static string RandomName() {
-        return NameGenerator.RandomName();
+        return Utils.NameGenerator.RandomName();
     }
 }
