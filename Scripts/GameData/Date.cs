@@ -1,4 +1,6 @@
-public struct Date : IExportable {
+using Utils;
+
+public struct Date : ISaveable {
     public enum Season {
         SPRING = 0,
         SUMMER = 1,
@@ -17,8 +19,8 @@ public struct Date : IExportable {
         SENIOR,
     }
 
-    public Season season;
-    public int year;
+    [Save] public Season season;
+    [Save] public int year;
     public Date(int year, Season season) {
         this.year = year;
         this.season = season;
@@ -124,18 +126,6 @@ public struct Date : IExportable {
 
     public static readonly Date START = new Date(100, Season.SPRING);
     public static readonly Date NEVER = FromSeasonsPassed(int.MinValue);
-
-
-    public Godot.Collections.Dictionary SaveProperties() {
-        return new Godot.Collections.Dictionary{
-            {"year", year},
-            {"season", season},
-        };
-    }
-    public void LoadProperties(Godot.Collections.Dictionary data) {
-        year = (int) (float) data["year"];
-        season = (Date.Season) (int) (float) data["season"];
-    }
 }
 
 public static class DateExtensions {

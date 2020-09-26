@@ -1,18 +1,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
+using Utils;
 
 public class GameData : Resource {
-    [Export] public Date date;
+    [Save] public Date date;
 
-    [Export] public Memory memory = new Memory();
-    [Export] public string name;
+    [Save] public Memory memory = new Memory();
+    [Save] public string name;
 
-    [Export] public Family family = Family.RandomFamily(5);
+    [Save] public Family family = Family.RandomFamily(5);
 
-    [Export]
+    [Save]
     public List<Quest> quests = new List<Quest>() {
         new Quest(),
         new Quest(),
@@ -20,10 +20,10 @@ public class GameData : Resource {
         new Quest(),
         new Quest(),
     };
-    [Export] public Riches inventory = new Riches(12, 44, new List<Item> { Item.ARTEFACT_SHIELD, Item.ARTEFACT_SWORD, Item.ARTEFACT_CROWN, Item.DAGGER, Item.VASE });
+    [Save] public Riches inventory = new Riches(12, 44, new List<Item> { Item.ARTEFACT_SHIELD, Item.ARTEFACT_SWORD, Item.ARTEFACT_CROWN, Item.DAGGER, Item.VASE });
 
-    [Export] public History history = new History();
-    [Export] public AdventureProgress progress = new AdventureProgress();
+    [Save] public History history = new History();
+    [Save] public AdventureProgress progress = new AdventureProgress();
 
     private const File.CompressionMode COMPRESSION_MODE = File.CompressionMode.Gzip;
     private const string SAVE_FILE = "user://heirloom.save";
@@ -58,10 +58,7 @@ public class GameData : Resource {
             return error;
         }
         // Save
-        GameDataResourceSaver.Init();
-        int key = GameDataResourceSaver.instance.ToKey(this);
-        file.StoreLine(GameDataResourceSaver.Flush());
-        file.StoreLine(key.ToString());
+        file.StoreLine(Saver.SaveSingle(this));
         file.Close();
         return error;
     }
@@ -78,10 +75,7 @@ public class GameData : Resource {
             return null;
         }
         // Load
-        GameDataResourceLoader.Load(file.GetLine());
-        Resource res = GameDataResourceLoader.instance.FromKey(int.Parse(file.GetLine()));
-        GameData data = (GameData) res;
-        GameDataResourceLoader.Done();
+        GameData data = (GameData) Loader.Load(file.GetLine()).FromKey(0);
         file.Close();
         return data;
     }

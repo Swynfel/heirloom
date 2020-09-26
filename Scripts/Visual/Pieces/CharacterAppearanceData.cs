@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Utils;
 
 namespace Visual {
     // DUO, TRIO, QUARTET
     // Primary, Secondary, Hair, Eye
-    public struct ColorDisposition : IExportable {
+    public struct ColorDisposition : ISaveable {
         private const ushort THREE = 3;
-        private ushort disposition;
+        [Save] private ushort disposition;
         public int primary { get => disposition & THREE; }
         public int secondary { get => (disposition >> 2) & THREE; }
         public int hair { get => (disposition >> 4) & THREE; }
@@ -27,15 +28,6 @@ namespace Visual {
             }
             disposition = (ushort) (p + (s << 2) + (h << 4) + (e << 6));
         }
-
-        public Godot.Collections.Dictionary SaveProperties() {
-            return new Godot.Collections.Dictionary {
-                {"disposition", disposition}
-            };
-        }
-        public void LoadProperties(Godot.Collections.Dictionary data) {
-            disposition = Convert.ToUInt16(data["disposition"]);
-        }
     }
 
     public class CharacterAppearanceData : AppearanceData {
@@ -46,13 +38,13 @@ namespace Visual {
         private const int MIN_BODY = 1;
         private const int MAX_BODY = 16;
 
-        [Export] public int eyes;
-        [Export] public int head;
-        [Export] public int body;
-        [Export] public ColorDisposition disposition;
-        [Export] public Color[] colors;
+        [Save] public int eyes;
+        [Save] public int head;
+        [Save] public int body;
+        [Save] public ColorDisposition disposition;
+        [Save] public Color[] colors;
 
-        [Export] public Color skinColor;
+        [Save] public Color skinColor;
 
         /*** static utils ***/
 

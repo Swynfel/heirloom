@@ -6,9 +6,9 @@ using Godot;
 public class Family : Resource {
 
     public static List<CharacterEntity> familyMembers { get { return Game.data.family.alive; } }
-    public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
+    [Save] public HashSet<CharacterEntity> members = new HashSet<CharacterEntity>();
 
-    public List<CharacterEntity> alive = new List<CharacterEntity>();
+    [Save] public List<CharacterEntity> alive = new List<CharacterEntity>();
 
     public Family() { }
     public Family(IEnumerable<CharacterEntity> members) {

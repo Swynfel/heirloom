@@ -5,7 +5,7 @@ using Godot;
 
 namespace Combat.SkillEffects {
     class Heal : SkillEffect {
-        [Export] public int heal = 5;
+        [Save] [Export] public int heal = 5;
 
         public override Task Apply(Element element, Piece launcher, SkillArea area) {
             CommonApply(element, launcher, area, false);

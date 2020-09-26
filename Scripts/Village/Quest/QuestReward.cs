@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections.Generic;
 using Godot;
 public class QuestReward : Resource {
@@ -15,9 +14,9 @@ public class QuestReward : Resource {
         VICTORY,
     }
 
-    [Export] private int intensity = 64;
+    [Save] [Export] private int intensity = 64;
 
-    [Export] private Group group = Group.NONE;
+    [Save] [Export] private Group group = Group.NONE;
 
     public QuestReward() { }
 

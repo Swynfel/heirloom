@@ -15,7 +15,7 @@ public class CharacterEntity : Entity {
         return entities.Select(e => e.MetaName()).FancyJoin("nobody");
     }
 
-    [Export] public Visual.CharacterAppearanceData appearance;
+    [Save] public Visual.CharacterAppearanceData appearance;
 
     /*** Skills ***/
 
@@ -43,7 +43,7 @@ public class CharacterEntity : Entity {
         get => GetSkillAtIndexOrNull(4);
         set => SetSkillAtIndex(4, value);
     }
-    [Export] public Item heldItem = null;
+    [Save] [Export] public Item heldItem = null;
 
     public bool hasSpecial { get => skillSpecial != null; }
 
@@ -63,11 +63,11 @@ public class CharacterEntity : Entity {
     public override IEnumerable<IModifier> GetModifiers() {
         if (heldItem != null) yield return heldItem;
     }
-    [Export] public Date birth = Game.data?.date ?? Date.NEVER;
+    [Save] public Date birth = Game.data?.date ?? Date.NEVER;
 
-    [Export] public Date death = Date.NEVER;
-    [Export] public CharacterEntity lover = null;
-    [Export] public int rememberId = -1;
+    [Save] public Date death = Date.NEVER;
+    [Save] public CharacterEntity lover = null;
+    [Save] public int rememberId = -1;
 
     public int age { get => Date.Delta(birth); }
     public Date.AgeGroup ageGroup { get => Date.Age(age); }

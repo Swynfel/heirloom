@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Utils;
 
 public enum Element {
     NONE = 0,
@@ -21,8 +22,8 @@ public enum ElementAffinity {
     IMMUNE,
 }
 
-public class Elemental<T> : IExportable {
-    protected T[] elements = new T[ElementUtils.TOTAL_ELEMENTS];
+public class Elemental<T> : ISaveable {
+    [Save] protected T[] elements = new T[ElementUtils.TOTAL_ELEMENTS];
 
     public Elemental() { }
 
@@ -47,15 +48,6 @@ public class Elemental<T> : IExportable {
             }
         }
         return elements;
-    }
-
-    public Godot.Collections.Dictionary SaveProperties() {
-        return new Godot.Collections.Dictionary{
-            {"elements", elements},
-        };
-    }
-    public void LoadProperties(Godot.Collections.Dictionary data) {
-        elements = ((IEnumerable<T>) data["elements"]).ToArray();
     }
 }
 

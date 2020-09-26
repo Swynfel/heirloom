@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
+using Utils;
 
-public class Memory : Resource {
-    [Export] public List<CharacterEntity> characters = new List<CharacterEntity>();
+public class Memory : ISaveable {
+    [Save] public List<CharacterEntity> characters = new List<CharacterEntity>();
     [Export] public List<Item> items = new List<Item>();
 
     public enum Group {

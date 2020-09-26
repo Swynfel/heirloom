@@ -5,7 +5,7 @@ using Godot;
 
 namespace Combat.SkillEffects {
     class Move : SkillEffect {
-        [Export] public bool ignoreGround = false;
+        [Save] [Export] public bool ignoreGround = false;
         public override async Task Apply(Element element, Piece launcher, SkillArea area) {
             int totalTiles = area.Count;
             float stepTime = totalTiles switch

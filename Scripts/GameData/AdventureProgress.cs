@@ -1,9 +1,8 @@
-using System;
-using Godot;
+using Utils;
 
-public class AdventureProgress : Resource {
-    [Export] public bool foundCrownQuest = false;
-    [Export] public bool foundShieldQuest = false;
-    [Export] public bool foundFinalQuest = false;
-    [Export] public int dungeonsFound = 0;
+public class AdventureProgress : ISaveable {
+    [Save] public bool foundCrownQuest = false;
+    [Save] public bool foundShieldQuest = false;
+    [Save] public bool foundFinalQuest = false;
+    [Save] public int dungeonsFound = 0;
 }

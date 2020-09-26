@@ -23,7 +23,7 @@ namespace Visual {
                 _data = value;
             }
         }
-        [Export] private CharacterAppearanceData _data = null;
+        private CharacterAppearanceData _data = null;
 
         public override void _Ready() {
             TrySetup();

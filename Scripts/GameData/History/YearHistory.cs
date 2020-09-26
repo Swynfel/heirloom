@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
-using Godot;
-public class SeasonHistory : Resource {
-    [Export] public Date date;
+using Utils;
+public class SeasonHistory : ISaveable {
+    [Save] public Date date;
 
-    [Export] public List<string> events = new List<string>();
+    [Save] public List<string> events = new List<string>();
 
     public SeasonHistory() { }
     public SeasonHistory(Date date) {

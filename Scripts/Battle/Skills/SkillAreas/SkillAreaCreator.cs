@@ -13,9 +13,9 @@ namespace Combat {
     }
     public abstract class SkillAreaCreator : Resource {
         protected SkillArea area;
-        [Export] public int minRange;
-        [Export] public int maxRange;
-        [Export] public Constraint constraint;
+        [Save] [Export] public int minRange;
+        [Save] [Export] public int maxRange;
+        [Save] [Export] public Constraint constraint;
 
         public Piece launcher;
 

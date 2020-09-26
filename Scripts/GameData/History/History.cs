@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
-using Godot;
-public class History : Resource {
-    [Export] public List<SeasonHistory> past;
-    [Export] public SeasonHistory now;
+using Utils;
+public class History : ISaveable {
+    [Save] public List<SeasonHistory> past;
+    [Save] public SeasonHistory now;
 
     public History() {
         past = new List<SeasonHistory>();

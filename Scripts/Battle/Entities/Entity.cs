@@ -6,24 +6,20 @@ using Godot;
 public abstract class Entity : Resource, IModifier {
 
     /*** Piece ***/
-    [Export] public Combat.Alignment alignment;
+    public Combat.Alignment alignment;
     [Export] public bool actor = true;
     public abstract AppearanceData GetAppearance();
 
 
     /*** Variables ***/
-    [Export] public string name;
+    [Save] [Export] public string name;
 
-    public ElementalAffinity affinity {
-        get => ElementalAffinity.Deserialize(_affinity);
-        set => _affinity = value.Serialize();
-    }
-    [Export] private int[] _affinity = ElementalAffinity.RandomAffinity().Serialize();
+    [Save] [Export] public ElementalAffinity affinity = ElementalAffinity.RandomAffinity();
 
 
     /*** Health ***/
-    [Export] public int maxHealth;
-    [Export] public int health;
+    [Save] [Export] public int maxHealth;
+    [Save] [Export] public int health;
     [Signal] public delegate void health_modified(int new_health, int delta);
     [Signal] public delegate void fallen();
 
@@ -44,7 +40,7 @@ public abstract class Entity : Resource, IModifier {
 
 
     /*** Skills ***/
-    [Export] public List<Skill> Skills;
+    [Save] [Export] public List<Skill> Skills;
     public Skill GetSkillAtIndexOrNull(int index) {
         if (Skills == null || Skills.Count <= index) {
             return null;
