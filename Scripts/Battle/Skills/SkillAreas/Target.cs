@@ -5,8 +5,8 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Target : SkillAreaCreator {
-        [Save] [Export] public Constraint areaConstraint = Constraint.SQUARE;
-        [Save] [Export] public int areaRange = 0;
+        [Export] public Constraint areaConstraint = Constraint.SQUARE;
+        [Export] public int areaRange = 0;
         //[Export] public bool friendlyFire = 0;
 
         public Tile center;

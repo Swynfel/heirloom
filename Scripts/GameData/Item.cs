@@ -12,20 +12,20 @@ public class Item : Resource, IModifier {
         CONSUMABLE,
     }
 
-    [Save] [Export] public string name = "ITEM";
-    [Save] [Export] public SpriteTemplate icon = SpriteTemplate.BUBBLE;
-    [Save] [Export] public Group group = Group.NONE;
+    [Export] public string name = "ITEM";
+    [Export] public SpriteTemplate icon = SpriteTemplate.BUBBLE;
+    [Export] public Group group = Group.NONE;
     public bool equipable { get => group.IsEquipable(); }
     public bool consumable { get => group == Group.CONSUMABLE; }
-    [Save] [Export] public Skill skill = null;
+    [Export] public Skill skill = null;
 
-    [Save] [Export] public float bonusDamagePer = 0f;
-    [Save] [Export] public int bonusDamage = 0;
-    [Save] [Export] public int armor = 0;
-    [Save] [Export] public int estimatedPrice = 30;
-    [Save] [Export] public string effect = "";
-    [Save] [Export] public string description = "";
-    [Save] [Export] public string special = "";
+    [Export] public float bonusDamagePer = 0f;
+    [Export] public int bonusDamage = 0;
+    [Export] public int armor = 0;
+    [Export] public int estimatedPrice = 30;
+    [Export] public string effect = "";
+    [Export] public string description = "";
+    [Export] public string special = "";
 
     public int GetMod(Modifier mod) {
         switch (mod) {

@@ -5,10 +5,10 @@ using Godot;
 
 namespace Combat {
     public class SkillCondition : Resource {
-        [Save] [Export] public int cooldown = 0;
-        [Save] [Export] public int combatCharges = -1;
-        [Save] [Export] public int turnCharges = -1;
-        [Save] [Export] public bool passTurn = true;
+        [Export] public int cooldown = 0;
+        [Export] public int combatCharges = -1;
+        [Export] public int turnCharges = -1;
+        [Export] public bool passTurn = true;
 
         public int remainingCooldown { get; private set; } = -1;
         public int remainingCombatCharges { get; private set; } = -1;

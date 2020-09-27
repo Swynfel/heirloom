@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Godot;
 using Utils;
 
-public class GameData : Resource {
+public class GameData : ISaveable {
     [Save] public Date date;
 
     [Save] public Memory memory = new Memory();
@@ -58,7 +58,7 @@ public class GameData : Resource {
             return error;
         }
         // Save
-        file.StoreLine(Saver.SaveSingle(this));
+        file.StoreString(Saver.SaveSingle(this));
         file.Close();
         return error;
     }
@@ -75,7 +75,7 @@ public class GameData : Resource {
             return null;
         }
         // Load
-        GameData data = (GameData) Loader.Load(file.GetLine()).FromKey(0);
+        GameData data = (GameData) Loader.Load(file.GetLine()).FromData(file.GetLine());
         file.Close();
         return data;
     }

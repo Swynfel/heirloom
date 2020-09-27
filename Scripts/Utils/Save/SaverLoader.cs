@@ -7,36 +7,29 @@ using Godot;
 
 namespace Utils {
     public class Saver {
-        List<object> objects = new List<object>();
-        List<Godot.Collections.Dictionary> encoded_objects = new List<Godot.Collections.Dictionary>();
+        List<Resource> resources = new List<Resource>();
+        List<Godot.Collections.Dictionary> encoded_resources = new List<Godot.Collections.Dictionary>();
 
         public static string SaveSingle(Resource resource) {
-            return SaveSingleObject(resource);
-        }
-        public static string SaveSingle(ISaveable saveable) {
-            return SaveSingleObject(saveable);
-        }
-        private static string SaveSingleObject(object obj) {
             Saver saver = new Saver();
-            saver.ToKeyPrivate(obj);
+            saver.ToKey(resource);
             return saver.Flush();
         }
+        public static string SaveSingle(ISaveable saveable) {
+            Saver saver = new Saver();
+            var object_data = saver.EncodeObject(saveable);
+            return saver.Flush() + "\n" + JSON.Print(object_data);
+        }
         public string Flush() {
-            return JSON.Print(encoded_objects);
+            return JSON.Print(encoded_resources);
         }
         public int ToKey(Resource resource) {
-            return ToKeyPrivate(resource);
-        }
-        public int ToKey(ISaveable saveable) {
-            return ToKeyPrivate(saveable);
-        }
-        private int ToKeyPrivate(object obj) {
-            int index = objects.IndexOf(obj);
+            int index = resources.IndexOf(resource);
             if (index == -1) {
-                index = objects.Count;
-                objects.Add(obj);
-                encoded_objects.Add(null);
-                encoded_objects[index] = EncodeObject(obj);
+                index = resources.Count;
+                resources.Add(resource);
+                encoded_resources.Add(null);
+                encoded_resources[index] = EncodeObject(resource);
             }
             return index;
         }
@@ -45,8 +38,11 @@ namespace Utils {
             if (obj == null) {
                 return null;
             }
-            if (obj is ISaveable || obj is Resource) {
-                return ToKeyPrivate(obj);
+            if (obj is Resource resource) {
+                return ToKey(resource);
+            }
+            if (obj is ISaveable saveable) {
+                return EncodeObject(saveable);
             }
             if (obj is string s) {
                 return s;
@@ -82,7 +78,7 @@ namespace Utils {
 
     public class Loader {
         List<Godot.Collections.Dictionary> encoded_resources = new List<Godot.Collections.Dictionary>();
-        Dictionary<int, object> objects = new Dictionary<int, object>();
+        Dictionary<int, Resource> objects = new Dictionary<int, Resource>();
 
         public static Loader Load(string value) {
             Loader instance = new Loader();
@@ -92,11 +88,23 @@ namespace Utils {
         public static object LoadSingle(string data) {
             return Load(data).FromKey(0);
         }
-        public object FromKey(int key) {
+
+        public ISaveable FromData(string data) {
+            return FromData((Godot.Collections.Dictionary) JSON.Parse(data).Result);
+        }
+
+        public ISaveable FromData(Godot.Collections.Dictionary data) {
+            Type type = Type.GetType((string) data["type"]);
+            ISaveable saveable = (ISaveable) Activator.CreateInstance(type);
+            DecodeObject(saveable, data);
+            return saveable;
+        }
+
+        public Resource FromKey(int key) {
             if (!objects.ContainsKey(key)) {
                 Godot.Collections.Dictionary data = encoded_resources[key];
                 Type type = Type.GetType((string) data["type"]);
-                objects[key] = Activator.CreateInstance(type);
+                objects[key] = (Resource) Activator.CreateInstance(type);
                 DecodeObject(objects[key], data);
             }
             return objects[key];
@@ -106,8 +114,11 @@ namespace Utils {
             if (data == null) {
                 return null;
             }
-            if (typeof(Resource).IsAssignableFrom(type) || typeof(ISaveable).IsAssignableFrom(type)) {
+            if (typeof(Resource).IsAssignableFrom(type)) {
                 return FromKey(Convert.ToInt32((float) data));
+            }
+            if (typeof(ISaveable).IsAssignableFrom(type)) {
+                return FromData((Godot.Collections.Dictionary) data);
             }
             if (type == typeof(string)) {
                 return (string) data;

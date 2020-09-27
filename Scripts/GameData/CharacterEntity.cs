@@ -43,7 +43,7 @@ public class CharacterEntity : Entity {
         get => GetSkillAtIndexOrNull(4);
         set => SetSkillAtIndex(4, value);
     }
-    [Save] [Export] public Item heldItem = null;
+    [Export] public Item heldItem = null;
 
     public bool hasSpecial { get => skillSpecial != null; }
 

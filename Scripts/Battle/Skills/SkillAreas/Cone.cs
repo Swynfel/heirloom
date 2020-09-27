@@ -5,7 +5,7 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Cone : SkillAreaCreator {
-        [Save] [Export] public bool wide = true;
+        [Export] public bool wide = true;
         public Direction currentDirection;
         public Cone() : base(maxRange: 4) { }
         public Cone(Cone other) : base(other) { }

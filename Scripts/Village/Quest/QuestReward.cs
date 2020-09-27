@@ -14,9 +14,9 @@ public class QuestReward : Resource {
         VICTORY,
     }
 
-    [Save] [Export] private int intensity = 64;
+    [Export] private int intensity = 64;
 
-    [Save] [Export] private Group group = Group.NONE;
+    [Export] private Group group = Group.NONE;
 
     public QuestReward() { }
 

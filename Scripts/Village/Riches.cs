@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Godot;
 
 public class Riches : Resource {
-    [Save] [Export] public int gold = 0;
-    [Save] [Export] public int food = 0;
-    [Save] [Export] public List<Item> items = new List<Item>();
+    [Export] public int gold = 0;
+    [Export] public int food = 0;
+    [Export] public List<Item> items = new List<Item>();
 
     public Riches() : this(0, 0) { }
 

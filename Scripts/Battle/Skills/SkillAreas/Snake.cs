@@ -5,7 +5,7 @@ using Godot;
 
 namespace Combat.SkillAreas {
     public class Snake : SkillAreaCreator {
-        [Save] [Export] public bool blockedByPieces = false;
+        [Export] public bool blockedByPieces = false;
 
         public Snake() : base() { }
         public Snake(int minRange = 1, int maxRange = 3, Constraint constraint = Constraint.SQUARE, bool blockedByPieces = false) : base(minRange, maxRange, constraint) {

@@ -5,8 +5,8 @@ using Godot;
 
 namespace Combat.SkillEffects {
     class Damage : SkillEffect {
-        [Save] [Export] public int damage = 3;
-        [Save] [Export] public bool noFriendlyFire = false;
+        [Export] public int damage = 3;
+        [Export] public bool noFriendlyFire = false;
 
         public override Task Apply(Element element, Piece launcher, SkillArea area) {
             CommonApply(element, launcher, area, false);

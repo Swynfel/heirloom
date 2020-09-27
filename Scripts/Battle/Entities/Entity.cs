@@ -7,19 +7,19 @@ public abstract class Entity : Resource, IModifier {
 
     /*** Piece ***/
     public Combat.Alignment alignment;
-    [Export] public bool actor = true;
+    [IgnoreSave] [Export] public bool actor = true;
     public abstract AppearanceData GetAppearance();
 
 
     /*** Variables ***/
-    [Save] [Export] public string name;
+    [Export] public string name;
 
-    [Save] [Export] public ElementalAffinity affinity = ElementalAffinity.RandomAffinity();
+    [Export] public ElementalAffinity affinity = ElementalAffinity.RandomAffinity();
 
 
     /*** Health ***/
-    [Save] [Export] public int maxHealth;
-    [Save] [Export] public int health;
+    [Export] public int maxHealth;
+    [Export] public int health;
     [Signal] public delegate void health_modified(int new_health, int delta);
     [Signal] public delegate void fallen();
 
@@ -40,7 +40,7 @@ public abstract class Entity : Resource, IModifier {
 
 
     /*** Skills ***/
-    [Save] [Export] public List<Skill> Skills;
+    [Export] public List<Skill> Skills;
     public Skill GetSkillAtIndexOrNull(int index) {
         if (Skills == null || Skills.Count <= index) {
             return null;
